@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Recycling Service - Recycling Services</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+  :root {
+    --rc-primary: #003D7A;
+    --rc-primary-d: #002B57;
+    --rc-accent: #4FC3F7;
+    --rc-accent-d: #29B6F6;
+    --rc-sky: #87CEEB;
+    --rc-light: #E8F4FD;
+    --rc-bg: #f0f8ff;
+    --rc-text: #003D7A;
+    --rc-text-soft: #4a6b7c;
+    --rc-border: rgba(0, 61, 122, 0.12);
+    --rc-shadow: rgba(0, 30, 60, 0.1);
+    --rc-green: #16a34a;
+    --rc-orange: #ea580c;
+    --rc-red: #dc2626;
+    --rc-purple: #7c3aed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body {
+    background: var(--rc-bg);
+    color: var(--rc-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 110px;
+  }
+  /* Global safety: only real interactive elements get pointer */
+  a, button, [role="button"] { cursor: pointer; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #dbe9f6; }
+  ::-webkit-scrollbar-thumb { background: var(--rc-accent-d); border-radius: 6px; }
+  #header-placeholder, #footer-placeholder { width: 100%; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 56px; }
+  .sec-eyebrow {
+    display: inline-block; font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 1.8px; text-transform: uppercase; color: var(--rc-accent-d);
+    margin-bottom: 14px;
+  }
+  .sec-head h2 {
+    font-size: 2.15rem; font-weight: 900; letter-spacing: -0.8px;
+    color: var(--rc-primary); margin-bottom: 12px; line-height: 1.2;
+  }
+  .sec-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.75; }
+  .abtn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0.85rem 1.75rem; border-radius: 60px;
+    font-size: 0.9rem; font-weight: 700; text-decoration: none;
+    border: 1.5px solid transparent; transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  .abtn-primary {
+    background: var(--rc-accent-d); color: #fff;
+    box-shadow: 0 12px 28px rgba(41, 182, 246, 0.35);
+  }
+  .abtn-primary:hover { background: var(--rc-primary); transform: translateY(-3px); }
+  .abtn-outline {
+    background: transparent; border-color: rgba(0, 61, 122, 0.35);
+    color: var(--rc-primary);
+  }
+  .abtn-outline:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); transform: translateY(-3px); }
+
+  .sec-cta-row {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    margin-top: 54px; padding-top: 40px;
+    border-top: 1px solid rgba(0, 61, 122, 0.08);
+    position: relative;
+  }
+  .sec-cta-row::before {
+    content: ''; position: absolute; top: -8px; left: 50%;
+    transform: translateX(-50%); width: 60px; height: 3px;
+    background: linear-gradient(90deg, var(--rc-accent), var(--rc-accent-d));
+    border-radius: 3px;
+  }
+  .sec-cta-hint {
+    display: block; width: 100%; text-align: center;
+    font-size: 0.82rem; color: var(--rc-text-soft); font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .sec-cta-hint strong { color: var(--rc-primary); font-weight: 800; }
+
+  /* SECTION 1 — HERO */
+  .hero-services {
+    position: relative;
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 80px 0 100px; overflow: hidden;
+    border-bottom: 1px solid rgba(0, 61, 122, 0.08);
+  }
+  .hero-services::before {
+    content: ''; position: absolute; top: -160px; right: -140px;
+    width: 480px; height: 480px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.3), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-services::after {
+    content: ''; position: absolute; bottom: -160px; left: -120px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.3), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px; align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid rgba(41, 182, 246, 0.35);
+    color: var(--rc-primary); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 60px; margin-bottom: 20px;
+    box-shadow: 0 6px 16px rgba(0, 61, 122, 0.06);
+  }
+  .hero-tag i { color: var(--rc-accent-d); }
+  .hero-services h1 {
+    font-size: 2.9rem; font-weight: 900; letter-spacing: -1.4px;
+    line-height: 1.08; color: var(--rc-primary); margin-bottom: 18px;
+  }
+  .hero-services h1 span {
+    color: var(--rc-accent-d);
+    background: linear-gradient(180deg, transparent 62%, rgba(79, 195, 247, 0.4) 62%);
+    padding: 0 4px;
+  }
+  .hero-services p {
+    font-size: 1rem; line-height: 1.75;
+    color: var(--rc-text-soft); max-width: 520px; margin-bottom: 28px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 32px; }
+
+  .hero-trust-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding-top: 24px; border-top: 1px solid rgba(0, 61, 122, 0.12);
+  }
+  .htr { display: flex; align-items: center; gap: 12px; }
+  .htr .htr-ico {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1rem; flex-shrink: 0;
+  }
+  .htr:nth-child(1) .htr-ico { background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-primary)); }
+  .htr:nth-child(2) .htr-ico { background: linear-gradient(135deg, var(--rc-green), #15803d); }
+  .htr:nth-child(3) .htr-ico { background: linear-gradient(135deg, var(--rc-orange), #c2410c); }
+  .htr .htr-num { font-size: 1.05rem; font-weight: 900; color: var(--rc-primary); line-height: 1; }
+  .htr .htr-lbl { font-size: 0.68rem; color: var(--rc-text-soft); font-weight: 700; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* HERO SERVICE HUB — now cards are DIVs, only arrow is clickable */
+  .service-hub {
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; gap: 16px;
+    width: 100%; max-width: 500px; margin: 0 auto;
+  }
+  .hub-card {
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 20px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 170px;
+    box-shadow: 0 12px 30px rgba(0, 61, 122, 0.08);
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    /* cursor stays default — card itself is NOT clickable */
+  }
+  .hub-card::after {
+    content: ''; position: absolute; top: -30px; right: -30px;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: var(--hub-tint, rgba(41, 182, 246, 0.1));
+    transition: transform 0.5s ease;
+  }
+  .hub-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(41, 182, 246, 0.2);
+    border-color: var(--hub-color, var(--rc-accent));
+  }
+  .hub-card:hover::after { transform: scale(1.4); }
+  .hub-card:nth-child(1) { --hub-color: #29B6F6; --hub-tint: rgba(41, 182, 246, 0.12); }
+  .hub-card:nth-child(2) { --hub-color: #16a34a; --hub-tint: rgba(22, 163, 74, 0.12); }
+  .hub-card:nth-child(3) { --hub-color: #ea580c; --hub-tint: rgba(234, 88, 12, 0.12); }
+  .hub-card:nth-child(4) { --hub-color: #7c3aed; --hub-tint: rgba(124, 58, 237, 0.12); }
+  .hub-ico {
+    width: 50px; height: 50px; border-radius: 14px;
+    background: var(--hub-color); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; position: relative; z-index: 2; margin-bottom: 14px;
+  }
+  .hub-card h4 {
+    font-size: 0.95rem; font-weight: 800; color: var(--rc-primary);
+    margin-bottom: 4px; position: relative; z-index: 2; line-height: 1.3;
+  }
+  .hub-card p {
+    font-size: 0.72rem; color: var(--rc-text-soft);
+    line-height: 1.5; position: relative; z-index: 2;
+  }
+  .hub-arrow {
+    position: absolute;
+    bottom: 18px; right: 20px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(41, 182, 246, 0.12);
+    color: var(--hub-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    z-index: 3;
+    transition: all 0.3s;
+    text-decoration: none;
+    /* cursor: pointer comes from a[href] global rule */
+  }
+  .hub-arrow:hover {
+    background: var(--hub-color);
+    color: #fff;
+    transform: translateX(3px);
+  }
+  .hub-arrow:focus-visible {
+    outline: 3px solid rgba(41, 182, 246, 0.4);
+    outline-offset: 2px;
+  }
+
+  /* SECTION 2 — CORE SERVICES */
+  .core-section { background: #fff; padding: 100px 0; }
+  .core-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  .core-card {
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 20px;
+    padding: 30px 26px 26px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+  }
+  .core-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 4px; background: var(--core-color, var(--rc-accent));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+  }
+  .core-card:hover::before { transform: scaleX(1); }
+  .core-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--core-color, var(--rc-accent));
+    box-shadow: 0 20px 45px rgba(41, 182, 246, 0.16);
+  }
+  .core-card:nth-child(1) { --core-color: #29B6F6; }
+  .core-card:nth-child(2) { --core-color: #16a34a; }
+  .core-card:nth-child(3) { --core-color: #FFC107; }
+  .core-card:nth-child(4) { --core-color: #9C27B0; }
+  .core-card:nth-child(5) { --core-color: #ea580c; }
+  .core-card:nth-child(6) { --core-color: #607D8B; }
+  .core-num {
+    position: absolute; top: 22px; right: 26px;
+    font-size: 3.2rem; font-weight: 900;
+    color: rgba(0, 61, 122, 0.06); line-height: 1; letter-spacing: -2px;
+  }
+  .core-ico {
+    width: 58px; height: 58px; border-radius: 16px;
+    background: var(--core-color); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 18px; transition: transform 0.4s ease;
+  }
+  .core-card:hover .core-ico { transform: scale(1.08) rotate(-6deg); }
+  .core-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--rc-primary); margin-bottom: 8px; letter-spacing: -0.3px; }
+  .core-card p { font-size: 0.82rem; color: var(--rc-text-soft); line-height: 1.7; margin-bottom: 16px; flex: 1; }
+  .core-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .core-meta span {
+    font-size: 0.62rem; font-weight: 800; padding: 3px 9px;
+    border-radius: 20px; background: rgba(0, 61, 122, 0.06);
+    color: var(--rc-text-soft); text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .core-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 800; color: var(--core-color);
+    text-decoration: none; text-transform: uppercase; letter-spacing: 0.4px;
+  }
+  .core-link:hover { color: var(--rc-primary); }
+  .core-link i { transition: transform 0.3s ease; }
+  .core-link:hover i { transform: translateX(4px); }
+
+  /* SECTION 3 — DETAIL */
+  .detail-section {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .detail-row { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 80px; }
+  .detail-row:last-child { margin-bottom: 0; }
+  .detail-row.reverse .detail-visual { order: 2; }
+  .detail-row.reverse .detail-content { order: 1; }
+
+  .detail-visual {
+    position: relative; aspect-ratio: 4 / 3; border-radius: 24px;
+    overflow: hidden; background: linear-gradient(135deg, #29B6F6, #003D7A);
+    box-shadow: 0 24px 60px rgba(0, 61, 122, 0.2); border: 6px solid #fff;
+  }
+  .detail-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .detail-visual .dv-badge {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
+    padding: 8px 14px; border-radius: 30px;
+    font-size: 0.7rem; font-weight: 800; color: var(--rc-primary);
+    letter-spacing: 0.4px; text-transform: uppercase;
+    box-shadow: 0 6px 16px rgba(0, 30, 60, 0.15); z-index: 3;
+  }
+  .detail-visual .dv-badge i { color: var(--rc-accent-d); margin-right: 4px; }
+  .detail-visual .dv-stat {
+    position: absolute; bottom: 20px; right: 20px;
+    background: rgba(0, 43, 87, 0.85); backdrop-filter: blur(8px);
+    color: #fff; padding: 14px 18px; border-radius: 16px;
+    border: 1px solid rgba(79, 195, 247, 0.4); z-index: 3;
+  }
+  .detail-visual .dv-stat .dvs-num { font-size: 1.4rem; font-weight: 900; line-height: 1; letter-spacing: -0.5px; }
+  .detail-visual .dv-stat .dvs-num span { color: var(--rc-accent); font-size: 0.9rem; }
+  .detail-visual .dvs-lbl { font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.85; margin-top: 4px; }
+
+  .detail-content .dc-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 46px; height: 46px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-primary));
+    color: #fff; font-size: 1.05rem; font-weight: 900; margin-bottom: 18px;
+  }
+  .detail-content h3 { font-size: 1.75rem; font-weight: 900; color: var(--rc-primary); letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
+  .detail-content > p { font-size: 0.94rem; color: var(--rc-text-soft); line-height: 1.8; margin-bottom: 22px; }
+  .dc-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 26px; }
+  .dc-feat { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--rc-primary); font-weight: 600; line-height: 1.5; }
+  .dc-feat i {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(41, 182, 246, 0.15); color: var(--rc-accent-d);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; flex-shrink: 0; margin-top: 2px;
+  }
+  .dc-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0.8rem 1.6rem; border-radius: 60px;
+    background: var(--rc-primary); color: #fff;
+    font-weight: 800; font-size: 0.85rem; text-decoration: none;
+    transition: all 0.3s; box-shadow: 0 10px 24px rgba(0, 61, 122, 0.25);
+  }
+  .dc-btn:hover { background: var(--rc-accent-d); transform: translateY(-3px); box-shadow: 0 14px 30px rgba(41, 182, 246, 0.4); }
+
+  /* SECTION 4 — PRICING */
+  .pricing-section { background: #fff; padding: 100px 0; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: stretch; }
+  .price-card {
+    background: #fff; border: 2px solid var(--rc-border); border-radius: 24px;
+    padding: 34px 28px; transition: all 0.35s ease; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .price-card:hover {
+    transform: translateY(-6px); border-color: var(--rc-accent);
+    box-shadow: 0 20px 50px rgba(41, 182, 246, 0.16);
+  }
+  .price-card.popular {
+    background: linear-gradient(180deg, #003D7A 0%, #002B57 100%);
+    color: #fff; border-color: transparent; transform: scale(1.03);
+    box-shadow: 0 24px 60px rgba(0, 61, 122, 0.35);
+  }
+  .price-card.popular:hover { transform: scale(1.03) translateY(-6px); }
+  .price-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6); color: var(--rc-primary-d);
+    font-size: 0.62rem; font-weight: 900; padding: 6px 16px; border-radius: 30px;
+    text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.4); white-space: nowrap;
+  }
+  .price-name { font-size: 1.15rem; font-weight: 900; color: var(--rc-primary); margin-bottom: 6px; letter-spacing: -0.3px; }
+  .price-card.popular .price-name { color: #fff; }
+  .price-desc { font-size: 0.78rem; color: var(--rc-text-soft); margin-bottom: 22px; line-height: 1.5; }
+  .price-card.popular .price-desc { color: rgba(232, 244, 253, 0.75); }
+  .price-amount {
+    display: flex; align-items: baseline; gap: 4px;
+    margin-bottom: 24px; padding-bottom: 24px;
+    border-bottom: 1px dashed rgba(0, 61, 122, 0.15);
+  }
+  .price-card.popular .price-amount { border-bottom-color: rgba(79, 195, 247, 0.35); }
+  .price-currency { font-size: 1.2rem; font-weight: 800; color: var(--rc-accent-d); align-self: flex-start; margin-top: 8px; }
+  .price-num { font-size: 2.6rem; font-weight: 900; color: var(--rc-primary); line-height: 1; letter-spacing: -1.5px; }
+  .price-card.popular .price-num { color: #fff; }
+  .price-period { font-size: 0.78rem; font-weight: 600; color: var(--rc-text-soft); margin-left: 4px; }
+  .price-card.popular .price-period { color: rgba(232, 244, 253, 0.7); }
+
+  .price-features { list-style: none; flex: 1; margin-bottom: 26px; }
+  .price-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.83rem; color: var(--rc-text-soft);
+    line-height: 1.55; padding: 8px 0; font-weight: 500;
+  }
+  .price-card.popular .price-features li { color: rgba(232, 244, 253, 0.92); }
+  .price-features li i { color: var(--rc-green); font-size: 0.75rem; flex-shrink: 0; margin-top: 3px; }
+  .price-card.popular .price-features li i { color: var(--rc-accent); }
+  .price-features li.muted { opacity: 0.5; }
+  .price-features li.muted i { color: #c0392b; }
+
+  .price-btn {
+    width: 100%; padding: 14px 20px; border-radius: 12px;
+    background: var(--rc-bg); color: var(--rc-primary);
+    font-weight: 800; font-size: 0.88rem;
+    border: 1.5px solid var(--rc-border);
+    text-align: center; text-decoration: none;
+    transition: all 0.3s; display: inline-block;
+  }
+  .price-btn:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); }
+  .price-card.popular .price-btn { background: var(--rc-accent); color: var(--rc-primary-d); border-color: var(--rc-accent); }
+  .price-card.popular .price-btn:hover { background: #fff; color: var(--rc-primary-d); }
+
+  /* SECTION 5 — COMPARE */
+  .compare-section {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .compare-wrap {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border-radius: 20px; box-shadow: 0 12px 40px rgba(0, 30, 60, 0.08);
+    background: #fff; border: 1px solid var(--rc-border);
+  }
+  .compare-table { width: 100%; min-width: 700px; border-collapse: collapse; }
+  .compare-table thead th {
+    padding: 24px 20px; text-align: left;
+    font-size: 0.72rem; font-weight: 900; color: var(--rc-primary);
+    text-transform: uppercase; letter-spacing: 1px;
+    background: linear-gradient(180deg, #f5faff, #ffffff);
+    border-bottom: 2px solid rgba(0, 61, 122, 0.1);
+  }
+  .compare-table thead th:first-child { width: 40%; }
+  .compare-table thead th.center { text-align: center; }
+  .compare-table thead th .th-plan {
+    display: block; font-size: 0.95rem; font-weight: 900;
+    color: var(--rc-primary); margin-bottom: 4px;
+    text-transform: none; letter-spacing: -0.3px;
+  }
+  .compare-table thead th .th-sub {
+    font-size: 0.62rem; color: var(--rc-text-soft);
+    font-weight: 600; text-transform: none; letter-spacing: 0;
+  }
+  .compare-table thead th.highlight { background: linear-gradient(180deg, #003D7A, #002B57); color: #fff; }
+  .compare-table thead th.highlight .th-plan { color: #fff; }
+  .compare-table thead th.highlight .th-sub { color: rgba(232, 244, 253, 0.75); }
+  .compare-table tbody td {
+    padding: 18px 20px; font-size: 0.85rem;
+    color: var(--rc-text-soft);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+    vertical-align: middle;
+  }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .compare-table tbody tr:hover td { background: rgba(41, 182, 246, 0.04); }
+  .compare-table tbody td:first-child {
+    font-weight: 700; color: var(--rc-primary);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .compare-table tbody td:first-child i { color: var(--rc-accent-d); font-size: 0.85rem; width: 18px; text-align: center; }
+  .compare-table tbody td.center { text-align: center; }
+  .compare-table tbody td.highlight {
+    background: rgba(41, 182, 246, 0.06);
+    text-align: center; font-weight: 700; color: var(--rc-primary);
+  }
+  .compare-table .check {
+    display: inline-flex; width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(22, 163, 74, 0.14); color: var(--rc-green);
+    align-items: center; justify-content: center; font-size: 0.7rem;
+  }
+  .compare-table .cross {
+    display: inline-flex; width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(220, 38, 38, 0.1); color: var(--rc-red);
+    align-items: center; justify-content: center; font-size: 0.7rem;
+  }
+
+  /* SECTION 6 — TESTIMONIALS */
+  .testi-section { background: #fff; padding: 100px 0; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .testi-card {
+    background: var(--rc-bg); border-radius: 22px;
+    padding: 30px 26px 26px; position: relative;
+    border: 1px solid var(--rc-border);
+    transition: all 0.35s ease; display: flex; flex-direction: column;
+  }
+  .testi-card:hover {
+    transform: translateY(-6px); background: #fff;
+    border-color: var(--rc-accent);
+    box-shadow: 0 20px 50px rgba(41, 182, 246, 0.15);
+  }
+  .testi-quote-ico {
+    position: absolute; top: 22px; right: 24px;
+    font-size: 2.6rem; color: rgba(41, 182, 246, 0.15); line-height: 1;
+  }
+  .testi-stars { display: flex; gap: 3px; margin-bottom: 16px; color: #FFC107; font-size: 0.85rem; }
+  .testi-text {
+    font-size: 0.9rem; color: var(--rc-primary);
+    line-height: 1.75; margin-bottom: 22px;
+    flex: 1; font-weight: 500; position: relative; z-index: 2;
+  }
+  .testi-author {
+    display: flex; align-items: center; gap: 12px;
+    padding-top: 18px; border-top: 1px dashed rgba(0, 61, 122, 0.12);
+  }
+  .testi-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.95rem; font-weight: 900;
+    flex-shrink: 0; border: 3px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 30, 60, 0.15);
+  }
+  .testi-card:nth-child(1) .testi-avatar { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .testi-card:nth-child(2) .testi-avatar { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .testi-card:nth-child(3) .testi-avatar { background: linear-gradient(135deg, #ea580c, #c2410c); }
+  .testi-meta .tm-name { font-size: 0.86rem; font-weight: 800; color: var(--rc-primary); line-height: 1.2; }
+  .testi-meta .tm-role { font-size: 0.68rem; color: var(--rc-text-soft); margin-top: 2px; font-weight: 600; }
+
+  /* SECTION 7 — COVERAGE */
+  .coverage-section {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .coverage-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 50px; }
+  .cov-stat {
+    background: #fff; border: 1px solid var(--rc-border);
+    border-radius: 18px; padding: 26px 22px;
+    position: relative; overflow: hidden; transition: all 0.3s ease;
+  }
+  .cov-stat::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 3px; background: var(--cov-color, var(--rc-accent));
+  }
+  .cov-stat:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(41, 182, 246, 0.15); }
+  .cov-stat:nth-child(1) { --cov-color: #29B6F6; }
+  .cov-stat:nth-child(2) { --cov-color: #16a34a; }
+  .cov-stat:nth-child(3) { --cov-color: #ea580c; }
+  .cov-stat:nth-child(4) { --cov-color: #7c3aed; }
+  .cov-stat .cs-num {
+    font-size: 2.4rem; font-weight: 900; color: var(--rc-primary);
+    line-height: 1; letter-spacing: -1.5px; margin-bottom: 8px;
+  }
+  .cov-stat .cs-num span { color: var(--cov-color); font-size: 1.4rem; font-weight: 800; }
+  .cov-stat .cs-lbl { font-size: 0.72rem; color: var(--rc-text-soft); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .city-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .city-card {
+    background: #fff; border: 1px solid var(--rc-border);
+    border-radius: 16px; padding: 20px 22px;
+    display: flex; align-items: center; gap: 14px; transition: all 0.3s ease;
+  }
+  .city-card:hover {
+    transform: translateY(-4px); border-color: var(--rc-accent);
+    box-shadow: 0 12px 30px rgba(41, 182, 246, 0.12);
+  }
+  .city-dot {
+    width: 44px; height: 44px; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: #fff; flex-shrink: 0;
+  }
+  .city-card:nth-child(6n+1) .city-dot { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .city-card:nth-child(6n+2) .city-dot { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .city-card:nth-child(6n+3) .city-dot { background: linear-gradient(135deg, #FFC107, #b07400); color: #003D7A; }
+  .city-card:nth-child(6n+4) .city-dot { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+  .city-card:nth-child(6n+5) .city-dot { background: linear-gradient(135deg, #ea580c, #c2410c); }
+  .city-card:nth-child(6n+6) .city-dot { background: linear-gradient(135deg, #607D8B, #37474f); }
+  .city-meta .cm-name { font-size: 0.88rem; font-weight: 800; color: var(--rc-primary); line-height: 1.2; }
+  .city-meta .cm-stat { font-size: 0.68rem; color: var(--rc-text-soft); margin-top: 3px; font-weight: 600; }
+  .city-meta .cm-stat i { color: var(--rc-accent-d); margin-right: 4px; font-size: 0.65rem; }
+
+  /* SECTION 8 — CTA */
+  .services-cta {
+    background: #f0f8ff; padding: 100px 32px 110px;
+    position: relative; overflow: hidden; text-align: center;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .services-cta::before {
+    content: ''; position: absolute; top: -120px; left: 50%;
+    transform: translateX(-50%); width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .services-cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .services-cta .cta-emoji {
+    font-size: 2.4rem; margin-bottom: 16px;
+    display: inline-block; animation: bob 3s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  .services-cta h2 {
+    font-size: 2.4rem; font-weight: 900; letter-spacing: -1px;
+    line-height: 1.15; margin-bottom: 16px; color: var(--rc-primary);
+  }
+  .services-cta h2 span { color: var(--rc-accent-d); }
+  .services-cta p { font-size: 1rem; line-height: 1.75; margin-bottom: 32px; color: var(--rc-text-soft); }
+  .services-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* RESPONSIVE */
+  @media (max-width: 1100px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-grid .hero-left { text-align: center; }
+    .hero-services h1 { font-size: 2.4rem; }
+    .hero-services p { margin-left: auto; margin-right: auto; }
+    .hero-ctas, .hero-trust-row { justify-content: center; }
+    .service-hub { max-width: 540px; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; gap: 40px; }
+    .price-card.popular { transform: scale(1); }
+    .price-card.popular:hover { transform: translateY(-6px); }
+    .testi-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; }
+    .coverage-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .detail-row { grid-template-columns: 1fr; gap: 32px; margin-bottom: 60px; }
+    .detail-row.reverse .detail-visual,
+    .detail-row.reverse .detail-content { order: unset; }
+    .detail-visual { max-width: 560px; margin: 0 auto; width: 100%; }
+    .dc-features { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    body { padding-top: 90px; }
+    .section-inner { padding: 0 20px; }
+    .hero-services { padding: 55px 0 70px; }
+    .hero-services h1 { font-size: 2rem; letter-spacing: -0.9px; }
+    .hero-services p { font-size: 0.94rem; }
+    .hero-ctas { flex-direction: column; align-items: center; width: 100%; }
+    .hero-ctas .abtn { width: 100%; justify-content: center; }
+    .hero-trust-row { gap: 16px; }
+
+    .core-section, .detail-section, .pricing-section, .compare-section,
+    .testi-section, .coverage-section, .services-cta { padding: 70px 0; }
+    .services-cta { padding-left: 20px; padding-right: 20px; }
+    .sec-head { margin-bottom: 42px; }
+    .sec-head h2 { font-size: 1.6rem; }
+
+    .sec-cta-row { margin-top: 40px; padding-top: 30px; flex-direction: column; align-items: stretch; }
+    .sec-cta-row .abtn { width: 100%; justify-content: center; }
+
+    .core-grid { grid-template-columns: 1fr; gap: 16px; }
+    .core-card { min-height: auto; padding: 26px 22px; }
+    .core-num { font-size: 2.6rem; top: 18px; right: 22px; }
+    .core-ico { width: 52px; height: 52px; font-size: 1.25rem; margin-bottom: 16px; }
+
+    .detail-visual { border-width: 5px; border-radius: 20px; }
+    .detail-content h3 { font-size: 1.4rem; }
+    .detail-content > p { font-size: 0.88rem; }
+    .dc-num { width: 40px; height: 40px; font-size: 0.95rem; }
+
+    .compare-table thead th { padding: 18px 14px; font-size: 0.62rem; }
+    .compare-table thead th .th-plan { font-size: 0.82rem; }
+    .compare-table tbody td { padding: 14px 12px; font-size: 0.78rem; }
+    .compare-table tbody td:first-child { font-size: 0.78rem; }
+
+    .coverage-stats { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .cov-stat { padding: 22px 18px; }
+    .cov-stat .cs-num { font-size: 1.9rem; }
+    .cov-stat .cs-num span { font-size: 1.15rem; }
+
+    .services-cta h2 { font-size: 1.9rem; }
+    .services-cta p { font-size: 0.92rem; }
+  }
+
+  @media (max-width: 480px) {
+    body { padding-top: 80px; }
+    .section-inner { padding: 0 16px; }
+    .hero-services { padding: 40px 0 60px; }
+    .hero-services h1 { font-size: 1.7rem; letter-spacing: -0.6px; }
+    .hero-services p { font-size: 0.88rem; }
+    .hero-trust-row { flex-direction: column; align-items: flex-start; width: 100%; }
+    .htr { width: 100%; }
+
+    .service-hub { grid-template-columns: 1fr; gap: 12px; }
+    .hub-card { min-height: 140px; padding: 20px 18px; }
+    .hub-ico { width: 44px; height: 44px; font-size: 1.05rem; }
+    .hub-arrow { width: 30px; height: 30px; bottom: 14px; right: 16px; font-size: 0.72rem; }
+
+    .sec-head h2 { font-size: 1.4rem; }
+    .sec-head p { font-size: 0.85rem; }
+
+    .core-card { padding: 22px 18px; }
+    .core-num { font-size: 2.2rem; }
+    .core-ico { width: 46px; height: 46px; font-size: 1.05rem; }
+    .core-card h4 { font-size: 0.98rem; }
+
+    .detail-visual { border-width: 4px; border-radius: 18px; }
+    .detail-visual .dv-badge { padding: 6px 11px; font-size: 0.6rem; }
+    .detail-visual .dv-stat { padding: 10px 12px; border-radius: 12px; }
+    .detail-visual .dv-stat .dvs-num { font-size: 1.1rem; }
+    .detail-visual .dvs-lbl { font-size: 0.55rem; }
+    .detail-content h3 { font-size: 1.2rem; }
+    .detail-content > p { font-size: 0.84rem; line-height: 1.7; }
+    .dc-feat { font-size: 0.8rem; }
+    .dc-btn { width: 100%; justify-content: center; }
+
+    .price-card { padding: 28px 22px; }
+    .price-num { font-size: 2.2rem; }
+
+    .testi-card { padding: 24px 20px; }
+    .testi-text { font-size: 0.85rem; }
+
+    .coverage-stats { grid-template-columns: 1fr; gap: 12px; }
+    .cov-stat .cs-num { font-size: 1.7rem; }
+    .city-grid { grid-template-columns: 1fr; }
+    .city-card { padding: 16px 18px; }
+
+    .services-cta { padding: 65px 16px 75px; }
+    .services-cta h2 { font-size: 1.5rem; }
+    .services-cta p { font-size: 0.88rem; }
+    .services-cta-btns { flex-direction: column; }
+    .services-cta-btns .abtn { width: 100%; justify-content: center; }
+
+    .sec-cta-row { margin-top: 32px; padding-top: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- SECTION 1 — HERO (hub cards are DIVs, only arrow links are clickable) -->
+<section class="hero-services">
+  <div class="section-inner hero-grid">
+    <div class="hero-left" data-aos="fade-right" data-aos-duration="800">
+      <span class="hero-tag"><i class="fa-solid fa-layer-group"></i> Our Services</span>
+      <h1>Everything you need to <span>recycle right</span></h1>
+      <p>
+        From daily household pickups to certified e-waste disposal and commercial-scale
+        programs — we've built a full suite of recycling services designed around how
+        you actually live and work.
+      </p>
+      <div class="hero-ctas">
+        <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-compass"></i> Explore Services</a>
+        <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-headset"></i> Talk to Sales</a>
+      </div>
+      <div class="hero-trust-row">
+        <div class="htr">
+          <span class="htr-ico"><i class="fa-solid fa-truck-fast"></i></span>
+          <div>
+            <div class="htr-num">6 services</div>
+            <div class="htr-lbl">Under one roof</div>
+          </div>
+        </div>
+        <div class="htr">
+          <span class="htr-ico"><i class="fa-solid fa-clock"></i></span>
+          <div>
+            <div class="htr-num">Same-day</div>
+            <div class="htr-lbl">Available</div>
+          </div>
+        </div>
+        <div class="htr">
+          <span class="htr-ico"><i class="fa-solid fa-star"></i></span>
+          <div>
+            <div class="htr-num">4.9 / 5</div>
+            <div class="htr-lbl">User Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
+      <div class="service-hub">
+        <div class="hub-card">
+          <div class="hub-ico"><i class="fa-solid fa-house-chimney"></i></div>
+          <div>
+            <h4>Household Pickup</h4>
+            <p>Daily & weekly door-to-door service</p>
+          </div>
+          <a href="404.html" class="hub-arrow" aria-label="Explore Household Pickup">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hub-card">
+          <div class="hub-ico"><i class="fa-solid fa-plug"></i></div>
+          <div>
+            <h4>E-Waste Disposal</h4>
+            <p>Certified destruction & recycling</p>
+          </div>
+          <a href="404.html" class="hub-arrow" aria-label="Explore E-Waste Disposal">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hub-card">
+          <div class="hub-ico"><i class="fa-solid fa-building"></i></div>
+          <div>
+            <h4>Commercial</h4>
+            <p>Bulk pickups for businesses</p>
+          </div>
+          <a href="404.html" class="hub-arrow" aria-label="Explore Commercial">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hub-card">
+          <div class="hub-ico"><i class="fa-solid fa-seedling"></i></div>
+          <div>
+            <h4>Organic Compost</h4>
+            <p>Food scraps & garden waste</p>
+          </div>
+          <a href="404.html" class="hub-arrow" aria-label="Explore Organic Compost">
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — CORE SERVICES -->
+<section class="core-section" id="core-services">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">What We Offer</span>
+      <h2>Six services. One mission.</h2>
+      <p>Every service is designed around the same principle — make responsible recycling effortless.</p>
+    </div>
+
+    <div class="core-grid">
+      <div class="core-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="core-num">01</div>
+        <div class="core-ico"><i class="fa-solid fa-house-chimney"></i></div>
+        <h4>Household Pickup</h4>
+        <p>Regular door-to-door collection of mixed recyclables — plastics, paper, glass, and metals. Free for all registered homes.</p>
+        <div class="core-meta"><span>Free</span><span>Daily</span><span>Residential</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="core-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="core-num">02</div>
+        <div class="core-ico"><i class="fa-solid fa-plug"></i></div>
+        <h4>E-Waste Disposal</h4>
+        <p>Certified destruction of electronics with full data-wipe documentation. Laptops, phones, batteries, and accessories.</p>
+        <div class="core-meta"><span>Certified</span><span>Data-safe</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="core-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="core-num">03</div>
+        <div class="core-ico"><i class="fa-solid fa-building"></i></div>
+        <h4>Commercial & Bulk</h4>
+        <p>Tailored schedules for offices, cafés, warehouses, and malls. Dedicated account managers and ESG reporting.</p>
+        <div class="core-meta"><span>B2B</span><span>Custom</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="core-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="core-num">04</div>
+        <div class="core-ico"><i class="fa-solid fa-seedling"></i></div>
+        <h4>Organic Compost</h4>
+        <p>Food scraps, garden waste, and compostables collected early morning and sent to urban compost facilities.</p>
+        <div class="core-meta"><span>Weekly</span><span>Compost</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="core-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="core-num">05</div>
+        <div class="core-ico"><i class="fa-solid fa-truck-ramp-box"></i></div>
+        <h4>Special Cleanouts</h4>
+        <p>One-time pickups for moving, renovation, or seasonal cleanouts. Any size, any material, up to 500 kg.</p>
+        <div class="core-meta"><span>On-demand</span><span>Paid</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="core-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="core-num">06</div>
+        <div class="core-ico"><i class="fa-solid fa-users"></i></div>
+        <h4>Community Drives</h4>
+        <p>Recycling events for schools, RWAs, and apartment complexes — with educational workshops included.</p>
+        <div class="core-meta"><span>CSR</span><span>Events</span></div>
+        <a href="404.html" class="core-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Ready to start? <strong>Pick a service that fits your needs.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-calendar-plus"></i> Book a Service</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-file-lines"></i> Download Service Guide</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3 — SERVICE DETAILS -->
+<section class="detail-section">
+  <div class="section-inner">
+
+    <div class="detail-row" data-aos="fade-up">
+      <div class="detail-visual" data-aos="fade-right" data-aos-delay="100">
+        <img src="recycle11.webp" alt="Household recycling pickup"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-household/800/600';">
+        <span class="dv-badge"><i class="fa-solid fa-check"></i> Free for homes</span>
+        <div class="dv-stat">
+          <div class="dvs-num">50K<span>+</span></div>
+          <div class="dvs-lbl">Monthly pickups</div>
+        </div>
+      </div>
+      <div class="detail-content" data-aos="fade-left" data-aos-delay="100">
+        <div class="dc-num">01</div>
+        <h3>Household pickup, built around your week</h3>
+        <p>Choose how often you want us to visit — daily, thrice a week, or weekly. We collect mixed recyclables in one bag, sort it at our facility, and give you Green Points for every kilogram you recycle.</p>
+        <div class="dc-features">
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Free for every registered home</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Flexible daily/weekly schedules</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> SMS 1-hour-before reminders</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Green Points on every pickup</div>
+        </div>
+        <a href="404.html" class="dc-btn"><i class="fa-solid fa-calendar-plus"></i> Schedule a Pickup</a>
+      </div>
+    </div>
+
+    <div class="detail-row reverse" data-aos="fade-up">
+      <div class="detail-visual" data-aos="fade-left" data-aos-delay="100">
+        <img src="recycle10.webp" alt="E-waste certified disposal"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-ewaste2/800/600';">
+        <span class="dv-badge"><i class="fa-solid fa-shield-halved"></i> Certified destruction</span>
+        <div class="dv-stat">
+          <div class="dvs-num">100<span>%</span></div>
+          <div class="dvs-lbl">Data-safe guarantee</div>
+        </div>
+      </div>
+      <div class="detail-content" data-aos="fade-right" data-aos-delay="100">
+        <div class="dc-num">02</div>
+        <h3>E-waste disposal with proof of destruction</h3>
+        <p>Every device goes through DoD-standard data destruction. You receive a Certificate of Destruction for every pickup, plus photographic evidence on request. Nothing is resold, nothing is exported.</p>
+        <div class="dc-features">
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> DoD 5220.22-M data wipe</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Certificate per device</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Zero export guarantee</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Free for 5+ devices</div>
+        </div>
+        <a href="404.html" class="dc-btn"><i class="fa-solid fa-shield-halved"></i> Book E-Waste Pickup</a>
+      </div>
+    </div>
+
+    <div class="detail-row" data-aos="fade-up">
+      <div class="detail-visual" data-aos="fade-right" data-aos-delay="100">
+        <img src="recycle9.webp" alt="Commercial recycling program"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-commercial/800/600';">
+        <span class="dv-badge"><i class="fa-solid fa-building"></i> Commercial-grade</span>
+        <div class="dv-stat">
+          <div class="dvs-num">1.2M<span>kg</span></div>
+          <div class="dvs-lbl">Collected in 2025</div>
+        </div>
+      </div>
+      <div class="detail-content" data-aos="fade-left" data-aos-delay="100">
+        <div class="dc-num">03</div>
+        <h3>Commercial programs that scale with you</h3>
+        <p>Purpose-built for offices, hotels, cafés, and warehouses. Custom pickup schedules, dedicated trucks, monthly sustainability reports, and full ESG-compliant documentation for your audit trail.</p>
+        <div class="dc-features">
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Custom pickup schedules</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Dedicated account manager</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Monthly ESG reports</div>
+          <div class="dc-feat"><i class="fa-solid fa-check"></i> Bulk rates from 20 kg</div>
+        </div>
+        <a href="404.html" class="dc-btn"><i class="fa-solid fa-handshake"></i> Talk to Business Team</a>
+      </div>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Need something custom? <strong>We'll design it with you.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-comments"></i> Request Custom Service</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-phone"></i> Call Our Team</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — PRICING -->
+<section class="pricing-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Pricing</span>
+      <h2>Simple plans, no surprises</h2>
+      <p>Household pickup is always free. Choose a plan for extra services or business-scale recycling.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="price-name">Household</div>
+        <div class="price-desc">For families and individual homes</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span>
+          <span class="price-num">0</span>
+          <span class="price-period">forever</span>
+        </div>
+        <ul class="price-features">
+          <li><i class="fa-solid fa-check"></i> Free door-to-door pickup</li>
+          <li><i class="fa-solid fa-check"></i> 1 bag per pickup, up to 15 kg</li>
+          <li><i class="fa-solid fa-check"></i> Green Points rewards</li>
+          <li><i class="fa-solid fa-check"></i> SMS + email reminders</li>
+          <li><i class="fa-solid fa-check"></i> Basic app dashboard</li>
+          <li class="muted"><i class="fa-solid fa-xmark"></i> E-waste pickup</li>
+          <li class="muted"><i class="fa-solid fa-xmark"></i> Priority scheduling</li>
+        </ul>
+        <a href="404.html" class="price-btn">Get Started Free</a>
+      </div>
+
+      <div class="price-card popular" data-aos="fade-up" data-aos-delay="100">
+        <span class="price-badge"><i class="fa-solid fa-star"></i> Most Popular</span>
+        <div class="price-name">Household Pro</div>
+        <div class="price-desc">For power recyclers and larger families</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span>
+          <span class="price-num">199</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <ul class="price-features">
+          <li><i class="fa-solid fa-check"></i> Everything in Household</li>
+          <li><i class="fa-solid fa-check"></i> Up to 40 kg per pickup</li>
+          <li><i class="fa-solid fa-check"></i> Monthly e-waste pickup</li>
+          <li><i class="fa-solid fa-check"></i> Priority same-day scheduling</li>
+          <li><i class="fa-solid fa-check"></i> 2× Green Points rate</li>
+          <li><i class="fa-solid fa-check"></i> Monthly impact report</li>
+          <li><i class="fa-solid fa-check"></i> Dedicated support line</li>
+        </ul>
+        <a href="404.html" class="price-btn">Upgrade to Pro</a>
+      </div>
+
+      <div class="price-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="price-name">Business</div>
+        <div class="price-desc">For offices, cafés, and warehouses</div>
+        <div class="price-amount">
+          <span class="price-currency">₹</span>
+          <span class="price-num">Custom</span>
+          <span class="price-period">quoted</span>
+        </div>
+        <ul class="price-features">
+          <li><i class="fa-solid fa-check"></i> Custom pickup schedules</li>
+          <li><i class="fa-solid fa-check"></i> Unlimited weight & volume</li>
+          <li><i class="fa-solid fa-check"></i> Dedicated account manager</li>
+          <li><i class="fa-solid fa-check"></i> ESG & compliance reports</li>
+          <li><i class="fa-solid fa-check"></i> Free bin + signage setup</li>
+          <li><i class="fa-solid fa-check"></i> 24/7 support hotline</li>
+          <li><i class="fa-solid fa-check"></i> Quarterly sustainability review</li>
+        </ul>
+        <a href="404.html" class="price-btn">Request a Quote</a>
+      </div>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Not sure which plan fits? <strong>Compare features side by side.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-table-list"></i> Compare Plans</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-calculator"></i> Calculate My Savings</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — COMPARISON -->
+<section class="compare-section" id="compare-plans">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Compare</span>
+      <h2>Pick the plan that fits</h2>
+      <p>Every plan covers the essentials. Compare features side by side to find your best fit.</p>
+    </div>
+
+    <div class="compare-wrap" data-aos="fade-up">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="center">Household</th>
+            <th class="center highlight">
+              <span class="th-plan">Household Pro</span>
+              <span class="th-sub">₹199 / month</span>
+            </th>
+            <th class="center">Business</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><i class="fa-solid fa-truck-fast"></i> Doorstep pickup</td>
+            <td class="center"><span class="check"><i class="fa-solid fa-check"></i></span></td>
+            <td class="center highlight"><span class="check"><i class="fa-solid fa-check"></i></span></td>
+            <td class="center"><span class="check"><i class="fa-solid fa-check"></i></span></td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-weight-hanging"></i> Max weight per pickup</td>
+            <td class="center">15 kg</td>
+            <td class="center highlight">40 kg</td>
+            <td class="center">Unlimited</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-plug"></i> E-waste pickup</td>
+            <td class="center"><span class="cross"><i class="fa-solid fa-xmark"></i></span></td>
+            <td class="center highlight">Monthly</td>
+            <td class="center">On-demand</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-bolt"></i> Same-day scheduling</td>
+            <td class="center"><span class="cross"><i class="fa-solid fa-xmark"></i></span></td>
+            <td class="center highlight"><span class="check"><i class="fa-solid fa-check"></i></span></td>
+            <td class="center"><span class="check"><i class="fa-solid fa-check"></i></span></td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-star"></i> Green Points multiplier</td>
+            <td class="center">1×</td>
+            <td class="center highlight">2×</td>
+            <td class="center">Custom</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-file-invoice"></i> ESG / impact report</td>
+            <td class="center">—</td>
+            <td class="center highlight">Monthly</td>
+            <td class="center">Quarterly</td>
+          </tr>
+          <tr>
+            <td><i class="fa-solid fa-headset"></i> Support channel</td>
+            <td class="center">Chat + email</td>
+            <td class="center highlight">Priority line</td>
+            <td class="center">24/7 hotline</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Still deciding? <strong>Get a 5-min plan recommendation.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> Get Recommendation</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-download"></i> Download Full Comparison</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — TESTIMONIALS -->
+<section class="testi-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Testimonials</span>
+      <h2>What our members say</h2>
+      <p>From single-family homes to 200-person warehouses — here's how they describe working with us.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card" data-aos="fade-up" data-aos-delay="0">
+        <span class="testi-quote-ico">"</span>
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "The pickup timing is spot-on and the app shows the truck in real time.
+          My kids actually look forward to garbage day now — they want to earn more
+          Green Points."
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">PS</div>
+          <div class="testi-meta">
+            <div class="tm-name">Priya Sharma</div>
+            <div class="tm-role">Household Member · Bengaluru</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-aos="fade-up" data-aos-delay="100">
+        <span class="testi-quote-ico">"</span>
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "We switched our office to Recycling Service last year. The ESG reports have
+          been invaluable for our annual sustainability audit, and our staff genuinely
+          likes sorting now."
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">RM</div>
+          <div class="testi-meta">
+            <div class="tm-name">Rohan Mehta</div>
+            <div class="tm-role">Facilities Lead · Zenwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" data-aos="fade-up" data-aos-delay="200">
+        <span class="testi-quote-ico">"</span>
+        <div class="testi-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testi-text">
+          "We had 300 kg of e-waste from an office move. They handled all of it,
+          provided destruction certificates, and finished in one afternoon. Absolute
+          professionals."
+        </p>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div class="testi-meta">
+            <div class="tm-name">Anita Krishnan</div>
+            <div class="tm-role">Operations Manager · Lattice Co.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Join 12,000+ happy recyclers. <strong>Your turn now.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-star-half-stroke"></i> Read More Reviews</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 — COVERAGE -->
+<section class="coverage-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Coverage</span>
+      <h2>Live in 85+ cities across India</h2>
+      <p>Our network keeps growing. Here's a snapshot of the cities where we're most active.</p>
+    </div>
+
+    <div class="coverage-stats">
+      <div class="cov-stat" data-aos="zoom-in">
+        <div class="cs-num">85<span>+</span></div>
+        <div class="cs-lbl">Cities Active</div>
+      </div>
+      <div class="cov-stat" data-aos="zoom-in" data-aos-delay="80">
+        <div class="cs-num">240<span>+</span></div>
+        <div class="cs-lbl">Trucks on Road</div>
+      </div>
+      <div class="cov-stat" data-aos="zoom-in" data-aos-delay="160">
+        <div class="cs-num">12<span>K+</span></div>
+        <div class="cs-lbl">Households</div>
+      </div>
+      <div class="cov-stat" data-aos="zoom-in" data-aos-delay="240">
+        <div class="cs-num">1.2<span>M kg</span></div>
+        <div class="cs-lbl">Waste Recycled</div>
+      </div>
+    </div>
+
+    <div class="city-grid">
+      <div class="city-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Bengaluru</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 42 trucks · Same-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="40">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Mumbai</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 38 trucks · Same-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Delhi NCR</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 34 trucks · Same-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="120">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Hyderabad</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 28 trucks · Same-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Chennai</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 26 trucks · Next-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Pune</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 22 trucks · Same-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Kolkata</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 18 trucks · Next-day</div>
+        </div>
+      </div>
+      <div class="city-card" data-aos="fade-up" data-aos-delay="280">
+        <div class="city-dot"><i class="fa-solid fa-city"></i></div>
+        <div class="city-meta">
+          <div class="cm-name">Ahmedabad</div>
+          <div class="cm-stat"><i class="fa-solid fa-truck"></i> 16 trucks · Next-day</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-cta-row" data-aos="fade-up">
+      <span class="sec-cta-hint">Don't see your city? <strong>Request coverage.</strong></span>
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-map-location-dot"></i> View Full Map</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-bell"></i> Notify Me in My City</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — CTA -->
+<section class="services-cta">
+  <div class="services-cta-inner" data-aos="zoom-in" data-aos-duration="800">
+    <span class="cta-emoji">♻️</span>
+    <h2>Not sure which service you need?</h2>
+    <p>
+      Tell us about your household or business and we'll recommend the right plan
+      in under 2 minutes. No commitment, no pressure.
+    </p>
+    <div class="services-cta-btns">
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-comments"></i> Chat with an Expert</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('header.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Header not found'))
+      .then(d => { document.getElementById('header-placeholder').innerHTML = d; initHeader(); })
+      .catch(err => console.warn('Header not loaded:', err));
+
+    fetch('footer.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Footer not found'))
+      .then(d => { document.getElementById('footer-placeholder').innerHTML = d; initFooter(); })
+      .catch(err => console.warn('Footer not loaded:', err));
+  });
+
+  function initHeader() {
+    const h = document.getElementById('hamburgerBtn');
+    const m = document.getElementById('mobileMenu');
+    if (h && m) {
+      const toggle = () => {
+        h.classList.toggle('active'); m.classList.toggle('active');
+        document.body.style.overflow = m.classList.contains('active') ? 'hidden' : '';
+      };
+      const close = () => {
+        h.classList.remove('active'); m.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      h.addEventListener('click', toggle);
+      document.addEventListener('click', e => {
+        if (m.classList.contains('active') && !h.contains(e.target) && !m.contains(e.target)) close();
+      });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 768) close(); });
+      document.querySelectorAll('.mobile-nav-link, .mobile-action-link').forEach(l => l.addEventListener('click', close));
+    }
+  }
+
+  function initFooter() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
+    const email = document.getElementById('newsletterEmail');
+    const alert = document.getElementById('newsletterAlert');
+    const rx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const show = (m, t) => { alert.textContent = m; alert.classList.remove('error','success'); alert.classList.add('show', t); };
+    const clr = () => { alert.textContent=''; alert.classList.remove('show','error','success'); };
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = email.value.trim();
+      if (!v) { show('Please enter your email address.', 'error'); email.focus(); return; }
+      if (!rx.test(v)) { show('Please enter a valid email address.', 'error'); email.focus(); return; }
+      show('Subscribed successfully! Redirecting…', 'success');
+      email.value = '';
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+    email.addEventListener('input', () => { if (alert.classList.contains('show')) clr(); });
+  }
+</script>
+
+</body>
+</html>

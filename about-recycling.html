@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Recycling Service - About Recycling </title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+  :root {
+    --rc-primary: #003D7A;
+    --rc-primary-d: #002B57;
+    --rc-accent: #4FC3F7;
+    --rc-accent-d: #29B6F6;
+    --rc-sky: #87CEEB;
+    --rc-light: #E8F4FD;
+    --rc-bg: #f0f8ff;
+    --rc-text: #003D7A;
+    --rc-text-soft: #4a6b7c;
+    --rc-border: rgba(0, 61, 122, 0.12);
+    --rc-shadow: rgba(0, 30, 60, 0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body {
+    background: var(--rc-bg);
+    color: var(--rc-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 110px;
+  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #dbe9f6; }
+  ::-webkit-scrollbar-thumb { background: var(--rc-accent-d); border-radius: 6px; }
+  #header-placeholder, #footer-placeholder { width: 100%; }
+  img { max-width: 100%; display: block; }
+
+  /* ==========================================================
+     SECTION 1 — HERO (LIGHT)
+     ========================================================== */
+  .hero-about {
+    position: relative;
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 80px 0 100px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 61, 122, 0.08);
+  }
+  .hero-about::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.28), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-about::after {
+    content: '';
+    position: absolute;
+    bottom: -140px; left: -100px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.28), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-about-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-about-left { max-width: 580px; }
+  .hero-about-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(41, 182, 246, 0.14);
+    border: 1px solid rgba(41, 182, 246, 0.4);
+    color: var(--rc-primary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 60px;
+    margin-bottom: 22px;
+  }
+  .hero-about-tag i { color: var(--rc-accent-d); }
+  .hero-about-left h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--rc-primary);
+    margin-bottom: 20px;
+  }
+  .hero-about-left h1 em {
+    font-style: normal;
+    color: var(--rc-accent-d);
+    background: linear-gradient(180deg, transparent 62%, rgba(79, 195, 247, 0.35) 62%);
+    padding: 0 4px;
+  }
+  .hero-about-left p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--rc-text-soft);
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  .hero-about-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .abtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.85rem 1.75rem;
+    border-radius: 60px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .abtn-primary {
+    background: var(--rc-accent-d);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(41, 182, 246, 0.35);
+  }
+  .abtn-primary:hover {
+    background: var(--rc-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(0, 61, 122, 0.35);
+  }
+  .abtn-outline {
+    background: transparent;
+    border-color: rgba(0, 61, 122, 0.35);
+    color: var(--rc-primary);
+  }
+  .abtn-outline:hover {
+    background: var(--rc-primary);
+    color: #fff;
+    border-color: var(--rc-primary);
+    transform: translateY(-3px);
+  }
+
+  .hero-about-trust {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 61, 122, 0.12);
+    flex-wrap: wrap;
+  }
+  .trust-avatars { display: flex; }
+  .trust-avatars span {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.75rem;
+    color: #fff;
+    margin-left: -12px;
+    box-shadow: 0 4px 10px rgba(0, 30, 60, 0.12);
+  }
+  .trust-avatars span:first-child { margin-left: 0; }
+  .trust-avatars span:nth-child(1) { background: #29B6F6; }
+  .trust-avatars span:nth-child(2) { background: #4CAF50; }
+  .trust-avatars span:nth-child(3) { background: #FFC107; color: #003D7A; }
+  .trust-avatars span:nth-child(4) { background: #9C27B0; }
+  .trust-text { font-size: 0.85rem; color: var(--rc-text-soft); font-weight: 500; }
+  .trust-text strong { color: var(--rc-primary); font-weight: 800; }
+
+  /* ============ HERO PHOTO COLLAGE ============ */
+  .hero-about-right {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .hero-photo-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    position: relative;
+  }
+  .hp {
+    position: relative;
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #29B6F6, #003D7A);
+    box-shadow: 0 18px 40px rgba(0, 61, 122, 0.16);
+    border: 4px solid #fff;
+    transition: transform 0.4s ease;
+  }
+  .hp:hover { transform: translateY(-6px); }
+  .hp img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hp-main { grid-row: span 2; border-radius: 26px; }
+  .hp-badge {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    color: var(--rc-primary);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    z-index: 3;
+    box-shadow: 0 6px 16px rgba(0, 30, 60, 0.15);
+  }
+  .hp-badge i { color: var(--rc-accent-d); margin-right: 4px; }
+
+  .floating-chip {
+    position: absolute;
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 16px 36px rgba(0, 61, 122, 0.18);
+    z-index: 6;
+    border: 1px solid rgba(41, 182, 246, 0.25);
+    animation: floatY 5s ease-in-out infinite;
+  }
+  .floating-chip i {
+    width: 36px; height: 36px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .floating-chip .chip-num { font-size: 0.95rem; font-weight: 900; line-height: 1; color: var(--rc-primary); }
+  .floating-chip .chip-lbl {
+    font-size: 0.58rem;
+    color: var(--rc-text-soft);
+    font-weight: 700;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .chip-top { top: -18px; left: -18px; animation-delay: 0s; }
+  .chip-top i { background: var(--rc-accent-d); }
+  .chip-bot { bottom: -18px; right: -18px; animation-delay: 1.2s; }
+  .chip-bot i { background: #16a34a; }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+
+  /* ==========================================================
+     SECTION 2 — OUR STORY
+     ========================================================== */
+  .story-section { background: #fff; padding: 100px 32px; }
+  .story-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 70px;
+  }
+  .story-head .eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--rc-accent-d);
+    margin-bottom: 14px;
+  }
+  .story-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--rc-primary);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .story-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.7; }
+
+  .timeline-v { position: relative; max-width: 980px; margin: 0 auto; }
+  .timeline-v::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--rc-accent), var(--rc-accent-d));
+    transform: translateX(-50%);
+    border-radius: 3px;
+  }
+  .tl-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 55px;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-card {
+    background: var(--rc-bg);
+    border: 1px solid var(--rc-border);
+    border-radius: 18px;
+    padding: 24px 26px;
+    transition: all 0.3s ease;
+  }
+  .tl-card:hover {
+    border-color: var(--rc-accent);
+    box-shadow: 0 12px 30px rgba(41, 182, 246, 0.15);
+    transform: translateY(-4px);
+  }
+  .tl-card .tl-year {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .tl-card .tl-year span { color: var(--rc-accent-d); margin: 0 4px; }
+  .tl-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--rc-primary); margin-bottom: 8px; }
+  .tl-card p { font-size: 0.86rem; color: var(--rc-text-soft); line-height: 1.7; }
+  .tl-dot {
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    width: 22px; height: 22px;
+    background: #fff;
+    border: 4px solid var(--rc-accent-d);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    box-shadow: 0 0 0 6px rgba(41, 182, 246, 0.15);
+  }
+  .tl-item:nth-child(odd) .tl-card { grid-column: 1; }
+  .tl-item:nth-child(odd) .tl-spacer { grid-column: 2; }
+  .tl-item:nth-child(even) .tl-card { grid-column: 2; }
+  .tl-item:nth-child(even) .tl-spacer { grid-column: 1; }
+  .tl-spacer { display: block; }
+
+  /* ==========================================================
+     SECTION 3 — MISSION & VISION
+     ========================================================== */
+  .mv-section {
+    background: var(--rc-bg);
+    padding: 100px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mv-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .mv-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+  }
+  .mv-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+  .mv-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.7; }
+
+  .mv-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+  .mv-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 38px 34px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 12px 40px var(--rc-shadow);
+    transition: all 0.4s ease;
+    min-width: 0;
+  }
+  .mv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(41, 182, 246, 0.18);
+  }
+  .mv-card .mv-num {
+    position: absolute;
+    top: 22px; right: 26px;
+    font-size: 4.4rem;
+    font-weight: 900;
+    color: rgba(0, 61, 122, 0.06);
+    line-height: 1;
+    letter-spacing: -3px;
+  }
+  .mv-card .mv-icon {
+    width: 60px; height: 60px;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .mv-card.mission .mv-icon { background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-primary)); }
+  .mv-card.vision .mv-icon { background: linear-gradient(135deg, #4CAF50, #2e7d32); }
+  .mv-card h3 {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+  .mv-card p {
+    font-size: 0.9rem;
+    color: var(--rc-text-soft);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .mv-list { list-style: none; }
+  .mv-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.84rem;
+    color: var(--rc-primary);
+    font-weight: 600;
+    margin-bottom: 11px;
+    line-height: 1.55;
+  }
+  .mv-list li i {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(41, 182, 246, 0.15);
+    color: var(--rc-accent-d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mv-card.vision .mv-list li i { background: rgba(76, 175, 80, 0.15); color: #2e7d32; }
+
+  /* ==========================================================
+     SECTION 4 — IMPACT STATS (LIGHT BG)
+     ========================================================== */
+  .stats-band {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 90px 32px;
+    position: relative;
+    overflow: hidden;
+    color: var(--rc-primary);
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .stats-band::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.22), transparent 65%);
+  }
+  .stats-band::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.22), transparent 65%);
+  }
+  .stats-band-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+    position: relative;
+    z-index: 2;
+  }
+  .stats-band-head .eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--rc-accent-d);
+    margin-bottom: 14px;
+  }
+  .stats-band-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+  }
+  .stats-band-head h2 span { color: var(--rc-accent-d); }
+  .stats-row {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+  .stat-block {
+    text-align: center;
+    padding: 24px 16px;
+    background: #ffffff;
+    border: 1px solid var(--rc-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 30, 60, 0.06);
+    transition: all 0.3s ease;
+  }
+  .stat-block:hover {
+    transform: translateY(-6px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 16px 36px rgba(41, 182, 246, 0.18);
+  }
+  .stat-block .stat-ico {
+    width: 52px; height: 52px;
+    margin: 0 auto 16px;
+    border-radius: 15px;
+    background: rgba(41, 182, 246, 0.14);
+    color: var(--rc-accent-d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+  }
+  .stat-block .stat-num {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    color: var(--rc-primary);
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    justify-content: center;
+  }
+  .stat-block .stat-num .suffix { color: var(--rc-accent-d); font-size: 1.35rem; font-weight: 800; }
+  .stat-block .stat-lbl {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--rc-text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ==========================================================
+     SECTION 5 — PROCESS STEPS
+     ========================================================== */
+  .process-section { background: #fff; padding: 100px 32px; }
+  .process-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 70px;
+  }
+  .process-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+  .process-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.7; }
+  .process-track {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+    position: relative;
+  }
+  .proc-step {
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .proc-step:hover { transform: translateY(-6px); }
+  .proc-num {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--rc-accent);
+    color: var(--rc-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 900;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.2);
+    transition: all 0.3s ease;
+  }
+  .proc-step:hover .proc-num {
+    background: var(--rc-accent);
+    color: var(--rc-primary-d);
+    border-color: var(--rc-primary);
+    transform: scale(1.08);
+  }
+  .proc-step h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    margin-bottom: 8px;
+  }
+  .proc-step p { font-size: 0.8rem; color: var(--rc-text-soft); line-height: 1.65; }
+
+  /* ==========================================================
+     SECTION 6 — MATERIALS
+     ========================================================== */
+  .bento-section { background: var(--rc-bg); padding: 100px 32px; }
+  .bento-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+  }
+  .bento-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+  .bento-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.7; }
+  .bento-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 220px 220px;
+    gap: 20px;
+  }
+  .bento {
+    border-radius: 22px;
+    padding: 26px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: pointer;
+    background: linear-gradient(135deg, #29B6F6, #003D7A);
+  }
+  .bento:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(0, 61, 122, 0.25);
+  }
+  .bento-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .bento-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,15,35,0.15) 40%, rgba(0,15,35,0.82));
+    z-index: 2;
+  }
+  .bento-content { position: relative; z-index: 3; }
+  .bento .bento-ico {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 3;
+  }
+  .bento .bento-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.95;
+    margin-bottom: 6px;
+  }
+  .bento h4 {
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+  }
+  .bento p { font-size: 0.78rem; line-height: 1.55; opacity: 0.92; max-width: 95%; }
+  .bento.b-plastic {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .bento.b-plastic h4 { font-size: 1.75rem; }
+  .bento.b-plastic p { font-size: 0.88rem; }
+
+  /* ==========================================================
+     SECTION 7 — TEAM
+     ========================================================== */
+  .team-section { background: #fff; padding: 100px 32px; }
+  .team-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 60px;
+  }
+  .team-head h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.8px;
+    margin-bottom: 12px;
+  }
+  .team-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.7; }
+  .team-row {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    justify-items: center;
+  }
+  .tm {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .tm:hover { transform: translateY(-8px); }
+  .tm-ring {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 16px;
+  }
+  .tm-avatar {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #fff;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 30px rgba(0, 61, 122, 0.18);
+    background: linear-gradient(135deg, #29B6F6, #003D7A);
+    z-index: 2;
+  }
+  .tm-avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+  }
+  .tm h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    margin-bottom: 4px;
+  }
+  .tm .tm-role {
+    font-size: 0.7rem;
+    color: var(--rc-text-soft);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .tm .tm-social {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .tm .tm-social a {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--rc-bg);
+    color: var(--rc-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .tm .tm-social a:hover {
+    background: var(--rc-accent-d);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* ==========================================================
+     SECTION 8 — CTA (LIGHTER BG)
+     ========================================================== */
+  .about-cta {
+    background: linear-gradient(135deg, #a8b8c7 0%, #0D5BA6 50%, #bad2e8 100%);
+    color: #fff;
+    padding: 110px 32px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .about-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      -30deg,
+      transparent 0, transparent 60px,
+      rgba(255, 255, 255, 0.06) 60px, rgba(255, 255, 255, 0.06) 62px
+    );
+    pointer-events: none;
+  }
+  .about-cta::after {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.28), transparent 65%);
+    pointer-events: none;
+  }
+  .about-cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .about-cta .cta-emoji {
+    font-size: 2.6rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: floatY 3s ease-in-out infinite;
+  }
+  .about-cta h2 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 61, 122, 0.15);
+  }
+  .about-cta h2 span { color: #003D7A; text-shadow: none; }
+  .about-cta p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 36px;
+    text-shadow: 0 1px 6px rgba(0, 61, 122, 0.12);
+  }
+  .about-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .about-cta .abtn-primary {
+    background: #003D7A;
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(0, 61, 122, 0.3);
+  }
+  .about-cta .abtn-primary:hover {
+    background: #002B57;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(0, 61, 122, 0.45);
+  }
+  .about-cta .abtn-outline {
+    border-color: rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+  }
+  .about-cta .abtn-outline:hover {
+    background: #ffffff;
+    color: var(--rc-primary-d);
+    border-color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1100px) {
+    .hero-about-left h1 { font-size: 2.4rem; }
+    .hero-about-inner { grid-template-columns: 1fr; gap: 50px; padding: 0 24px; }
+    .hero-about-left { max-width: 100%; text-align: center; margin: 0 auto; }
+    .hero-about-left p { margin-left: auto; margin-right: auto; }
+    .hero-about-cta, .hero-about-trust { justify-content: center; }
+    .hero-about-right { max-width: 500px; }
+  }
+
+  @media (max-width: 900px) {
+    .timeline-v::before { left: 20px; }
+    .tl-item {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-left: 60px;
+      margin-bottom: 38px;
+    }
+    .tl-item .tl-card { grid-column: 1 !important; }
+    .tl-item .tl-spacer { display: none; }
+    .tl-dot { left: 20px; top: 24px; }
+  }
+
+  @media (max-width: 768px) {
+    body { padding-top: 90px; }
+    .hero-about { padding: 55px 0 75px; }
+    .hero-about-inner { padding: 0 20px; gap: 40px; }
+    .hero-about-left h1 { font-size: 2rem; letter-spacing: -0.8px; }
+    .hero-about-left p { font-size: 0.94rem; margin-bottom: 26px; }
+    .hero-about-cta { margin-bottom: 28px; }
+
+    .hero-about-right { max-width: 440px; }
+    .hero-photo-grid { gap: 10px; }
+    .hp { border-radius: 16px; border-width: 3px; }
+    .hp-main { border-radius: 18px; }
+    .hp-badge { left: 10px; bottom: 10px; padding: 5px 11px; font-size: 0.6rem; }
+    .floating-chip { padding: 10px 12px; border-radius: 13px; gap: 8px; }
+    .floating-chip i { width: 30px; height: 30px; font-size: 0.8rem; border-radius: 9px; }
+    .floating-chip .chip-num { font-size: 0.8rem; }
+    .floating-chip .chip-lbl { font-size: 0.5rem; }
+    .chip-top { top: -12px; left: -10px; }
+    .chip-bot { bottom: -12px; right: -10px; }
+
+    .story-section, .mv-section, .stats-band, .process-section,
+    .bento-section, .team-section { padding: 70px 20px; }
+    .story-head, .mv-head, .bento-head, .team-head { margin-bottom: 45px; }
+    .process-head { margin-bottom: 45px; }
+
+    .story-head h2, .mv-head h2, .stats-band-head h2,
+    .process-head h2, .bento-head h2, .team-head h2 { font-size: 1.6rem; }
+
+    .stat-block .stat-num { font-size: 2rem; }
+    .stat-block .stat-num .suffix { font-size: 1.1rem; }
+    .stat-block .stat-ico { width: 46px; height: 46px; font-size: 1.05rem; margin-bottom: 14px; }
+    .stat-block .stat-lbl { font-size: 0.68rem; letter-spacing: 0.6px; }
+
+    .process-track { grid-template-columns: 1fr; gap: 0; max-width: 520px; }
+    .proc-step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 16px;
+      text-align: left;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px dashed rgba(0, 61, 122, 0.12);
+      transform: none !important;
+    }
+    .proc-step:last-child { border-bottom: none; }
+    .proc-num { width: 56px; height: 56px; font-size: 1.2rem; margin: 0; }
+    .proc-step h4 { margin-top: 6px; }
+
+    .bento-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 14px;
+    }
+    .bento {
+      min-height: 190px;
+      padding: 22px;
+      border-radius: 18px;
+    }
+    .bento.b-plastic { grid-column: span 1; grid-row: span 1; min-height: 220px; }
+    .bento.b-plastic h4 { font-size: 1.4rem; }
+    .bento h4 { font-size: 1.15rem; }
+    .bento .bento-ico { width: 38px; height: 38px; font-size: 0.95rem; top: 16px; right: 16px; }
+
+    .team-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 14px;
+    }
+    .tm-ring, .tm-avatar { width: 110px; height: 110px; }
+    .tm-avatar { font-size: 1.9rem; border-width: 4px; }
+    .tm h4 { font-size: 0.85rem; }
+    .tm .tm-role { font-size: 0.6rem; }
+
+    .about-cta { padding: 80px 24px; }
+    .about-cta h2 { font-size: 1.9rem; }
+    .about-cta p { font-size: 0.92rem; }
+  }
+
+  @media (max-width: 480px) {
+    body { padding-top: 80px; }
+    .hero-about { padding: 40px 0 60px; }
+    .hero-about-inner { padding: 0 16px; gap: 34px; }
+    .hero-about-left h1 { font-size: 1.7rem; }
+    .hero-about-left p { font-size: 0.88rem; }
+    .hero-about-cta { flex-direction: column; align-items: stretch; width: 100%; }
+    .abtn { justify-content: center; width: 100%; padding: 0.8rem 1.4rem; font-size: 0.86rem; }
+    .hero-about-trust { flex-direction: column; gap: 12px; text-align: center; }
+    .trust-avatars { justify-content: center; }
+    .trust-text { font-size: 0.78rem; }
+
+    .hero-about-right { max-width: 100%; }
+    .hero-photo-grid { gap: 8px; }
+    .hp { border-radius: 14px; border-width: 3px; }
+    .hp-main { border-radius: 16px; }
+    .floating-chip { padding: 8px 10px; border-radius: 11px; gap: 7px; }
+    .floating-chip i { width: 26px; height: 26px; font-size: 0.7rem; border-radius: 8px; }
+    .floating-chip .chip-num { font-size: 0.7rem; }
+    .floating-chip .chip-lbl { font-size: 0.45rem; }
+    .chip-top { top: -10px; left: -6px; }
+    .chip-bot { bottom: -10px; right: -6px; }
+
+    .story-section, .mv-section, .stats-band, .process-section,
+    .bento-section, .team-section { padding: 55px 16px; }
+    .about-cta { padding: 65px 18px; }
+
+    .story-head h2, .mv-head h2, .stats-band-head h2,
+    .process-head h2, .bento-head h2, .team-head h2 { font-size: 1.4rem; letter-spacing: -0.4px; }
+
+    .timeline-v::before { left: 14px; }
+    .tl-item { padding-left: 42px; margin-bottom: 32px; }
+    .tl-dot { left: 14px; width: 16px; height: 16px; border-width: 3px; }
+    .tl-card { padding: 18px 16px; border-radius: 14px; }
+    .tl-card .tl-year { font-size: 1.05rem; }
+    .tl-card h4 { font-size: 0.92rem; }
+    .tl-card p { font-size: 0.78rem; }
+
+    .mv-grid { grid-template-columns: 1fr; gap: 20px; }
+    .mv-card { padding: 24px 20px; border-radius: 20px; }
+    .mv-card h3 { font-size: 1.15rem; }
+    .mv-card p { font-size: 0.82rem; }
+    .mv-list li { font-size: 0.78rem; }
+    .mv-card .mv-num { font-size: 3rem; top: 16px; right: 20px; }
+    .mv-card .mv-icon { width: 52px; height: 52px; font-size: 1.3rem; margin-bottom: 16px; }
+
+    .stat-block .stat-num { font-size: 1.85rem; }
+    .stat-block .stat-lbl { font-size: 0.65rem; }
+
+    .proc-step { grid-template-columns: 48px 1fr; gap: 13px; padding: 14px 0; }
+    .proc-num { width: 48px; height: 48px; font-size: 1.05rem; }
+    .proc-step h4 { font-size: 0.9rem; }
+    .proc-step p { font-size: 0.75rem; }
+
+    .bento { min-height: 160px; padding: 18px; }
+    .bento.b-plastic { min-height: 180px; }
+    .bento h4 { font-size: 1.05rem; }
+    .bento.b-plastic h4 { font-size: 1.25rem; }
+    .bento p { font-size: 0.72rem; }
+
+    .tm-ring, .tm-avatar { width: 90px; height: 90px; }
+    .tm-avatar { font-size: 1.5rem; border-width: 3px; }
+    .tm h4 { font-size: 0.78rem; }
+    .tm .tm-role { font-size: 0.55rem; }
+    .tm .tm-social a { width: 26px; height: 26px; font-size: 0.62rem; }
+
+    .about-cta h2 { font-size: 1.5rem; letter-spacing: -0.5px; }
+    .about-cta p { font-size: 0.85rem; }
+    .about-cta .cta-emoji { font-size: 2rem; }
+    .about-cta-btns { flex-direction: column; }
+    .about-cta-btns .abtn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- ==========================================================
+     SECTION 1 — HERO (LIGHT) with 3-photo collage
+     ========================================================== -->
+<section class="hero-about">
+  <div class="hero-about-inner">
+    <div class="hero-about-left" data-aos="fade-right" data-aos-duration="800">
+      <span class="hero-about-tag"><i class="fa-solid fa-recycle"></i> About Recycling Service</span>
+      <h1>Small bins. <em>Big change.</em> One city at a time.</h1>
+      <p>
+        We started with a simple belief: recycling shouldn't be complicated. Today, we help
+        thousands of households and businesses turn everyday waste into real, measurable impact
+        — with pickup at the door and processing that actually works.
+      </p>
+      <div class="hero-about-cta">
+        <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-play"></i> See How It Works</a>
+        <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-hands-holding-circle"></i> Join the Mission</a>
+      </div>
+      <div class="hero-about-trust">
+        <div class="trust-avatars">
+          <span>A</span><span>R</span><span>N</span><span>+</span>
+        </div>
+        <div class="trust-text">
+          <strong>12,000+ households</strong> already recycling with us
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-about-right" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
+      <div class="hero-photo-grid">
+        <div class="hp hp-main">
+          <img src="recycle5.webp" alt="Recycling team in action"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-hero-main/800/1000';" />
+          <span class="hp-badge"><i class="fa-solid fa-seedling"></i> Since 2019</span>
+        </div>
+        <div class="hp hp-sm">
+          <img src="recycle4.webp" alt="Green city"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-hero-2/600/600';" />
+        </div>
+        <div class="hp hp-sm">
+          <img src="recycle3.webp" alt="Sorted materials"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-hero-3/600/600';" />
+        </div>
+      </div>
+
+      <div class="floating-chip chip-top">
+        <i class="fa-solid fa-check"></i>
+        <div>
+          <div class="chip-num">1.2M kg</div>
+          <div class="chip-lbl">Recycled</div>
+        </div>
+      </div>
+      <div class="floating-chip chip-bot">
+        <i class="fa-solid fa-star"></i>
+        <div>
+          <div class="chip-num">4.9 / 5</div>
+          <div class="chip-lbl">User Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 2 — OUR STORY
+     ========================================================== -->
+<section class="story-section">
+  <div class="story-head" data-aos="fade-up">
+    <span class="eyebrow">Our Story</span>
+    <h2>From a small garage to a city-wide mission</h2>
+    <p>Every year we've grown — not just in numbers, but in the depth of our commitment to cleaner cities.</p>
+  </div>
+
+  <div class="timeline-v">
+    <div class="tl-item" data-aos="fade-right">
+      <div class="tl-card">
+        <div class="tl-year">2019 <span>·</span> The Spark</div>
+        <h4>Where it all began</h4>
+        <p>Three friends, one tiny pickup truck, and a frustration with how hard it was to recycle properly. We started collecting waste from 40 nearby homes.</p>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item" data-aos="fade-left">
+      <div class="tl-spacer"></div>
+      <div class="tl-card">
+        <div class="tl-year">2021 <span>·</span> Scaling Up</div>
+        <h4>From homes to neighborhoods</h4>
+        <p>We crossed 500 household signups across 3 cities and launched our first business recycling program for small offices and cafés.</p>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item" data-aos="fade-right">
+      <div class="tl-card">
+        <div class="tl-year">2023 <span>·</span> Going Digital</div>
+        <h4>Green Points & the app</h4>
+        <p>We launched the Recycling Service platform — real-time pickup tracking, Green Points rewards, and a dashboard for businesses to monitor their impact.</p>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item" data-aos="fade-left">
+      <div class="tl-spacer"></div>
+      <div class="tl-card">
+        <div class="tl-year">2026 <span>·</span> Today</div>
+        <h4>85 cities and growing</h4>
+        <p>Today we serve households and businesses across 85 cities, with a network of certified processing partners and a team that's as passionate as day one.</p>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 3 — MISSION & VISION
+     ========================================================== -->
+<section class="mv-section">
+  <div class="mv-head" data-aos="fade-up">
+    <h2>What drives us, every single day</h2>
+    <p>Two ideas that shape every pickup, every process, every decision we make.</p>
+  </div>
+
+  <div class="mv-grid">
+    <div class="mv-card mission" data-aos="fade-up">
+      <div class="mv-num">01</div>
+      <div class="mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+      <h3>Our Mission</h3>
+      <p>
+        Make responsible recycling effortless for every home and business — by combining
+        reliable doorstep pickup with transparent, verifiable processing.
+      </p>
+      <ul class="mv-list">
+        <li><i class="fa-solid fa-check"></i> Free doorstep pickup for every household</li>
+        <li><i class="fa-solid fa-check"></i> Certified processing with zero landfill diversion</li>
+        <li><i class="fa-solid fa-check"></i> Real-time tracking and Green Points rewards</li>
+        <li><i class="fa-solid fa-check"></i> Educational programs for schools and RWAs</li>
+      </ul>
+    </div>
+
+    <div class="mv-card vision" data-aos="fade-up" data-aos-delay="100">
+      <div class="mv-num">02</div>
+      <div class="mv-icon"><i class="fa-solid fa-earth-asia"></i></div>
+      <h3>Our Vision</h3>
+      <p>
+        A future where recycling is a natural habit — not a chore — and where every city
+        treats waste as a resource, not a problem.
+      </p>
+      <ul class="mv-list">
+        <li><i class="fa-solid fa-check"></i> Zero-waste cities powered by community recycling</li>
+        <li><i class="fa-solid fa-check"></i> A circular economy for plastics, paper, and metals</li>
+        <li><i class="fa-solid fa-check"></i> Every school teaching recycling from day one</li>
+        <li><i class="fa-solid fa-check"></i> Carbon-neutral logistics across our fleet</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 4 — IMPACT STATS (LIGHT BG)
+     ========================================================== -->
+<section class="stats-band">
+  <div class="stats-band-head" data-aos="fade-up">
+    <span class="eyebrow">Our Impact</span>
+    <h2>Numbers that <span>actually mean something</span></h2>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-block" data-aos="zoom-in">
+      <div class="stat-ico"><i class="fa-solid fa-house-chimney"></i></div>
+      <div class="stat-num" data-count="12000" data-suffix="+">0</div>
+      <div class="stat-lbl">Active Households</div>
+    </div>
+    <div class="stat-block" data-aos="zoom-in" data-aos-delay="100">
+      <div class="stat-ico"><i class="fa-solid fa-weight-hanging"></i></div>
+      <div class="stat-num" data-count="1200000" data-suffix=" kg" data-format="short">0</div>
+      <div class="stat-lbl">Waste Recycled</div>
+    </div>
+    <div class="stat-block" data-aos="zoom-in" data-aos-delay="200">
+      <div class="stat-ico"><i class="fa-solid fa-city"></i></div>
+      <div class="stat-num" data-count="85" data-suffix="+">0</div>
+      <div class="stat-lbl">Cities Served</div>
+    </div>
+    <div class="stat-block" data-aos="zoom-in" data-aos-delay="300">
+      <div class="stat-ico"><i class="fa-solid fa-face-smile"></i></div>
+      <div class="stat-num" data-count="98" data-suffix="%">0</div>
+      <div class="stat-lbl">Satisfaction Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 5 — PROCESS STEPS
+     ========================================================== -->
+<section class="process-section">
+  <div class="process-head" data-aos="fade-up">
+    <h2>How recycling works with us</h2>
+    <p>Five simple steps from your doorstep to a cleaner city — no effort required.</p>
+  </div>
+
+  <div class="process-track">
+    <div class="proc-step" data-aos="fade-up">
+      <div class="proc-num">1</div>
+      <div>
+        <h4>Sign Up</h4>
+        <p>Create your free account in under a minute — household or business.</p>
+      </div>
+    </div>
+    <div class="proc-step" data-aos="fade-up" data-aos-delay="100">
+      <div class="proc-num">2</div>
+      <div>
+        <h4>Schedule</h4>
+        <p>Pick a pickup day and time that fits your routine.</p>
+      </div>
+    </div>
+    <div class="proc-step" data-aos="fade-up" data-aos-delay="200">
+      <div class="proc-num">3</div>
+      <div>
+        <h4>We Collect</h4>
+        <p>Our team arrives at your door — on time, every time.</p>
+      </div>
+    </div>
+    <div class="proc-step" data-aos="fade-up" data-aos-delay="300">
+      <div class="proc-num">4</div>
+      <div>
+        <h4>Sort & Process</h4>
+        <p>Materials are sorted and sent to certified recycling partners.</p>
+      </div>
+    </div>
+    <div class="proc-step" data-aos="fade-up" data-aos-delay="400">
+      <div class="proc-num">5</div>
+      <div>
+        <h4>Earn Rewards</h4>
+        <p>Get Green Points for every kilogram — redeem for eco-perks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 6 — MATERIALS
+     ========================================================== -->
+<section class="bento-section">
+  <div class="bento-head" data-aos="fade-up">
+    <h2>What we recycle</h2>
+    <p>From everyday plastics to tricky e-waste — if it can be recycled, we handle it responsibly.</p>
+  </div>
+
+  <div class="bento-grid">
+    <div class="bento b-plastic" data-aos="fade-up">
+      <img src="recycle2.webp" alt="Plastics recycling" class="bento-bg"
+           onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-plastic/800/800';">
+      <div class="bento-overlay"></div>
+      <div class="bento-ico"><i class="fa-solid fa-recycle"></i></div>
+      <div class="bento-content">
+        <div class="bento-tag">Most Common</div>
+        <h4>Plastics</h4>
+        <p>PET bottles, HDPE containers, PP packaging, and more — sorted into 7 streams and sent to certified recyclers.</p>
+      </div>
+    </div>
+
+    <div class="bento b-paper" data-aos="fade-up" data-aos-delay="100">
+      <img src="recycle1.webp" alt="Paper recycling" class="bento-bg"
+           onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-paper/600/600';">
+      <div class="bento-overlay"></div>
+      <div class="bento-ico"><i class="fa-solid fa-copy"></i></div>
+      <div class="bento-content">
+        <div class="bento-tag">High Demand</div>
+        <h4>Paper & Cardboard</h4>
+      </div>
+    </div>
+
+    <div class="bento b-ewaste" data-aos="fade-up" data-aos-delay="150">
+      <img src="recycle7.webp" alt="E-waste recycling" class="bento-bg"
+           onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-ewaste/600/600';">
+      <div class="bento-overlay"></div>
+      <div class="bento-ico"><i class="fa-solid fa-plug"></i></div>
+      <div class="bento-content">
+        <div class="bento-tag">Certified</div>
+        <h4>E-Waste</h4>
+      </div>
+    </div>
+
+    <div class="bento b-metal" data-aos="fade-up" data-aos-delay="200">
+      <img src="recycle8.webp" alt="Metal recycling" class="bento-bg"
+           onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-metal/600/600';">
+      <div class="bento-overlay"></div>
+      <div class="bento-ico"><i class="fa-solid fa-cube"></i></div>
+      <div class="bento-content">
+        <div class="bento-tag">Valuable</div>
+        <h4>Metals</h4>
+      </div>
+    </div>
+
+    <div class="bento b-glass" data-aos="fade-up" data-aos-delay="250">
+      <img src="recycle9.webp" alt="Glass recycling" class="bento-bg"
+           onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-glass/600/600';">
+      <div class="bento-overlay"></div>
+      <div class="bento-ico"><i class="fa-solid fa-wine-bottle"></i></div>
+      <div class="bento-content">
+        <div class="bento-tag">Infinitely Recyclable</div>
+        <h4>Glass</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 7 — TEAM
+     ========================================================== -->
+<section class="team-section">
+  <div class="team-head" data-aos="fade-up">
+    <h2>The people behind the bins</h2>
+    <p>A small, stubbornly passionate team working to make recycling the easiest part of your week.</p>
+  </div>
+
+  <div class="team-row">
+    <div class="tm" data-aos="zoom-in">
+      <div class="tm-ring">
+        <div class="tm-avatar">
+          <img src="recycle10.webp" alt="Rakesh Kumar"
+               onerror="this.onerror=null; this.src='https://i.pravatar.cc/300?img=15';">
+        </div>
+      </div>
+      <h4>Rakesh Kumar</h4>
+      <div class="tm-role">Founder & CEO</div>
+      <div class="tm-social">
+        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="404.html" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="tm" data-aos="zoom-in" data-aos-delay="100">
+      <div class="tm-ring">
+        <div class="tm-avatar">
+          <img src="recycle11.webp" alt="Neha Sharma"
+               onerror="this.onerror=null; this.src='https://i.pravatar.cc/300?img=32';">
+        </div>
+      </div>
+      <h4>Neha Sharma</h4>
+      <div class="tm-role">Sustainability Lead</div>
+      <div class="tm-social">
+        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="404.html" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+
+    <div class="tm" data-aos="zoom-in" data-aos-delay="200">
+      <div class="tm-ring">
+        <div class="tm-avatar">
+          <img src="recycle1.webp" alt="Arun Patel"
+               onerror="this.onerror=null; this.src='https://i.pravatar.cc/300?img=52';">
+        </div>
+      </div>
+      <h4>Arun Patel</h4>
+      <div class="tm-role">Operations Head</div>
+      <div class="tm-social">
+        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="404.html" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="tm" data-aos="zoom-in" data-aos-delay="300">
+      <div class="tm-ring">
+        <div class="tm-avatar">
+          <img src="recycle2.webp" alt="Meera Joshi"
+               onerror="this.onerror=null; this.src='https://i.pravatar.cc/300?img=45';">
+        </div>
+      </div>
+      <h4>Meera Joshi</h4>
+      <div class="tm-role">Community Manager</div>
+      <div class="tm-social">
+        <a href="404.html" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <div class="tm" data-aos="zoom-in" data-aos-delay="400">
+      <div class="tm-ring">
+        <div class="tm-avatar">
+          <img src="recycle3.webp" alt="Suresh Verma"
+               onerror="this.onerror=null; this.src='https://i.pravatar.cc/300?img=68';">
+        </div>
+      </div>
+      <h4>Suresh Verma</h4>
+      <div class="tm-role">Logistics Head</div>
+      <div class="tm-social">
+        <a href="404.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="404.html" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 8 — CTA (LIGHTER BG)
+     ========================================================== -->
+<section class="about-cta">
+  <div class="about-cta-inner" data-aos="zoom-in" data-aos-duration="800">
+    <span class="cta-emoji">♻️</span>
+    <h2>Ready to make recycling a <span>daily habit</span>?</h2>
+    <p>
+      Join thousands of households and businesses who've made the switch. Sign up free,
+      schedule your first pickup, and start earning rewards for doing the right thing.
+    </p>
+    <div class="about-cta-btns">
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-calendar-check"></i> Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<!-- ==========================================================
+     SCRIPTS
+     ========================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  /* HEADER + FOOTER */
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('header.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Header not found'))
+      .then(d => { document.getElementById('header-placeholder').innerHTML = d; initHeader(); })
+      .catch(err => console.warn('Header not loaded:', err));
+
+    fetch('footer.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Footer not found'))
+      .then(d => { document.getElementById('footer-placeholder').innerHTML = d; initFooter(); })
+      .catch(err => console.warn('Footer not loaded:', err));
+  });
+
+  function initHeader() {
+    const h = document.getElementById('hamburgerBtn');
+    const m = document.getElementById('mobileMenu');
+    if (h && m) {
+      const toggle = () => {
+        h.classList.toggle('active'); m.classList.toggle('active');
+        document.body.style.overflow = m.classList.contains('active') ? 'hidden' : '';
+      };
+      const close = () => {
+        h.classList.remove('active'); m.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      h.addEventListener('click', toggle);
+      document.addEventListener('click', e => {
+        if (m.classList.contains('active') && !h.contains(e.target) && !m.contains(e.target)) close();
+      });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 768) close(); });
+      document.querySelectorAll('.mobile-nav-link, .mobile-action-link').forEach(l => l.addEventListener('click', close));
+    }
+  }
+
+  function initFooter() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
+    const email = document.getElementById('newsletterEmail');
+    const alert = document.getElementById('newsletterAlert');
+    const rx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const show = (m, t) => { alert.textContent = m; alert.classList.remove('error','success'); alert.classList.add('show', t); };
+    const clr = () => { alert.textContent=''; alert.classList.remove('show','error','success'); };
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = email.value.trim();
+      if (!v) { show('Please enter your email address.', 'error'); email.focus(); return; }
+      if (!rx.test(v)) { show('Please enter a valid email address.', 'error'); email.focus(); return; }
+      show('Subscribed successfully! Redirecting…', 'success');
+      email.value = '';
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+    email.addEventListener('input', () => { if (alert.classList.contains('show')) clr(); });
+  }
+
+  /* ANIMATED COUNTERS */
+  (function counters() {
+    const nums = document.querySelectorAll('.stat-num[data-count]');
+    if (!nums.length) return;
+
+    function formatShort(n) {
+      if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+      if (n >= 1000)    return (n / 1000).toFixed(0) + 'K';
+      return n.toString();
+    }
+
+    function animate(el) {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const isShort = el.dataset.format === 'short';
+      const dur = 1800;
+      const start = performance.now();
+
+      function step(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.floor(target * eased);
+        const display = isShort ? formatShort(val) : val.toLocaleString('en-IN');
+        el.innerHTML = display + '<span class="suffix">' + suffix + '</span>';
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.4 });
+
+    nums.forEach(n => obs.observe(n));
+  })();
+</script>
+
+</body>
+</html>

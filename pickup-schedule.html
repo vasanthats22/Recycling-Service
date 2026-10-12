@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Recycling Service - Pickup Schedule</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+  :root {
+    --rc-primary: #003D7A;
+    --rc-primary-d: #002B57;
+    --rc-accent: #4FC3F7;
+    --rc-accent-d: #29B6F6;
+    --rc-sky: #87CEEB;
+    --rc-light: #E8F4FD;
+    --rc-bg: #f0f8ff;
+    --rc-text: #003D7A;
+    --rc-text-soft: #4a6b7c;
+    --rc-border: rgba(0, 61, 122, 0.12);
+    --rc-shadow: rgba(0, 30, 60, 0.1);
+    --rc-green: #16a34a;
+    --rc-orange: #ea580c;
+    --rc-red: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body {
+    background: var(--rc-bg);
+    color: var(--rc-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 110px;
+  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #dbe9f6; }
+  ::-webkit-scrollbar-thumb { background: var(--rc-accent-d); border-radius: 6px; }
+  #header-placeholder, #footer-placeholder { width: 100%; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .sec-head {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 56px;
+  }
+  .sec-eyebrow {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--rc-accent-d);
+    margin-bottom: 14px;
+  }
+  .sec-head h2 {
+    font-size: 2.15rem;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    color: var(--rc-primary);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .sec-head p {
+    font-size: 0.95rem;
+    color: var(--rc-text-soft);
+    line-height: 1.75;
+  }
+  .abtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.85rem 1.75rem;
+    border-radius: 60px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .abtn-primary {
+    background: var(--rc-accent-d);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(41, 182, 246, 0.35);
+  }
+  .abtn-primary:hover { background: var(--rc-primary); transform: translateY(-3px); }
+  .abtn-outline {
+    background: transparent;
+    border-color: rgba(0, 61, 122, 0.35);
+    color: var(--rc-primary);
+  }
+  .abtn-outline:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); transform: translateY(-3px); }
+
+  /* ==========================================================
+     SECTION 1 — HERO
+     ========================================================== */
+  .hero-sched {
+    position: relative;
+    background: linear-gradient(135deg, #E8F4FD 0%, #f0f8ff 55%, #dbeeff 100%);
+    padding: 76px 0 96px;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 61, 122, 0.08);
+  }
+  .hero-sched::before {
+    content: '';
+    position: absolute;
+    top: -160px; right: -140px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.3), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-sched::after {
+    content: '';
+    position: absolute;
+    bottom: -160px; left: -120px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.3), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-sched-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid rgba(41, 182, 246, 0.35);
+    color: var(--rc-primary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 60px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 16px rgba(0, 61, 122, 0.06);
+  }
+  .hero-tag i { color: var(--rc-accent-d); }
+  .hero-sched h1 {
+    font-size: 2.9rem;
+    font-weight: 900;
+    letter-spacing: -1.4px;
+    line-height: 1.08;
+    color: var(--rc-primary);
+    margin-bottom: 18px;
+  }
+  .hero-sched h1 span {
+    color: var(--rc-accent-d);
+    position: relative;
+    white-space: nowrap;
+    background: linear-gradient(180deg, transparent 62%, rgba(79, 195, 247, 0.4) 62%);
+    padding: 0 4px;
+  }
+  .hero-sched p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--rc-text-soft);
+    max-width: 520px;
+    margin-bottom: 28px;
+  }
+
+  .quick-check {
+    display: flex;
+    gap: 0;
+    background: #fff;
+    border-radius: 60px;
+    padding: 6px;
+    box-shadow: 0 12px 34px rgba(0, 61, 122, 0.1);
+    border: 1px solid rgba(41, 182, 246, 0.2);
+    max-width: 480px;
+    margin-bottom: 10px;
+  }
+  .quick-check i.qc-icon {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 18px;
+    color: var(--rc-accent-d);
+    font-size: 0.95rem;
+  }
+  .quick-check input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    color: var(--rc-primary);
+    background: transparent;
+    font-family: inherit;
+    min-width: 0;
+  }
+  .quick-check input::placeholder { color: #9aabba; }
+  .quick-check button {
+    background: var(--rc-accent-d);
+    color: #fff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 60px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .quick-check button:hover { background: var(--rc-primary); }
+
+  .quick-check-alert {
+    min-height: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding-left: 20px;
+    color: transparent;
+    opacity: 0;
+    transition: color 0.25s ease, opacity 0.25s ease;
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .quick-check-alert.show { opacity: 1; }
+  .quick-check-alert.error { color: #c0392b; }
+  .quick-check-alert.success { color: var(--rc-accent-d); }
+
+  .hero-mini-stats {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+  .hms {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hms .dot {
+    width: 34px; height: 34px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #fff;
+  }
+  .hms:nth-child(1) .dot { background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-primary)); }
+  .hms:nth-child(2) .dot { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .hms:nth-child(3) .dot { background: linear-gradient(135deg, #ea580c, #c2410c); }
+  .hms .hms-text .hms-num { font-size: 0.95rem; font-weight: 900; color: var(--rc-primary); line-height: 1; }
+  .hms .hms-text .hms-lbl { font-size: 0.62rem; color: var(--rc-text-soft); font-weight: 700; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .sched-preview {
+    position: relative;
+    background: #fff;
+    border-radius: 24px;
+    padding: 26px;
+    box-shadow: 0 30px 60px rgba(0, 61, 122, 0.18);
+    border: 1px solid rgba(41, 182, 246, 0.2);
+    max-width: 440px;
+    margin: 0 auto;
+    width: 100%;
+    animation: floatSlow 6s ease-in-out infinite;
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  .sp-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed rgba(0, 61, 122, 0.12);
+  }
+  .sp-head h4 { font-size: 1rem; font-weight: 800; color: var(--rc-primary); }
+  .sp-head span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(22, 163, 74, 0.15);
+    color: var(--rc-green);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .sp-row:last-of-type { border-bottom: none; }
+  .sp-row .sp-ico {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .sp-row:nth-child(2) .sp-ico { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .sp-row:nth-child(3) .sp-ico { background: linear-gradient(135deg, #4CAF50, #2e7d32); }
+  .sp-row:nth-child(4) .sp-ico { background: linear-gradient(135deg, #9C27B0, #6a1b9a); }
+  .sp-row .sp-body { flex: 1; min-width: 0; }
+  .sp-row .sp-title { font-size: 0.85rem; font-weight: 800; color: var(--rc-primary); }
+  .sp-row .sp-meta { font-size: 0.68rem; color: var(--rc-text-soft); margin-top: 2px; }
+  .sp-row .sp-status {
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex-shrink: 0;
+  }
+  .sp-row .sp-status.ok { background: rgba(22, 163, 74, 0.14); color: var(--rc-green); }
+  .sp-row .sp-status.warn { background: rgba(234, 88, 12, 0.14); color: var(--rc-orange); }
+
+  .sp-footer {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #003D7A, #002B57);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .sp-footer .spf-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.75; }
+  .sp-footer .spf-value { font-size: 0.95rem; font-weight: 900; margin-top: 3px; }
+  .sp-footer .spf-btn {
+    background: var(--rc-accent);
+    color: var(--rc-primary-d);
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 8px 14px;
+    border-radius: 30px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ==========================================================
+     SECTION 2 — TODAY'S TIME SLOTS (functional buttons)
+     ========================================================== */
+  .slots-section { background: #fff; padding: 90px 0 80px; }
+  .slots-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .slots-head-left h3 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.6px;
+    margin-bottom: 4px;
+  }
+  .slots-head-left p { font-size: 0.85rem; color: var(--rc-text-soft); }
+  .slots-head .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--rc-bg);
+    border: 1px solid var(--rc-border);
+    border-radius: 60px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rc-primary);
+  }
+  .slots-head .date-badge i { color: var(--rc-accent-d); }
+
+  /* Click hint */
+  .slots-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: var(--rc-text-soft);
+    font-weight: 600;
+    margin-bottom: 18px;
+    background: rgba(41, 182, 246, 0.08);
+    border: 1px dashed rgba(41, 182, 246, 0.4);
+    border-radius: 20px;
+    padding: 7px 14px;
+  }
+  .slots-hint i { color: var(--rc-accent-d); }
+
+  .slots-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+  }
+  .slot {
+    border: 1.5px solid var(--rc-border);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    background: #fff;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+    color: var(--rc-primary);
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+  .slot:hover:not(:disabled) {
+    transform: translateY(-4px);
+    border-color: var(--rc-accent-d);
+    box-shadow: 0 12px 30px rgba(41, 182, 246, 0.15);
+  }
+  .slot::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--slot-color, var(--rc-accent-d));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .slot:hover:not(:disabled)::before { transform: scaleX(1); }
+  .slot:focus-visible {
+    outline: 3px solid rgba(41, 182, 246, 0.4);
+    outline-offset: 3px;
+  }
+  .slot .slot-time { font-size: 1.15rem; font-weight: 900; color: var(--rc-primary); margin-bottom: 4px; letter-spacing: -0.3px; }
+  .slot .slot-lbl { font-size: 0.68rem; color: var(--rc-text-soft); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+  .slot .slot-state {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .slot.available { --slot-color: var(--rc-green); }
+  .slot.available .slot-state { background: rgba(22, 163, 74, 0.14); color: var(--rc-green); }
+  .slot.limited { --slot-color: var(--rc-orange); }
+  .slot.limited .slot-state { background: rgba(234, 88, 12, 0.14); color: var(--rc-orange); }
+  .slot.full { --slot-color: var(--rc-red); opacity: 0.55; cursor: not-allowed; }
+  .slot.full .slot-state { background: rgba(220, 38, 38, 0.14); color: var(--rc-red); }
+  .slot.full:hover { transform: none; box-shadow: none; }
+
+  /* Selected state when clicked from today's strip */
+  .slot.selected-slot {
+    background: rgba(41, 182, 246, 0.08);
+    border-color: var(--rc-accent-d);
+    box-shadow: 0 0 0 3px rgba(41, 182, 246, 0.2);
+  }
+
+  /* ==========================================================
+     SECTION 3 — SERVICE ZONES
+     ========================================================== */
+  .zones-section {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .zone-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px 24px 22px;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 8px 22px rgba(0, 30, 60, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .zone-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 16px 40px rgba(41, 182, 246, 0.18);
+  }
+  .zone-card .zc-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .zone-card .zc-badge {
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .zone-card.green .zc-badge { background: rgba(22, 163, 74, 0.14); color: var(--rc-green); }
+  .zone-card.orange .zc-badge { background: rgba(234, 88, 12, 0.14); color: var(--rc-orange); }
+  .zone-card.blue .zc-badge { background: rgba(41, 182, 246, 0.16); color: var(--rc-primary); }
+  .zone-card .zc-ico {
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .zone-card:nth-child(3n+1) .zc-ico { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .zone-card:nth-child(3n+2) .zc-ico { background: linear-gradient(135deg, #4CAF50, #2e7d32); }
+  .zone-card:nth-child(3n+3) .zc-ico { background: linear-gradient(135deg, #FFC107, #b07400); color: #003D7A; }
+  .zone-card h4 { font-size: 1.05rem; font-weight: 800; color: var(--rc-primary); margin-bottom: 6px; }
+  .zone-card p { font-size: 0.82rem; color: var(--rc-text-soft); line-height: 1.6; margin-bottom: 14px; }
+  .zone-card .zc-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.72rem;
+    color: var(--rc-text-soft);
+    font-weight: 600;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0, 61, 122, 0.1);
+  }
+  .zone-card .zc-meta span i { color: var(--rc-accent-d); margin-right: 4px; }
+
+  /* ==========================================================
+     SECTION 4 — BOOKING FORM
+     ========================================================== */
+  .booking-section { background: #fff; padding: 100px 0; }
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 34px;
+    align-items: start;
+  }
+  .booking-form-card {
+    background: linear-gradient(180deg, #f5faff 0%, #ffffff 100%);
+    border-radius: 24px;
+    padding: 38px 34px;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 14px 40px rgba(0, 30, 60, 0.08);
+  }
+  .booking-form-card h3 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+  }
+  .booking-form-card .bf-intro {
+    font-size: 0.85rem;
+    color: var(--rc-text-soft);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .bf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .bf-group { position: relative; }
+  .bf-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    margin-bottom: 7px;
+    letter-spacing: 0.2px;
+  }
+  .bf-group label .req { color: #c0392b; }
+  .bf-group input,
+  .bf-group select,
+  .bf-group textarea {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    border: 1.5px solid #cddff0;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    background: #fff;
+    color: var(--rc-primary);
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+  .bf-group textarea { padding: 12px 14px; resize: vertical; min-height: 90px; line-height: 1.6; }
+  .bf-group select { appearance: none; -webkit-appearance: none; cursor: pointer;
+    /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2329B6F6' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); */
+    background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.4rem;
+  }
+  .bf-group input:focus, .bf-group select:focus, .bf-group textarea:focus {
+    border-color: var(--rc-accent-d);
+    box-shadow: 0 0 0 4px rgba(41, 182, 246, 0.15);
+  }
+  .bf-group input.error, .bf-group select.error, .bf-group textarea.error {
+    border-color: #c0392b;
+    background: #fef7f7;
+  }
+  .bf-group .bf-ico {
+    position: absolute;
+    left: 14px;
+    top: 40px;
+    color: var(--rc-accent-d);
+    font-size: 0.85rem;
+    pointer-events: none;
+    width: 16px;
+    text-align: center;
+  }
+  .bf-err {
+    display: none;
+    color: #c0392b;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 5px;
+    padding-left: 4px;
+  }
+  .bf-err.show { display: block; }
+
+  .bf-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .bf-slot {
+    border: 1.5px solid #cddff0;
+    border-radius: 10px;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--rc-primary);
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .bf-slot:hover { border-color: var(--rc-accent-d); }
+  .bf-slot:focus-visible { outline: 3px solid rgba(41, 182, 246, 0.4); outline-offset: 2px; }
+  .bf-slot.selected {
+    background: var(--rc-accent-d);
+    border-color: var(--rc-accent-d);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(41, 182, 246, 0.3);
+  }
+
+  .bf-alert {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .bf-alert.show { display: block; }
+  .bf-alert.success { background: #edf7ee; color: #1f5a2e; border-left: 4px solid #4caf50; }
+  .bf-alert.error { background: #fdecea; color: #a02622; border-left: 4px solid #c0392b; }
+
+  .bf-submit {
+    width: 100%;
+    padding: 15px 22px;
+    background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-accent));
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 10px 26px rgba(41, 182, 246, 0.35);
+    transition: all 0.3s;
+    margin-top: 6px;
+  }
+  .bf-submit:hover { transform: translateY(-3px); box-shadow: 0 16px 34px rgba(41, 182, 246, 0.5); }
+  .bf-submit:disabled { opacity: 0.85; cursor: wait; transform: none; }
+
+  .booking-side {
+    background: linear-gradient(155deg, #003D7A 0%, #002B57 100%);
+    border-radius: 24px;
+    padding: 34px 30px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .booking-side::before {
+    content: '';
+    position: absolute;
+    top: -70px; right: -70px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(79, 195, 247, 0.2);
+  }
+  .booking-side::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(135, 206, 235, 0.15);
+  }
+  .bs-content { position: relative; z-index: 2; }
+  .bs-content h4 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+  .bs-content > p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(232, 244, 253, 0.85);
+    margin-bottom: 24px;
+  }
+  .bs-list { list-style: none; }
+  .bs-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: rgba(232, 244, 253, 0.95);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .bs-list li i {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(79, 195, 247, 0.2);
+    color: var(--rc-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .bs-badge {
+    position: relative;
+    z-index: 2;
+    margin-top: 26px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(79, 195, 247, 0.35);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .bs-badge i { color: var(--rc-accent); font-size: 1.2rem; }
+  .bs-badge .bb-text .bb-num { font-size: 1.05rem; font-weight: 900; }
+  .bs-badge .bb-text .bb-lbl { font-size: 0.62rem; opacity: 0.8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+  /* ==========================================================
+     SECTION 5 — WEEKLY CALENDAR
+     ========================================================== */
+  .weekly-section { background: var(--rc-bg); padding: 100px 0; }
+  .weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .day-card {
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 16px;
+    padding: 18px 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-width: 0;
+  }
+  .day-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 12px 30px rgba(41, 182, 246, 0.15);
+  }
+  .day-card .day-name {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--rc-text-soft);
+    margin-bottom: 8px;
+  }
+  .day-card .day-num {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    line-height: 1;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .day-card .day-pill {
+    font-size: 0.58rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .day-card.active-today {
+    background: linear-gradient(135deg, #003D7A, #002B57);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 14px 34px rgba(0, 61, 122, 0.3);
+  }
+  .day-card.active-today .day-name { color: rgba(232, 244, 253, 0.85); }
+  .day-card.active-today .day-num { color: #fff; }
+  .day-card.active-today .day-pill { background: var(--rc-accent); color: var(--rc-primary-d); }
+  .day-card.available .day-pill { background: rgba(22, 163, 74, 0.14); color: var(--rc-green); }
+  .day-card.limited .day-pill { background: rgba(234, 88, 12, 0.14); color: var(--rc-orange); }
+  .day-card.full .day-pill { background: rgba(220, 38, 38, 0.14); color: var(--rc-red); }
+
+  /* ==========================================================
+     SECTION 6 — PICKUP TYPES
+     ========================================================== */
+  .types-section { background: #fff; padding: 100px 0; }
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+  }
+  .type-card {
+    background: var(--rc-bg);
+    border: 1px solid var(--rc-border);
+    border-radius: 18px;
+    padding: 28px 22px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .type-card:hover {
+    background: #fff;
+    transform: translateY(-6px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 16px 40px rgba(41, 182, 246, 0.15);
+  }
+  .type-card .tc-ico {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: #fff;
+    margin-bottom: 18px;
+    transition: transform 0.4s ease;
+  }
+  .type-card:hover .tc-ico { transform: scale(1.08) rotate(-5deg); }
+  .type-card:nth-child(1) .tc-ico { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .type-card:nth-child(2) .tc-ico { background: linear-gradient(135deg, #4CAF50, #2e7d32); }
+  .type-card:nth-child(3) .tc-ico { background: linear-gradient(135deg, #FFC107, #b07400); color: #003D7A; }
+  .type-card:nth-child(4) .tc-ico { background: linear-gradient(135deg, #9C27B0, #6a1b9a); }
+  .type-card:nth-child(5) .tc-ico { background: linear-gradient(135deg, #607D8B, #37474f); }
+  .type-card:nth-child(6) .tc-ico { background: linear-gradient(135deg, #26C6DA, #00695c); }
+  .type-card h4 { font-size: 1rem; font-weight: 800; color: var(--rc-primary); margin-bottom: 6px; }
+  .type-card p { font-size: 0.82rem; color: var(--rc-text-soft); line-height: 1.6; margin-bottom: 14px; }
+  .type-card .tc-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(0, 61, 122, 0.1);
+    font-size: 0.72rem;
+  }
+  .type-card .tc-foot .tc-tag {
+    font-weight: 800;
+    color: var(--rc-accent-d);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-size: 0.65rem;
+  }
+  .type-card .tc-foot a {
+    color: var(--rc-primary);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .type-card .tc-foot a:hover { color: var(--rc-accent-d); }
+
+  /* ==========================================================
+     SECTION 7 — PREFERENCES (toggles only)
+     ========================================================== */
+  .rem-section {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .rem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .rem-card {
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 18px;
+    padding: 24px 22px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+  }
+  .rem-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 12px 30px rgba(41, 182, 246, 0.12);
+  }
+  .rem-card .rc-ico {
+    width: 46px; height: 46px;
+    border-radius: 13px;
+    background: rgba(41, 182, 246, 0.15);
+    color: var(--rc-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+  .rem-card .rc-body { flex: 1; min-width: 0; }
+  .rem-card h4 { font-size: 0.9rem; font-weight: 800; color: var(--rc-primary); margin-bottom: 4px; }
+  .rem-card p { font-size: 0.78rem; color: var(--rc-text-soft); line-height: 1.6; margin-bottom: 12px; }
+
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #cddff0;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    height: 20px; width: 20px;
+    left: 3px; top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 30, 60, 0.2);
+  }
+  .toggle input:checked + .toggle-slider { background: var(--rc-accent-d); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+  .toggle input:focus-visible + .toggle-slider { box-shadow: 0 0 0 4px rgba(41, 182, 246, 0.3); }
+
+  /* ==========================================================
+     SECTION 8 — CTA (LIGHT BG)
+     ========================================================== */
+  .sched-cta {
+    background: #f0f8ff;
+    padding: 100px 32px 110px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .sched-cta::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%;
+    transform: translateX(-50%);
+    width: 520px; height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .sched-cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .sched-cta h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    color: var(--rc-primary);
+  }
+  .sched-cta h2 span { color: var(--rc-accent-d); }
+  .sched-cta p {
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 32px;
+    color: var(--rc-text-soft);
+  }
+  .sched-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .sched-cta .abtn-primary {
+    background: var(--rc-accent-d);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(41, 182, 246, 0.35);
+  }
+  .sched-cta .abtn-primary:hover { background: var(--rc-primary); color: #fff; transform: translateY(-3px); }
+  .sched-cta .abtn-outline {
+    background: transparent;
+    border-color: rgba(0, 61, 122, 0.35);
+    color: var(--rc-primary);
+  }
+  .sched-cta .abtn-outline:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1100px) {
+    .hero-sched-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-sched-grid .hero-left { text-align: center; }
+    .hero-sched h1 { font-size: 2.4rem; }
+    .hero-sched p { margin-left: auto; margin-right: auto; }
+    .quick-check { margin-left: auto; margin-right: auto; }
+    .quick-check-alert { text-align: center; padding-left: 0; }
+    .hero-mini-stats { justify-content: center; }
+    .sched-preview { max-width: 480px; }
+    .booking-grid { grid-template-columns: 1fr; }
+    .weekly-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 768px) {
+    body { padding-top: 90px; }
+    .section-inner { padding: 0 20px; }
+    .hero-sched { padding: 55px 0 70px; }
+    .hero-sched h1 { font-size: 2rem; letter-spacing: -0.9px; }
+    .hero-sched p { font-size: 0.94rem; }
+    .quick-check { border-radius: 16px; flex-wrap: wrap; padding: 10px; gap: 8px; }
+    .quick-check i.qc-icon { padding-left: 6px; }
+    .quick-check input { width: 100%; padding: 8px 6px; }
+    .quick-check button { width: 100%; justify-content: center; }
+    .quick-check-alert { padding-left: 0; text-align: center; margin-bottom: 16px; }
+    .hero-mini-stats { gap: 16px; }
+    .sched-preview { padding: 20px; border-radius: 20px; }
+    .sp-row .sp-title { font-size: 0.8rem; }
+    .sp-row .sp-meta { font-size: 0.62rem; }
+    .sp-footer { padding: 12px 14px; }
+    .sp-footer .spf-value { font-size: 0.85rem; }
+
+    .slots-section, .zones-section, .booking-section, .weekly-section,
+    .types-section, .rem-section, .sched-cta { padding: 68px 0; }
+    .sched-cta { padding-left: 20px; padding-right: 20px; }
+    .sec-head { margin-bottom: 40px; }
+    .sec-head h2 { font-size: 1.6rem; }
+    .slots-head { margin-bottom: 16px; }
+    .slots-head-left h3 { font-size: 1.25rem; }
+    .slots-strip { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .slot { padding: 16px 12px; }
+    .slot .slot-time { font-size: 1rem; }
+    .slot .slot-lbl { font-size: 0.62rem; }
+
+    .zones-grid { grid-template-columns: 1fr; }
+
+    .booking-form-card { padding: 26px 22px; border-radius: 20px; }
+    .booking-side { padding: 26px 22px; border-radius: 20px; min-height: 300px; }
+    .bf-row { grid-template-columns: 1fr; gap: 14px; }
+
+    .weekly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .day-card { padding: 14px 10px; }
+    .day-card .day-num { font-size: 1.3rem; }
+
+    .types-grid { grid-template-columns: 1fr; gap: 16px; }
+    .type-card { padding: 22px 20px; }
+
+    .rem-grid { grid-template-columns: 1fr; gap: 14px; }
+    .rem-card { padding: 20px 18px; }
+
+    .sched-cta h2 { font-size: 1.9rem; }
+    .sched-cta p { font-size: 0.92rem; }
+  }
+
+  @media (max-width: 480px) {
+    body { padding-top: 80px; }
+    .section-inner { padding: 0 16px; }
+    .hero-sched { padding: 40px 0 60px; }
+    .hero-sched h1 { font-size: 1.7rem; letter-spacing: -0.6px; }
+    .hero-sched p { font-size: 0.88rem; }
+    .hero-mini-stats { flex-wrap: wrap; gap: 12px; }
+    .hms .dot { width: 30px; height: 30px; font-size: 0.75rem; }
+    .hms .hms-text .hms-num { font-size: 0.85rem; }
+    .hms .hms-text .hms-lbl { font-size: 0.55rem; }
+
+    .sched-preview { padding: 16px; border-radius: 18px; }
+    .sp-head { margin-bottom: 14px; padding-bottom: 12px; }
+    .sp-head h4 { font-size: 0.9rem; }
+    .sp-row { padding: 10px 0; gap: 10px; }
+    .sp-row .sp-ico { width: 34px; height: 34px; font-size: 0.78rem; border-radius: 10px; }
+    .sp-row .sp-status { font-size: 0.55rem; padding: 3px 8px; }
+
+    .sec-head h2 { font-size: 1.4rem; }
+    .sec-head p { font-size: 0.85rem; }
+
+    .slots-head-left h3 { font-size: 1.1rem; }
+    .slots-strip { grid-template-columns: 1fr; }
+
+    .booking-form-card { padding: 22px 18px; }
+    .booking-form-card h3 { font-size: 1.2rem; }
+    .bf-slots { grid-template-columns: repeat(2, 1fr); }
+
+    .weekly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .day-card { padding: 12px 8px; }
+    .day-card .day-num { font-size: 1.15rem; }
+    .day-card .day-pill { font-size: 0.5rem; padding: 3px 6px; }
+
+    .type-card { padding: 20px 16px; }
+    .type-card .tc-ico { width: 48px; height: 48px; font-size: 1.15rem; margin-bottom: 14px; }
+
+    .rem-card { padding: 16px 16px; }
+    .rem-card .rc-ico { width: 40px; height: 40px; font-size: 0.9rem; }
+
+    .sched-cta { padding: 65px 16px 75px; }
+    .sched-cta h2 { font-size: 1.5rem; }
+    .sched-cta p { font-size: 0.88rem; }
+    .sched-cta-btns { flex-direction: column; }
+    .sched-cta-btns .abtn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- ==========================================================
+     SECTION 1 — HERO
+     ========================================================== -->
+<section class="hero-sched">
+  <div class="section-inner hero-sched-grid">
+    <div class="hero-left" data-aos="fade-right" data-aos-duration="800">
+      <span class="hero-tag"><i class="fa-solid fa-calendar-check"></i> Pickup Schedule</span>
+      <h1>Book your pickup in <span>under 60 seconds</span></h1>
+      <p>
+        Choose a day, pick a slot, and we'll be at your door — no calls, no waiting, no guesswork.
+        Same-day pickups available in most zones before 11 AM.
+      </p>
+
+      <form class="quick-check" id="quickCheckForm" novalidate>
+        <i class="fa-solid fa-location-dot qc-icon"></i>
+        <input type="text" id="quickCheckInput" placeholder="Enter your pincode or area" aria-label="Pincode or area" />
+        <button type="submit">Check Availability</button>
+      </form>
+      <p class="quick-check-alert" id="quickCheckAlert" role="alert" aria-live="polite"></p>
+
+      <div class="hero-mini-stats">
+        <div class="hms">
+          <span class="dot"><i class="fa-solid fa-bolt"></i></span>
+          <div class="hms-text">
+            <div class="hms-num">Same-day</div>
+            <div class="hms-lbl">Available</div>
+          </div>
+        </div>
+        <div class="hms">
+          <span class="dot"><i class="fa-solid fa-clock"></i></span>
+          <div class="hms-text">
+            <div class="hms-num">6 slots</div>
+            <div class="hms-lbl">Daily</div>
+          </div>
+        </div>
+        <div class="hms">
+          <span class="dot"><i class="fa-solid fa-shield-halved"></i></span>
+          <div class="hms-text">
+            <div class="hms-num">100% Free</div>
+            <div class="hms-lbl">For households</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
+      <div class="sched-preview">
+        <div class="sp-head">
+          <h4>Upcoming Pickups</h4>
+          <span>Live</span>
+        </div>
+
+        <div class="sp-row">
+          <span class="sp-ico"><i class="fa-solid fa-recycle"></i></span>
+          <div class="sp-body">
+            <div class="sp-title">Plastic & Paper</div>
+            <div class="sp-meta">Today · 9:00 – 11:00 AM</div>
+          </div>
+          <span class="sp-status ok">Confirmed</span>
+        </div>
+
+        <div class="sp-row">
+          <span class="sp-ico"><i class="fa-solid fa-plug"></i></span>
+          <div class="sp-body">
+            <div class="sp-title">E-Waste Special</div>
+            <div class="sp-meta">Oct 15 · 2:00 – 4:00 PM</div>
+          </div>
+          <span class="sp-status warn">Pending</span>
+        </div>
+
+        <div class="sp-row">
+          <span class="sp-ico"><i class="fa-solid fa-leaf"></i></span>
+          <div class="sp-body">
+            <div class="sp-title">Organic Waste</div>
+            <div class="sp-meta">Oct 18 · 7:00 – 9:00 AM</div>
+          </div>
+          <span class="sp-status ok">Confirmed</span>
+        </div>
+
+        <div class="sp-footer">
+          <div>
+            <div class="spf-label">Next pickup in</div>
+            <div class="spf-value">2h 15m</div>
+          </div>
+          <a href="404.html" class="spf-btn">Book New →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 2 — TODAY'S TIME SLOTS (functional buttons)
+     ========================================================== -->
+<section class="slots-section">
+  <div class="section-inner">
+    <div class="slots-head" data-aos="fade-up">
+      <div class="slots-head-left">
+        <h3>Today's available slots</h3>
+        <p>Pick a time that fits your day — booking confirmed instantly.</p>
+      </div>
+      <div class="date-badge">
+        <i class="fa-regular fa-calendar"></i>
+        <span id="todayLabel">Today</span>
+      </div>
+    </div>
+
+    <div class="slots-hint" data-aos="fade-up">
+      <i class="fa-solid fa-hand-pointer"></i>
+      Click a slot below to auto-fill it in the booking form
+    </div>
+
+    <div class="slots-strip" data-aos="fade-up">
+      <button type="button" class="slot available" data-slot="7:00 AM">
+        <div class="slot-time">7:00 AM</div>
+        <div class="slot-lbl">Early Morning</div>
+        <span class="slot-state"><i class="fa-solid fa-check"></i> Available</span>
+      </button>
+      <button type="button" class="slot available" data-slot="9:00 AM">
+        <div class="slot-time">9:00 AM</div>
+        <div class="slot-lbl">Morning</div>
+        <span class="slot-state"><i class="fa-solid fa-check"></i> Available</span>
+      </button>
+      <button type="button" class="slot limited" data-slot="11:00 AM">
+        <div class="slot-time">11:00 AM</div>
+        <div class="slot-lbl">Mid Morning</div>
+        <span class="slot-state"><i class="fa-solid fa-triangle-exclamation"></i> 2 left</span>
+      </button>
+      <button type="button" class="slot full" disabled>
+        <div class="slot-time">1:00 PM</div>
+        <div class="slot-lbl">Afternoon</div>
+        <span class="slot-state"><i class="fa-solid fa-xmark"></i> Full</span>
+      </button>
+      <button type="button" class="slot available" data-slot="3:00 PM">
+        <div class="slot-time">3:00 PM</div>
+        <div class="slot-lbl">Afternoon</div>
+        <span class="slot-state"><i class="fa-solid fa-check"></i> Available</span>
+      </button>
+      <button type="button" class="slot available" data-slot="5:00 PM">
+        <div class="slot-time">5:00 PM</div>
+        <div class="slot-lbl">Evening</div>
+        <span class="slot-state"><i class="fa-solid fa-check"></i> Available</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 3 — SERVICE ZONES
+     ========================================================== -->
+<section class="zones-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Coverage</span>
+      <h2>We serve 85+ cities — check your zone</h2>
+      <p>Same-day availability varies by zone. If you don't see your area, we're probably launching there soon.</p>
+    </div>
+
+    <div class="zones-grid">
+      <div class="zone-card green" data-aos="fade-up">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-city"></i></div>
+          <span class="zc-badge">Same-day</span>
+        </div>
+        <h4>Central District</h4>
+        <p>Full coverage with 6 daily slots including early morning and evening pickups.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 7AM – 7PM</span>
+          <span><i class="fa-solid fa-truck"></i> 12 trucks</span>
+        </div>
+      </div>
+
+      <div class="zone-card green" data-aos="fade-up" data-aos-delay="80">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-building"></i></div>
+          <span class="zc-badge">Same-day</span>
+        </div>
+        <h4>North Zone</h4>
+        <p>High-density residential pickup with dedicated trucks for plastics and organic waste.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 7AM – 6PM</span>
+          <span><i class="fa-solid fa-truck"></i> 8 trucks</span>
+        </div>
+      </div>
+
+      <div class="zone-card orange" data-aos="fade-up" data-aos-delay="160">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-tree-city"></i></div>
+          <span class="zc-badge">Next-day</span>
+        </div>
+        <h4>West Suburbs</h4>
+        <p>Wider service radius with next-day availability. Bulk pickups on weekends only.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 8AM – 5PM</span>
+          <span><i class="fa-solid fa-truck"></i> 4 trucks</span>
+        </div>
+      </div>
+
+      <div class="zone-card green" data-aos="fade-up" data-aos-delay="80">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-industry"></i></div>
+          <span class="zc-badge">Same-day</span>
+        </div>
+        <h4>Industrial Corridor</h4>
+        <p>Commercial-grade pickups for warehouses and factories. Bulk collection available 7 days.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 6AM – 8PM</span>
+          <span><i class="fa-solid fa-truck"></i> 15 trucks</span>
+        </div>
+      </div>
+
+      <div class="zone-card blue" data-aos="fade-up" data-aos-delay="160">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-umbrella-beach"></i></div>
+          <span class="zc-badge">Scheduled</span>
+        </div>
+        <h4>South Lake Area</h4>
+        <p>Weekly pickup cycles — 3 days a week with fixed morning routes.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 7AM – 11AM</span>
+          <span><i class="fa-solid fa-truck"></i> 3 trucks</span>
+        </div>
+      </div>
+
+      <div class="zone-card orange" data-aos="fade-up" data-aos-delay="240">
+        <div class="zc-top">
+          <div class="zc-ico"><i class="fa-solid fa-house"></i></div>
+          <span class="zc-badge">Next-day</span>
+        </div>
+        <h4>East Villages</h4>
+        <p>Rural service with next-day pickups. E-waste accepted on Wednesdays only.</p>
+        <div class="zc-meta">
+          <span><i class="fa-solid fa-clock"></i> 9AM – 4PM</span>
+          <span><i class="fa-solid fa-truck"></i> 2 trucks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 4 — BOOKING FORM
+     ========================================================== -->
+<section class="booking-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Book Now</span>
+      <h2>Schedule your next pickup</h2>
+      <p>Fill in the details, pick a slot, and we'll confirm your pickup within seconds.</p>
+    </div>
+
+    <div class="booking-grid">
+      <div class="booking-form-card" data-aos="fade-right">
+        <h3>Pickup Details</h3>
+        <p class="bf-intro">Fields marked with <strong style="color:#c0392b;">*</strong> are required. You can reschedule up to 2 hours before pickup.</p>
+
+        <div class="bf-alert" id="bfAlert" role="alert" aria-live="polite"></div>
+
+        <form id="bookingForm" novalidate>
+          <div class="bf-row">
+            <div class="bf-group">
+              <label for="bfName">Full Name <span class="req">*</span></label>
+              <i class="fa-solid fa-user bf-ico"></i>
+              <input type="text" id="bfName" placeholder="Your name" />
+              <span class="bf-err" id="bfNameErr">Please enter your name.</span>
+            </div>
+            <div class="bf-group">
+              <label for="bfPhone">Phone <span class="req">*</span></label>
+              <i class="fa-solid fa-phone bf-ico"></i>
+              <input type="tel" id="bfPhone" placeholder="10-digit mobile" inputmode="numeric" maxlength="10" />
+              <span class="bf-err" id="bfPhoneErr">Please enter a 10-digit phone.</span>
+            </div>
+          </div>
+
+          <div class="bf-row">
+            <div class="bf-group">
+              <label for="bfDate">Pickup Date <span class="req">*</span></label>
+              <i class="fa-regular fa-calendar bf-ico"></i>
+              <input type="date" id="bfDate" />
+              <span class="bf-err" id="bfDateErr">Please pick a date.</span>
+            </div>
+            <div class="bf-group">
+              <label for="bfType">Pickup Type <span class="req">*</span></label>
+              <i class="fa-solid fa-recycle bf-ico"></i>
+              <select id="bfType">
+                <option value="">Select type</option>
+                <option value="household">Household Mixed</option>
+                <option value="plastic">Plastic & Paper</option>
+                <option value="ewaste">E-Waste</option>
+                <option value="bulk">Bulk Pickup</option>
+                <option value="organic">Organic Waste</option>
+              </select>
+              <span class="bf-err" id="bfTypeErr">Please select a pickup type.</span>
+            </div>
+          </div>
+
+          <div class="bf-group" style="margin-bottom:16px;">
+            <label>Time Slot <span class="req">*</span></label>
+            <div class="bf-slots" id="bfSlots">
+              <button type="button" class="bf-slot" data-slot="7:00 AM">7:00 AM</button>
+              <button type="button" class="bf-slot" data-slot="9:00 AM">9:00 AM</button>
+              <button type="button" class="bf-slot" data-slot="11:00 AM">11:00 AM</button>
+              <button type="button" class="bf-slot" data-slot="1:00 PM">1:00 PM</button>
+              <button type="button" class="bf-slot" data-slot="3:00 PM">3:00 PM</button>
+              <button type="button" class="bf-slot" data-slot="5:00 PM">5:00 PM</button>
+            </div>
+            <span class="bf-err" id="bfSlotErr">Please choose a time slot.</span>
+          </div>
+
+          <div class="bf-group ta" style="margin-bottom:16px;">
+            <label for="bfNotes">Notes (Optional)</label>
+            <textarea id="bfNotes" placeholder="e.g. gate code, special items, approximate quantity..."></textarea>
+          </div>
+
+          <button type="submit" class="bf-submit" id="bfSubmit">
+            <i class="fa-solid fa-calendar-check"></i> Confirm Pickup
+          </button>
+        </form>
+      </div>
+
+      <aside class="booking-side" data-aos="fade-left">
+        <div class="bs-content">
+          <h4>Why book with us</h4>
+          <p>Every pickup is tracked, every kilogram counted, and every action rewarded. Here's what you get:</p>
+          <ul class="bs-list">
+            <li><i class="fa-solid fa-check"></i> Confirmation within 30 seconds</li>
+            <li><i class="fa-solid fa-check"></i> Real-time truck tracking in the app</li>
+            <li><i class="fa-solid fa-check"></i> SMS + email reminders before arrival</li>
+            <li><i class="fa-solid fa-check"></i> Reschedule up to 2 hours before</li>
+            <li><i class="fa-solid fa-check"></i> Green Points for every kg recycled</li>
+          </ul>
+        </div>
+        <div class="bs-badge">
+          <i class="fa-solid fa-headset"></i>
+          <div class="bb-text">
+            <div class="bb-num">24/7 support</div>
+            <div class="bb-lbl">Need help? Call anytime</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 5 — WEEKLY CALENDAR
+     ========================================================== -->
+<section class="weekly-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">This Week</span>
+      <h2>Plan ahead with a glance</h2>
+      <p>See what's already scheduled and what's still open. Slots update in real time.</p>
+    </div>
+
+    <div class="weekly-grid">
+      <div class="day-card active-today" data-aos="zoom-in">
+        <div class="day-name">Mon</div>
+        <div class="day-num">07</div>
+        <span class="day-pill">Today</span>
+      </div>
+      <div class="day-card available" data-aos="zoom-in" data-aos-delay="50">
+        <div class="day-name">Tue</div>
+        <div class="day-num">08</div>
+        <span class="day-pill">Open</span>
+      </div>
+      <div class="day-card limited" data-aos="zoom-in" data-aos-delay="100">
+        <div class="day-name">Wed</div>
+        <div class="day-num">09</div>
+        <span class="day-pill">2 Slots</span>
+      </div>
+      <div class="day-card available" data-aos="zoom-in" data-aos-delay="150">
+        <div class="day-name">Thu</div>
+        <div class="day-num">10</div>
+        <span class="day-pill">Open</span>
+      </div>
+      <div class="day-card full" data-aos="zoom-in" data-aos-delay="200">
+        <div class="day-name">Fri</div>
+        <div class="day-num">11</div>
+        <span class="day-pill">Full</span>
+      </div>
+      <div class="day-card available" data-aos="zoom-in" data-aos-delay="250">
+        <div class="day-name">Sat</div>
+        <div class="day-num">12</div>
+        <span class="day-pill">Open</span>
+      </div>
+      <div class="day-card limited" data-aos="zoom-in" data-aos-delay="300">
+        <div class="day-name">Sun</div>
+        <div class="day-num">13</div>
+        <span class="day-pill">Limited</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 6 — PICKUP TYPES
+     ========================================================== -->
+<section class="types-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Pickup Types</span>
+      <h2>What kind of pickup do you need?</h2>
+      <p>Choose from 6 pickup types — each with its own schedule, priority, and handling.</p>
+    </div>
+
+    <div class="types-grid">
+      <div class="type-card" data-aos="fade-up">
+        <div class="tc-ico"><i class="fa-solid fa-house-chimney"></i></div>
+        <h4>Household Mixed</h4>
+        <p>Daily household waste including paper, plastics, and small metals.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Free · Daily</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="type-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="tc-ico"><i class="fa-solid fa-recycle"></i></div>
+        <h4>Plastic & Paper</h4>
+        <p>Bulk collection of dry recyclables — segregated at your door.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Free · Mon/Wed/Fri</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="type-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="tc-ico"><i class="fa-solid fa-plug"></i></div>
+        <h4>E-Waste</h4>
+        <p>Certified disposal of electronics with data destruction certificate.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Certified · Weekly</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="type-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="tc-ico"><i class="fa-solid fa-truck-ramp-box"></i></div>
+        <h4>Bulk Pickup</h4>
+        <p>For moving, renovation, or commercial-scale cleanouts. Up to 500 kg.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Paid · On demand</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="type-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="tc-ico"><i class="fa-solid fa-seedling"></i></div>
+        <h4>Organic Waste</h4>
+        <p>Compost-ready food scraps and garden waste, collected early morning.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Free · Tue/Thu/Sat</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="type-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="tc-ico"><i class="fa-solid fa-building"></i></div>
+        <h4>Commercial</h4>
+        <p>Custom schedules for offices, cafés, and warehouses with dedicated trucks.</p>
+        <div class="tc-foot">
+          <span class="tc-tag">Custom · 7 days</span>
+          <a href="404.html">Book <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 7 — PREFERENCES (toggles only)
+     ========================================================== -->
+<section class="rem-section">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Preferences</span>
+      <h2>Never miss a pickup again</h2>
+      <p>Choose how and when you want to be reminded. You can change these anytime in your dashboard.</p>
+    </div>
+
+    <div class="rem-grid">
+      <div class="rem-card" data-aos="fade-up">
+        <div class="rc-ico"><i class="fa-solid fa-sms"></i></div>
+        <div class="rc-body">
+          <h4>SMS Reminders</h4>
+          <p>Get a text 1 hour before the truck arrives.</p>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rem-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="rc-ico"><i class="fa-solid fa-envelope"></i></div>
+        <div class="rc-body">
+          <h4>Email Notifications</h4>
+          <p>Weekly summary of scheduled and completed pickups.</p>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rem-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="rc-ico"><i class="fa-solid fa-bell"></i></div>
+        <div class="rc-body">
+          <h4>Push Notifications</h4>
+          <p>Real-time updates on truck location and status.</p>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rem-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="rc-ico"><i class="fa-solid fa-calendar-day"></i></div>
+        <div class="rc-body">
+          <h4>Auto-Reschedule</h4>
+          <p>Automatically rebook missed pickups to the next slot.</p>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rem-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="rc-ico"><i class="fa-solid fa-star"></i></div>
+        <div class="rc-body">
+          <h4>Reward Alerts</h4>
+          <p>Get notified when you earn Green Points or unlock rewards.</p>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="rem-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="rc-ico"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="rc-body">
+          <h4>Impact Reports</h4>
+          <p>Monthly email with your recycling and CO₂ impact.</p>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SECTION 8 — CTA (LIGHT BG)
+     ========================================================== -->
+<section class="sched-cta">
+  <div class="sched-cta-inner" data-aos="zoom-in" data-aos-duration="800">
+    <h2>Ready for your <span>next pickup</span>?</h2>
+    <p>
+      Book your first pickup in under 60 seconds. Household pickups are always free,
+      and you'll earn Green Points from day one.
+    </p>
+    <div class="sched-cta-btns">
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-calendar-plus"></i> Book a Pickup</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-map-location-dot"></i> View Coverage Map</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<!-- ==========================================================
+     SCRIPTS
+     ========================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  /* HEADER + FOOTER */
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('header.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Header not found'))
+      .then(d => { document.getElementById('header-placeholder').innerHTML = d; initHeader(); })
+      .catch(err => console.warn('Header not loaded:', err));
+
+    fetch('footer.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Footer not found'))
+      .then(d => { document.getElementById('footer-placeholder').innerHTML = d; initFooter(); })
+      .catch(err => console.warn('Footer not loaded:', err));
+
+    setTodayLabel();
+    setMinDate();
+    initQuickCheck();
+    initBookingForm();
+  });
+
+  function setTodayLabel() {
+    const el = document.getElementById('todayLabel');
+    if (!el) return;
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const t = new Date();
+    el.textContent = 'Today · ' + t.getDate() + ' ' + months[t.getMonth()] + ' ' + t.getFullYear();
+  }
+
+  function setMinDate() {
+    const el = document.getElementById('bfDate');
+    if (!el) return;
+    const t = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    el.min = t.getFullYear() + '-' + pad(t.getMonth() + 1) + '-' + pad(t.getDate());
+  }
+
+  function initHeader() {
+    const h = document.getElementById('hamburgerBtn');
+    const m = document.getElementById('mobileMenu');
+    if (h && m) {
+      const toggle = () => {
+        h.classList.toggle('active'); m.classList.toggle('active');
+        document.body.style.overflow = m.classList.contains('active') ? 'hidden' : '';
+      };
+      const close = () => {
+        h.classList.remove('active'); m.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      h.addEventListener('click', toggle);
+      document.addEventListener('click', e => {
+        if (m.classList.contains('active') && !h.contains(e.target) && !m.contains(e.target)) close();
+      });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 768) close(); });
+      document.querySelectorAll('.mobile-nav-link, .mobile-action-link').forEach(l => l.addEventListener('click', close));
+    }
+  }
+
+  function initFooter() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
+    const email = document.getElementById('newsletterEmail');
+    const alert = document.getElementById('newsletterAlert');
+    const rx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const show = (m, t) => { alert.textContent = m; alert.classList.remove('error','success'); alert.classList.add('show', t); };
+    const clr = () => { alert.textContent=''; alert.classList.remove('show','error','success'); };
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = email.value.trim();
+      if (!v) { show('Please enter your email address.', 'error'); email.focus(); return; }
+      if (!rx.test(v)) { show('Please enter a valid email address.', 'error'); email.focus(); return; }
+      show('Subscribed successfully! Redirecting…', 'success');
+      email.value = '';
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+    email.addEventListener('input', () => { if (alert.classList.contains('show')) clr(); });
+  }
+
+  /* ============ HERO QUICK-CHECK ============ */
+  function initQuickCheck() {
+    const form = document.getElementById('quickCheckForm');
+    if (!form) return;
+    const input = document.getElementById('quickCheckInput');
+    const alert = document.getElementById('quickCheckAlert');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const val = input.value.trim();
+
+      if (val === '') {
+        alert.textContent = 'Please enter your pincode or area.';
+        alert.classList.remove('success');
+        alert.classList.add('show', 'error');
+        input.focus();
+        return;
+      }
+
+      alert.textContent = 'Checking availability in "' + val + '"…';
+      alert.classList.remove('error');
+      alert.classList.add('show', 'success');
+
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+
+    input.addEventListener('input', function () {
+      if (alert.classList.contains('show')) {
+        alert.classList.remove('show', 'error', 'success');
+      }
+    });
+  }
+
+  /* ============ BOOKING FORM ============ */
+  function initBookingForm() {
+    const form = document.getElementById('bookingForm');
+    if (!form) return;
+
+    const nameEl = document.getElementById('bfName');
+    const phoneEl = document.getElementById('bfPhone');
+    const dateEl = document.getElementById('bfDate');
+    const typeEl = document.getElementById('bfType');
+    const slotsWrap = document.getElementById('bfSlots');
+    const alertBox = document.getElementById('bfAlert');
+    const submitBtn = document.getElementById('bfSubmit');
+
+    const errName = document.getElementById('bfNameErr');
+    const errPhone = document.getElementById('bfPhoneErr');
+    const errDate = document.getElementById('bfDateErr');
+    const errType = document.getElementById('bfTypeErr');
+    const errSlot = document.getElementById('bfSlotErr');
+
+    let selectedSlot = '';
+
+    /* NAME: letters + spaces only */
+    nameEl.addEventListener('keydown', e => {
+      const ctrl = ['Backspace','Delete','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Tab','Home','End','Enter'];
+      if (ctrl.includes(e.key) || e.ctrlKey || e.metaKey) return;
+      if (!/^[A-Za-z\s]$/.test(e.key)) e.preventDefault();
+    });
+    nameEl.addEventListener('input', () => {
+      nameEl.value = nameEl.value.replace(/[^A-Za-z\s]/g, '');
+      errName.classList.remove('show');
+      clearGlobal();
+    });
+
+    /* PHONE: exactly 10 digits */
+    phoneEl.addEventListener('keydown', e => {
+      const ctrl = ['Backspace','Delete','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Tab','Home','End','Enter'];
+      if (ctrl.includes(e.key) || e.ctrlKey || e.metaKey) return;
+      if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+      if (phoneEl.value.length >= 10) e.preventDefault();
+    });
+    phoneEl.addEventListener('input', () => {
+      phoneEl.value = phoneEl.value.replace(/[^0-9]/g, '').slice(0, 10);
+      errPhone.classList.remove('show');
+      clearGlobal();
+    });
+
+    dateEl.addEventListener('change', () => { errDate.classList.remove('show'); clearGlobal(); });
+    typeEl.addEventListener('change', () => { errType.classList.remove('show'); clearGlobal(); });
+
+    /* Slot chips inside the booking form */
+    slotsWrap.querySelectorAll('.bf-slot').forEach(s => {
+      s.addEventListener('click', () => {
+        slotsWrap.querySelectorAll('.bf-slot').forEach(x => x.classList.remove('selected'));
+        s.classList.add('selected');
+        selectedSlot = s.dataset.slot;
+        errSlot.classList.remove('show');
+        clearGlobal();
+        syncTodaySlotsHighlight();
+      });
+    });
+
+    /* ============================================================
+       CLICKABLE "TODAY'S SLOTS" (Section 2) →
+       Pre-selects the slot in the form + smooth scrolls down.
+       ============================================================ */
+    document.querySelectorAll('.slots-strip .slot[data-slot]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled || btn.classList.contains('full')) return;
+        const slotVal = btn.dataset.slot;
+
+        // 1. Mark it selected in the booking form
+        slotsWrap.querySelectorAll('.bf-slot').forEach(x => {
+          x.classList.toggle('selected', x.dataset.slot === slotVal);
+        });
+        selectedSlot = slotVal;
+        errSlot.classList.remove('show');
+        clearGlobal();
+
+        // 2. Highlight the clicked today-slot
+        document.querySelectorAll('.slots-strip .slot').forEach(s => s.classList.remove('selected-slot'));
+        btn.classList.add('selected-slot');
+
+        // 3. Smooth-scroll to the booking form
+        const target = document.getElementById('bookingForm');
+        if (target) {
+          const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+
+    function syncTodaySlotsHighlight() {
+      document.querySelectorAll('.slots-strip .slot[data-slot]').forEach(s => {
+        s.classList.toggle('selected-slot', s.dataset.slot === selectedSlot);
+      });
+    }
+
+    function clearGlobal() {
+      alertBox.classList.remove('show', 'success', 'error');
+      alertBox.innerHTML = '';
+    }
+    function showGlobal(msg, type) {
+      alertBox.className = 'bf-alert show ' + type;
+      alertBox.innerHTML = (type === 'success'
+        ? '<i class="fa-solid fa-circle-check"></i> '
+        : '<i class="fa-solid fa-circle-exclamation"></i> ') + msg;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      clearGlobal();
+      let ok = true;
+
+      const nameVal = nameEl.value.trim();
+      if (nameVal.length < 2 || !/^[A-Za-z\s]+$/.test(nameVal)) { errName.classList.add('show'); ok = false; }
+
+      const phoneVal = phoneEl.value.trim();
+      if (!/^[0-9]{10}$/.test(phoneVal)) { errPhone.classList.add('show'); ok = false; }
+
+      if (!dateEl.value) { errDate.classList.add('show'); ok = false; }
+      if (!typeEl.value) { errType.classList.add('show'); ok = false; }
+      if (!selectedSlot) { errSlot.classList.add('show'); ok = false; }
+
+      if (!ok) {
+        showGlobal('Please fill all required fields correctly.', 'error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Booking…';
+      showGlobal('Pickup confirmed for <strong>' + dateEl.value + ' · ' + selectedSlot + '</strong>. Redirecting…', 'success');
+
+      setTimeout(() => { window.location.href = '404.html'; }, 1000);
+    });
+  }
+</script>
+
+</body>
+</html>

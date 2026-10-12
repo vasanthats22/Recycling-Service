@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Recycling Service - Business Dashboard</title>
+
+<!-- ============================================================
+     AUTH GUARD — runs synchronously BEFORE body renders.
+     ✅ authenticated = true · expiresAt > now · role = business
+     ❌ invalid → redirect to login.html
+     ============================================================ -->
+<script>
+(function guardBusinessDashboard() {
+  let raw = null;
+  try {
+    raw = sessionStorage.getItem('recycling_session') || localStorage.getItem('recycling_session');
+  } catch (e) { console.warn('[AUTH] Storage blocked:', e); }
+
+  const session = raw ? JSON.parse(raw) : null;
+  const isValid = session &&
+                  session.authenticated === true &&
+                  typeof session.expiresAt === 'number' &&
+                  session.expiresAt > Date.now() &&
+                  session.role === 'business';
+
+  if (!isValid) {
+    try {
+      sessionStorage.removeItem('recycling_session');
+      localStorage.removeItem('recycling_session');
+    } catch (_) {}
+    window.location.replace('login.html');
+    return;
+  }
+  window.__RECYCLING_USER__ = session;
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { max-width: 100vw; overflow-x: hidden !important; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f0f8ff;
+    height: 100vh;
+    overflow: hidden;
+    color: #003D7A;
+    font-size: 14px;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #f0f8ff; }
+  ::-webkit-scrollbar-thumb { background: #29B6F6; border-radius: 10px; }
+
+  /* ===== APP SHELL ===== */
+  .app { display: flex; height: 100vh; width: 100%; overflow: hidden; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #003D7A 0%, #002B57 100%);
+    display: flex;
+    flex-direction: column;
+    border-right: 3px solid #4FC3F7;
+    box-shadow: 4px 0 24px rgba(0, 30, 60, 0.18);
+    overflow: hidden;
+    z-index: 20;
+  }
+  .sidebar-logo {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-bottom: 1px solid rgba(135, 206, 235, 0.2);
+    flex-shrink: 0;
+  }
+  .sidebar-logo img { height: 46px; width: auto; object-fit: contain; display: block; }
+  .sidebar-nav {
+    flex: 1;
+    padding: 14px 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sidebar-nav::-webkit-scrollbar { width: 3px; }
+  .sidebar-nav::-webkit-scrollbar-thumb { background: #4FC3F7; border-radius: 10px; }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: #E8F4FD;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+  }
+  .nav-link i { width: 18px; font-size: 0.85rem; color: #87CEEB; text-align: center; transition: 0.25s; }
+  .nav-link:hover { background: rgba(79, 195, 247, 0.16); color: #ffffff; border-left-color: #4FC3F7; }
+  .nav-link:hover i { color: #4FC3F7; }
+  .nav-link.active {
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    color: #003D7A;
+    border-left-color: #4FC3F7;
+    box-shadow: 0 4px 14px rgba(41, 182, 246, 0.5);
+  }
+  .nav-link.active i { color: #003D7A; }
+
+  .nav-divider { height: 1px; background: rgba(135, 206, 235, 0.22); margin: 10px 4px; }
+
+  .nav-link.logout { color: #fca5a5; }
+  .nav-link.logout i { color: #fca5a5; }
+  .nav-link.logout:hover { background: rgba(239, 68, 68, 0.12); color: #fee2e2; }
+
+  .sidebar-footer { padding: 16px; flex-shrink: 0; }
+  .user-badge {
+    background: #002B57;
+    border: 1px solid rgba(79, 195, 247, 0.3);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .user-badge .icon-circle {
+    width: 30px; height: 30px;
+    background: rgba(79, 195, 247, 0.25);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #4FC3F7;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+  .user-badge .role { font-size: 0.68rem; font-weight: 700; color: #ffffff; }
+  .user-badge .name { font-size: 0.62rem; color: #87CEEB; margin: 2px 0 8px; word-break: break-word; }
+  .user-badge .status {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #003D7A;
+    border: 1px solid rgba(79, 195, 247, 0.4);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #4ade80;
+  }
+  .user-badge .status::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+  }
+  .sidebar-copy { text-align: center; font-size: 0.55rem; color: rgba(135, 206, 235, 0.7); margin-top: 10px; }
+
+  /* ===== MAIN WRAPPER ===== */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .main-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e2eef8;
+    padding: 0 24px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .mobile-logo { display: none; }
+  .mobile-logo img { height: 42px; width: auto; }
+  .header-title h1 {
+    font-size: 1.15rem; font-weight: 800; color: #003D7A;
+    letter-spacing: -0.3px; line-height: 1.2;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .header-title p {
+    font-size: 0.72rem; color: #4a6b7c; margin-top: 2px; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .header-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+  .date-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: #f0f8ff; border: 1px solid #e2eef8;
+    border-radius: 10px; padding: 7px 12px;
+    font-size: 0.72rem; font-weight: 600; color: #003D7A;
+    cursor: pointer; transition: 0.2s;
+  }
+  .date-pill:hover { background: #e8f4fd; }
+  .date-pill i { color: #29B6F6; }
+
+  .bell-btn {
+    position: relative; cursor: pointer; color: #003D7A;
+    font-size: 1.1rem; transition: 0.2s;
+    background: transparent; border: none; padding: 4px;
+  }
+  .bell-btn:hover { color: #29B6F6; }
+  .bell-badge {
+    position: absolute; top: -2px; right: -4px;
+    background: #4FC3F7; color: #003D7A;
+    font-size: 0.55rem; font-weight: 800;
+    width: 16px; height: 16px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; border: 2px solid #fff;
+  }
+
+  .user-block { display: flex; align-items: center; gap: 12px; padding-left: 16px; border-left: 1px solid #e2eef8; }
+  .user-text { text-align: right; }
+  .user-text .name { font-size: 0.75rem; font-weight: 800; color: #003D7A; }
+  .user-text .role { font-size: 0.58rem; color: #4a6b7c; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px; }
+  .user-avatar {
+    position: relative; width: 36px; height: 36px;
+    background: #29B6F6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 0.75rem;
+    cursor: pointer; transition: 0.25s;
+  }
+  .user-avatar:hover { background: #4FC3F7; }
+
+  .profile-menu {
+    display: none; position: absolute;
+    top: calc(100% + 8px); right: 0;
+    background: #fff; border: 1px solid #e2eef8;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 30, 60, 0.18);
+    width: 170px; padding: 6px 0; z-index: 9999;
+  }
+  .profile-menu.show { display: block; }
+  .profile-menu a {
+    display: block; padding: 9px 16px;
+    font-size: 0.78rem; color: #374151;
+    text-decoration: none; transition: 0.2s; font-weight: 500;
+  }
+  .profile-menu a i { color: #29B6F6; margin-right: 8px; width: 14px; }
+  .profile-menu a:hover { background: #f0f8ff; color: #003D7A; }
+  .profile-menu hr { border: none; border-top: 1px solid #e2eef8; margin: 4px 0; }
+  .profile-menu a.danger { color: #dc2626; }
+  .profile-menu a.danger i { color: #dc2626; }
+  .profile-menu a.danger:hover { background: #fef2f2; }
+
+  .notif-dropdown {
+    display: none; position: absolute;
+    top: calc(100% + 10px); right: 0;
+    background: #fff; border-radius: 14px;
+    border: 1px solid #e2eef8; border-top: 3px solid #4FC3F7;
+    box-shadow: 0 20px 60px rgba(0, 30, 60, 0.25);
+    width: 340px; max-width: calc(100vw - 32px);
+    padding: 6px 0; max-height: 420px; overflow-y: auto;
+    z-index: 9999;
+  }
+  .notif-dropdown.show { display: block; }
+  .notif-head {
+    padding: 12px 18px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #e2eef8;
+    position: sticky; top: 0; background: #fff;
+    font-weight: 800; font-size: 0.85rem; color: #003D7A;
+  }
+  .notif-head .badge {
+    background: #4FC3F7; color: #003D7A;
+    font-size: 0.6rem; font-weight: 800;
+    padding: 2px 8px; border-radius: 20px;
+  }
+  .notif-item { padding: 12px 18px; display: flex; gap: 12px; border-bottom: 1px solid #f0f8ff; }
+  .notif-item:last-of-type { border-bottom: none; }
+  .notif-item .ni-icon {
+    width: 38px; height: 38px; flex-shrink: 0;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+  }
+  .notif-item .ni-body { flex: 1; min-width: 0; }
+  .notif-item .ni-title { font-size: 0.78rem; font-weight: 700; color: #003D7A; }
+  .notif-item .ni-desc { font-size: 0.7rem; color: #4a6b7c; margin-top: 2px; word-wrap: break-word; }
+  .notif-item .ni-time { font-size: 0.6rem; color: #9aabba; margin-top: 3px; }
+  .notif-footer {
+    display: block; padding: 11px; text-align: center;
+    font-size: 0.72rem; color: #29B6F6; font-weight: 700;
+    text-decoration: none; border-top: 1px solid #e2eef8;
+    position: sticky; bottom: 0; background: #fff;
+  }
+  .notif-footer:hover { background: #f0f8ff; color: #003D7A; }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-nav {
+    display: none;
+    background: linear-gradient(180deg, #003D7A 0%, #002B57 100%);
+    border-bottom: 3px solid #4FC3F7;
+    padding: 10px 14px;
+    overflow-x: auto; overflow-y: hidden;
+    white-space: nowrap; gap: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+  .mobile-nav::-webkit-scrollbar { display: none; }
+  .mobile-nav .nav-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; border: none;
+    padding: 8px 16px; font-size: 0.75rem; font-weight: 600;
+    color: #E8F4FD; border-radius: 30px;
+    cursor: pointer; transition: 0.25s;
+    font-family: inherit; text-decoration: none; flex-shrink: 0;
+  }
+  .mobile-nav .nav-btn i { color: #4FC3F7; font-size: 0.8rem; }
+  .mobile-nav .nav-btn:hover { background: rgba(79, 195, 247, 0.16); color: #fff; }
+  .mobile-nav .nav-btn.active {
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    color: #003D7A;
+    box-shadow: 0 4px 15px rgba(41, 182, 246, 0.5);
+  }
+  .mobile-nav .nav-btn.active i { color: #003D7A; }
+  .mobile-nav .nav-btn.logout { color: #fca5a5; }
+  .mobile-nav .nav-btn.logout i { color: #fca5a5; }
+
+  /* ============================================================
+     DASHBOARD BODY — Modern Card Grid (redesigned)
+     ============================================================ */
+  .dash-body {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px;
+    background: #f0f8ff;
+  }
+  .page-title-block { display: none; }
+  .page-title-block h1 { font-size: 1.05rem; font-weight: 800; color: #003D7A; }
+  .page-title-block p { font-size: 0.72rem; color: #4a6b7c; margin-top: 2px; }
+
+  .content-section { display: none; }
+  .content-section.active { display: block; }
+
+  /* ===== CARD (modern) ===== */
+  .card {
+    background: #fff;
+    border: 1px solid rgba(0, 61, 122, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0, 30, 60, 0.06);
+    padding: 22px;
+    transition: 0.3s ease;
+    min-width: 0;
+    position: relative;
+  }
+  .card:hover {
+    box-shadow: 0 12px 32px rgba(41, 182, 246, 0.14);
+    border-color: rgba(41, 182, 246, 0.25);
+    transform: translateY(-2px);
+  }
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #003D7A;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    letter-spacing: -0.2px;
+  }
+  .card-title i { color: #29B6F6; font-size: 1rem; }
+  .card-title .head-right {
+    margin-left: auto;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #29B6F6;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .card-title .head-right:hover { color: #003D7A; text-decoration: underline; }
+  .card-title .head-pill {
+    margin-left: auto;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #4a6b7c;
+    background: #eaf2fa;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  /* ===== GRID LAYOUTS ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: start;
+  }
+  .right-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* ===== STAT CARD (redesigned) ===== */
+  .stat-card {
+    background: #fff;
+    border: 1px solid rgba(0, 61, 122, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0, 30, 60, 0.06);
+    padding: 20px 22px;
+    transition: 0.3s ease;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card:hover {
+    box-shadow: 0 12px 32px rgba(41, 182, 246, 0.16);
+    border-color: rgba(41, 182, 246, 0.25);
+    transform: translateY(-3px);
+  }
+  .stat-card .stat-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+  .stat-card .stat-label {
+    font-size: 0.65rem;
+    color: #4a6b7c;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stat-card .stat-value {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #003D7A;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .stat-card .stat-value small {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a6b7c;
+    margin-left: 3px;
+  }
+  .stat-card .trend-badge {
+    position: absolute;
+    top: 20px; right: 22px;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #16a34a;
+    background: #dcfce7;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .stat-card .trend-badge.soft {
+    color: #4a6b7c;
+    background: #eaf2fa;
+  }
+
+  /* ===== CHART ===== */
+  .chart-wrap { height: 150px; width: 100%; }
+
+  /* ===== PICKUP ITEMS ===== */
+  .pickup-item {
+    background: #f0f8ff;
+    border: 1px solid #eaf2fa;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    transition: 0.25s;
+  }
+  .pickup-item:last-child { margin-bottom: 0; }
+  .pickup-item:hover {
+    background: #fff;
+    border-color: rgba(41, 182, 246, 0.3);
+    box-shadow: 0 4px 14px rgba(41, 182, 246, 0.1);
+  }
+  .pickup-item .pi-body { min-width: 0; flex: 1; }
+  .pickup-item .pi-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #003D7A;
+    margin-bottom: 4px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .pickup-item .pi-meta { font-size: 0.7rem; color: #4a6b7c; margin-bottom: 3px; }
+  .pickup-item .pi-date { font-size: 0.66rem; color: #9aabba; font-weight: 500; }
+
+  /* Status pills */
+  .pill {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .pill.delivered { background: #dcfce7; color: #166534; }
+  .pill.transit   { background: #dbeafe; color: #1e40af; }
+  .pill.scheduled { background: #fef3c7; color: #92400e; }
+  .pill.progress  { background: #e0f2fe; color: #003D7A; }
+  .pill.urgent    { background: #fee2e2; color: #991b1b; }
+
+  /* ===== PROGRESS BAR ===== */
+  .prog-bg {
+    background: #eaf2fa;
+    height: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .prog-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #4FC3F7, #29B6F6);
+    transition: width 0.8s ease;
+  }
+  .goal-text {
+    font-size: 0.78rem;
+    color: #4a6b7c;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .goal-text strong { color: #003D7A; font-weight: 800; }
+  .goal-hint {
+    font-size: 0.72rem;
+    color: #4a6b7c;
+    line-height: 1.5;
+  }
+  .goal-hint strong { color: #003D7A; }
+
+  /* ===== QUICK ACTIONS (row on desktop) ===== */
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .quick-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 10px;
+    border-radius: 14px;
+    background: #f0f8ff;
+    border: 1px solid #e2eef8;
+    color: #003D7A;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s ease;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .quick-btn i {
+    color: #29B6F6;
+    font-size: 1.15rem;
+    transition: 0.3s;
+  }
+  .quick-btn span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .quick-btn:hover {
+    background: linear-gradient(135deg, #003D7A, #002B57);
+    color: #ffffff;
+    border-color: #003D7A;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 61, 122, 0.28);
+  }
+  .quick-btn:hover i { color: #4FC3F7; }
+
+  /* ===== TABLE ===== */
+  .table-wrap { overflow-x: auto; }
+  table.activity { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  table.activity th {
+    text-align: left; padding: 10px 12px;
+    font-size: 0.62rem; font-weight: 700; color: #4a6b7c;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 1px solid #eaf2fa;
+    white-space: nowrap;
+  }
+  table.activity td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f5faff;
+    color: #374151;
+  }
+  table.activity tr:hover td { background: #f8fcff; }
+  table.activity tr:last-child td { border-bottom: none; }
+  table.activity td.strong { font-weight: 700; color: #003D7A; }
+  table.activity td.pts { font-weight: 800; color: #16a34a; }
+
+  .mat-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px;
+    font-size: 0.62rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .mat-plastic { background: rgba(41, 182, 246, 0.18); color: #003D7A; }
+  .mat-paper   { background: rgba(255, 193, 7, 0.2);  color: #8a6d00; }
+  .mat-ewaste  { background: rgba(156, 39, 176, 0.14); color: #6a1b9a; }
+  .mat-organic { background: rgba(76, 175, 80, 0.16);  color: #2e7d32; }
+  .mat-metal   { background: rgba(96, 125, 139, 0.18); color: #37474f; }
+
+  /* ===== OTHER SECTIONS ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+  .info-box {
+    background: #f0f8ff;
+    border: 1px solid #eaf2fa;
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .info-box h4 { font-size: 0.85rem; font-weight: 800; color: #003D7A; margin-bottom: 14px; }
+  .info-box .row {
+    display: flex; justify-content: space-between;
+    font-size: 0.74rem; color: #4a6b7c;
+    padding: 7px 0;
+    border-bottom: 1px dashed #eaf2fa;
+  }
+  .info-box .row:last-child { border-bottom: none; }
+  .info-box .row strong { color: #003D7A; font-weight: 800; }
+
+  .mat-bar-row { margin-bottom: 12px; }
+  .mat-bar-row:last-child { margin-bottom: 0; }
+  .mat-bar-head {
+    display: flex; justify-content: space-between;
+    font-size: 0.7rem; color: #4a6b7c; font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .team-card {
+    background: #f0f8ff;
+    border: 1px solid #eaf2fa;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: 0.25s;
+  }
+  .team-card:hover {
+    background: #fff;
+    border-color: rgba(41, 182, 246, 0.3);
+    box-shadow: 0 6px 18px rgba(41, 182, 246, 0.1);
+  }
+  .team-card .avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .team-card .t-info { min-width: 0; }
+  .team-card .t-name { font-size: 0.82rem; font-weight: 800; color: #003D7A; }
+  .team-card .t-role { font-size: 0.7rem; color: #4a6b7c; margin-top: 2px; }
+  .team-card .t-status {
+    font-size: 0.6rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    margin-top: 6px; display: inline-block;
+  }
+
+  .invoice-item {
+    background: #f0f8ff;
+    border: 1px solid #eaf2fa;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    transition: 0.25s;
+  }
+  .invoice-item:last-child { margin-bottom: 0; }
+  .invoice-item:hover {
+    background: #fff;
+    border-color: rgba(41, 182, 246, 0.3);
+    box-shadow: 0 4px 14px rgba(41, 182, 246, 0.1);
+  }
+  .invoice-item .inv-body { min-width: 0; flex: 1; }
+  .invoice-item .inv-id { font-size: 0.82rem; font-weight: 800; color: #003D7A; margin-bottom: 4px; }
+  .invoice-item .inv-meta { font-size: 0.7rem; color: #4a6b7c; }
+  .invoice-item .inv-amt { font-size: 0.95rem; font-weight: 800; color: #003D7A; white-space: nowrap; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1023px) {
+    .sidebar { display: none; }
+    .mobile-nav { display: flex; }
+    .mobile-logo { display: block; }
+    .header-title { display: none; }
+    .page-title-block { display: block; margin-bottom: 18px; }
+    .main-header { height: 66px; padding: 0 16px; }
+    .date-pill { display: none; }
+    .user-text { display: none; }
+    .user-block { padding-left: 12px; }
+  }
+
+  @media (max-width: 900px) {
+    .two-col-grid { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr 1fr; }
+    .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .charts-grid { grid-template-columns: 1fr; gap: 12px; }
+    .two-col-grid { gap: 12px; }
+    .right-stack { gap: 12px; }
+    .chart-wrap { height: 170px; }
+    .dash-body { padding: 14px; }
+    .card { padding: 18px; border-radius: 16px; }
+    .stat-card { padding: 16px; border-radius: 16px; }
+    .stat-card .stat-value { font-size: 1.5rem; }
+    .stat-card .stat-icon { width: 38px; height: 38px; font-size: 0.9rem; margin-bottom: 12px; }
+    .main-header { padding: 0 12px; height: 62px; }
+    .mobile-nav { padding: 8px 12px; }
+    .mobile-nav .nav-btn { padding: 7px 14px; font-size: 0.7rem; }
+
+    table.activity thead { display: none; }
+    table.activity, table.activity tbody, table.activity tr, table.activity td { display: block; width: 100%; }
+    table.activity tr { padding: 12px 0; border-bottom: 1px solid #eaf2fa; }
+    table.activity tr:last-child { border-bottom: none; }
+    table.activity td {
+      padding: 4px 0; border: none;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.74rem;
+    }
+    table.activity td::before {
+      content: attr(data-label);
+      font-size: 0.62rem; font-weight: 700; color: #4a6b7c;
+      text-transform: uppercase; letter-spacing: 0.4px;
+      margin-right: 10px;
+    }
+
+    .notif-dropdown { width: calc(100vw - 24px); right: -60px; }
+    .profile-menu { right: 0; }
+
+    .invoice-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+
+  @media (max-width: 380px) {
+    .quick-btn { font-size: 0.66rem; padding: 14px 6px; }
+    .quick-btn i { font-size: 1rem; }
+    .quick-grid { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <a href="index.html">
+        <img src="Stacklylogoo3.webp" alt="Recycling Service"
+             onerror="this.outerHTML='<span style=&quot;color:#4FC3F7;font-weight:800;font-size:1rem;&quot;><i class=&quot;fa-solid fa-recycle&quot;></i> Recycling</span>';">
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link active" data-page="dashboard"><i class="fa-solid fa-border-all"></i><span>Dashboard</span></a>
+      <a class="nav-link" data-page="collections"><i class="fa-solid fa-boxes-stacked"></i><span>Bulk Collections</span></a>
+      <a class="nav-link" data-page="team"><i class="fa-solid fa-users"></i><span>Team</span></a>
+      <a class="nav-link" data-page="reports"><i class="fa-solid fa-chart-line"></i><span>Reports</span></a>
+      <a class="nav-link" data-page="invoices"><i class="fa-solid fa-file-invoice"></i><span>Invoices</span></a>
+      <div class="nav-divider"></div>
+      <a class="nav-link logout" href="login.html" onclick="handleLogout(event)"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <div class="icon-circle"><i class="fa-solid fa-building"></i></div>
+        <div class="role">Business Account</div>
+        <div class="name" id="sidebarUserName">Recycling Service</div>
+        <div class="status">Verified</div>
+      </div>
+      <div class="sidebar-copy">© 2026 Recycling Service</div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-wrapper">
+
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-left">
+        <div class="mobile-logo">
+          <a href="index.html">
+            <img src="Stacklylogoo3.webp" alt="Recycling" onerror="this.style.display='none';">
+          </a>
+        </div>
+        <div class="header-title">
+          <h1 id="pageTitle">Business Dashboard</h1>
+          <p id="pageSubtitle">Manage your commercial recycling.</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="date-pill" id="datePill">
+          <i class="fa-regular fa-calendar"></i>
+          <span id="dateText">Today, Jun 10 2026</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:0.6rem;"></i>
+        </div>
+
+        <div style="position: relative;">
+          <button class="bell-btn" id="bellBtn" aria-label="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="bell-badge">5</span>
+          </button>
+
+          <div class="notif-dropdown" id="notifDropdown">
+            <div class="notif-head">
+              <span>Notifications</span>
+              <span class="badge">5 new</span>
+            </div>
+            <div class="notif-item">
+              <div class="ni-icon" style="background:rgba(79,195,247,0.2);color:#003D7A;"><i class="fa-solid fa-truck"></i></div>
+              <div class="ni-body">
+                <div class="ni-title">Bulk Pickup In Transit</div>
+                <div class="ni-desc">120 kg plastics — ETA 45 min</div>
+                <div class="ni-time">8 min ago</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <div class="ni-icon" style="background:#dcfce7;color:#16a34a;"><i class="fa-solid fa-check"></i></div>
+              <div class="ni-body">
+                <div class="ni-title">Collection Completed</div>
+                <div class="ni-desc">85 kg paper collected from HQ</div>
+                <div class="ni-time">1 hour ago</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <div class="ni-icon" style="background:#fef3c7;color:#92400e;"><i class="fa-solid fa-file-invoice"></i></div>
+              <div class="ni-body">
+                <div class="ni-title">New Invoice Available</div>
+                <div class="ni-desc">Invoice #INV-2026-088 for ₹12,450</div>
+                <div class="ni-time">3 hours ago</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <div class="ni-icon" style="background:rgba(79,195,247,0.2);color:#003D7A;"><i class="fa-solid fa-chart-line"></i></div>
+              <div class="ni-body">
+                <div class="ni-title">Monthly Report Ready</div>
+                <div class="ni-desc">September sustainability report published</div>
+                <div class="ni-time">Yesterday</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <div class="ni-icon" style="background:rgba(135,206,235,0.3);color:#003D7A;"><i class="fa-solid fa-user-plus"></i></div>
+              <div class="ni-body">
+                <div class="ni-title">Team Member Added</div>
+                <div class="ni-desc">Neha joined as Sustainability Officer</div>
+                <div class="ni-time">2 days ago</div>
+              </div>
+            </div>
+            <a href="404.html" class="notif-footer">View all notifications →</a>
+          </div>
+        </div>
+
+        <div class="user-block">
+          <div class="user-text">
+            <div class="name" id="headerUserName">Business</div>
+            <div class="role">Business Account</div>
+          </div>
+          <div class="user-avatar" id="profileBtn">
+            <span id="avatarInitials">B</span>
+            <div class="profile-menu" id="profileMenu">
+              <a href="404.html"><i class="fa-regular fa-user"></i>Profile</a>
+              <a href="404.html"><i class="fa-solid fa-gear"></i>Settings</a>
+              <hr>
+              <a href="login.html" class="danger" onclick="handleLogout(event)"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav">
+      <a class="nav-btn active" data-page="dashboard"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+      <a class="nav-btn" data-page="collections"><i class="fa-solid fa-boxes-stacked"></i> Bulk Collections</a>
+      <a class="nav-btn" data-page="team"><i class="fa-solid fa-users"></i> Team</a>
+      <a class="nav-btn" data-page="reports"><i class="fa-solid fa-chart-line"></i> Reports</a>
+      <a class="nav-btn" data-page="invoices"><i class="fa-solid fa-file-invoice"></i> Invoices</a>
+      <a class="nav-btn logout" href="login.html" onclick="handleLogout(event)"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+
+    <!-- DASHBOARD BODY -->
+    <div class="dash-body">
+
+      <div class="page-title-block">
+        <h1 id="pageTitleMobile">Business Dashboard</h1>
+        <p id="pageSubtitleMobile">Manage your commercial recycling.</p>
+      </div>
+
+      <!-- ============ DASHBOARD ============ -->
+      <div id="section-dashboard" class="content-section active">
+
+        <!-- STATS — REDESIGNED -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="trend-badge"><i class="fa-solid fa-arrow-up"></i> +18%</span>
+            <div class="stat-icon" style="background:rgba(79,195,247,0.15);color:#003D7A;">
+              <i class="fa-solid fa-weight-hanging"></i>
+            </div>
+            <div class="stat-label">Total Collected</div>
+            <div class="stat-value">1,248<small>kg</small></div>
+          </div>
+
+          <div class="stat-card">
+            <span class="trend-badge soft">3 this week</span>
+            <div class="stat-icon" style="background:rgba(135,206,235,0.25);color:#003D7A;">
+              <i class="fa-solid fa-truck"></i>
+            </div>
+            <div class="stat-label">Scheduled Pickups</div>
+            <div class="stat-value">9</div>
+          </div>
+
+          <div class="stat-card">
+            <span class="trend-badge"><i class="fa-solid fa-arrow-up"></i> +4.5%</span>
+            <div class="stat-icon" style="background:#dcfce7;color:#16a34a;">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="stat-label">Recycling Rate</div>
+            <div class="stat-value">87<small>%</small></div>
+          </div>
+
+          <div class="stat-card">
+            <span class="trend-badge"><i class="fa-solid fa-arrow-up"></i> +82 kg</span>
+            <div class="stat-icon" style="background:#dbeafe;color:#1e40af;">
+              <i class="fa-solid fa-earth-americas"></i>
+            </div>
+            <div class="stat-label">CO₂ Offset</div>
+            <div class="stat-value">692<small>kg</small></div>
+          </div>
+        </div>
+
+        <!-- CHARTS -->
+        <div class="charts-grid">
+          <div class="card">
+            <div class="card-title">
+              <i class="fa-solid fa-chart-column"></i>
+              Monthly Collection
+              <span class="head-pill">6 Months</span>
+            </div>
+            <div class="chart-wrap"><canvas id="monthlyChart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <i class="fa-solid fa-recycle"></i>
+              Material Mix
+              <span class="head-pill">By Type</span>
+            </div>
+            <div class="chart-wrap"><canvas id="materialChart"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <i class="fa-solid fa-chart-line"></i>
+              Recycling Rate
+              <span class="head-pill">Weekly</span>
+            </div>
+            <div class="chart-wrap"><canvas id="rateChart"></canvas></div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMN -->
+        <div class="two-col-grid">
+
+          <!-- BULK COLLECTIONS -->
+          <div class="card">
+            <div class="card-title">
+              <i class="fa-solid fa-boxes-stacked"></i>
+              Bulk Collections
+              <a href="404.html" class="head-right">View All →</a>
+            </div>
+
+            <div class="pickup-item">
+              <div class="pi-body">
+                <div class="pi-title">♻️ Recyclable Plastics — 120 kg</div>
+                <div class="pi-meta">Warehouse A · Collection today</div>
+                <div class="pi-date">Oct 12, 2026 · 08:00 AM</div>
+              </div>
+              <span class="pill transit">In Transit</span>
+            </div>
+
+            <div class="pickup-item">
+              <div class="pi-body">
+                <div class="pi-title">💻 E-Waste Disposal — 45 kg</div>
+                <div class="pi-meta">IT Department · Loading dock</div>
+                <div class="pi-date">Oct 15, 2026 · 10:30 AM</div>
+              </div>
+              <span class="pill scheduled">Scheduled</span>
+            </div>
+
+            <div class="pickup-item">
+              <div class="pi-body">
+                <div class="pi-title">📄 Cardboard & Paper — 210 kg</div>
+                <div class="pi-meta">Main Office · Loading bay 2</div>
+                <div class="pi-date">Oct 05, 2026 · 09:00 AM</div>
+              </div>
+              <span class="pill delivered">Completed</span>
+            </div>
+          </div>
+
+          <!-- RIGHT STACK -->
+          <div class="right-stack">
+
+            <div class="card">
+              <div class="card-title">
+                <i class="fa-solid fa-bullseye"></i>
+                Quarterly Goal
+              </div>
+              <div class="goal-text"><strong>1,248</strong> / 2,000 kg target</div>
+              <div class="prog-bg"><div class="prog-fill" style="width:62%;"></div></div>
+              <div class="goal-hint">752 kg more to hit <strong>Green Business</strong> certification 🌿</div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <i class="fa-solid fa-bolt"></i>
+                Quick Actions
+              </div>
+              <div class="quick-grid">
+                <a href="404.html" class="quick-btn">
+                  <i class="fa-solid fa-plus"></i><span>Schedule Bulk</span>
+                </a>
+                <a href="404.html" class="quick-btn">
+                  <i class="fa-solid fa-file-invoice"></i><span>Reports</span>
+                </a>
+                <a href="404.html" class="quick-btn">
+                  <i class="fa-solid fa-users"></i><span>Team</span>
+                </a>
+                <a href="404.html" class="quick-btn">
+                  <i class="fa-solid fa-headset"></i><span>Support</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RECENT ACTIVITY -->
+        <div class="card">
+          <div class="card-title">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Recent Commercial Collections
+            <a href="404.html" class="head-right">View All →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="activity">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Material</th>
+                  <th>Weight</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Date">10 Oct 2026</td>
+                  <td data-label="Material"><span class="mat-chip mat-plastic"><i class="fa-solid fa-recycle"></i> Mixed Plastics</span></td>
+                  <td data-label="Weight" class="strong">120 kg</td>
+                  <td data-label="Status"><span class="pill transit">In Transit</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Date">08 Oct 2026</td>
+                  <td data-label="Material"><span class="mat-chip mat-paper"><i class="fa-solid fa-copy"></i> Paper & Cardboard</span></td>
+                  <td data-label="Weight" class="strong">85 kg</td>
+                  <td data-label="Status"><span class="pill delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Date">06 Oct 2026</td>
+                  <td data-label="Material"><span class="mat-chip mat-metal"><i class="fa-solid fa-cube"></i> Aluminium Cans</span></td>
+                  <td data-label="Weight" class="strong">42 kg</td>
+                  <td data-label="Status"><span class="pill delivered">Delivered</span></td>
+                </tr>
+                <tr>
+                  <td data-label="Date">04 Oct 2026</td>
+                  <td data-label="Material"><span class="mat-chip mat-ewaste"><i class="fa-solid fa-plug"></i> E-Waste</span></td>
+                  <td data-label="Weight" class="strong">60 kg</td>
+                  <td data-label="Status"><span class="pill scheduled">Scheduled</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ BULK COLLECTIONS ============ -->
+      <div id="section-collections" class="content-section">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-boxes-stacked"></i> Bulk Collections</div>
+
+          <div class="pickup-item">
+            <div class="pi-body">
+              <div class="pi-title">♻️ Recyclable Plastics — 120 kg</div>
+              <div class="pi-meta">Warehouse A · Loading dock 1</div>
+              <div class="pi-date">Oct 12, 2026 · 08:00 AM</div>
+            </div>
+            <span class="pill transit">In Transit</span>
+          </div>
+          <div class="pickup-item">
+            <div class="pi-body">
+              <div class="pi-title">💻 E-Waste Disposal — 45 kg</div>
+              <div class="pi-meta">IT Department · Main lobby</div>
+              <div class="pi-date">Oct 15, 2026 · 10:30 AM</div>
+            </div>
+            <span class="pill scheduled">Scheduled</span>
+          </div>
+          <div class="pickup-item">
+            <div class="pi-body">
+              <div class="pi-title">📄 Cardboard & Paper — 210 kg</div>
+              <div class="pi-meta">Main Office · Loading bay 2</div>
+              <div class="pi-date">Oct 05, 2026 · 09:00 AM</div>
+            </div>
+            <span class="pill delivered">Completed</span>
+          </div>
+          <div class="pickup-item">
+            <div class="pi-body">
+              <div class="pi-title">🍶 Glass Bottles — 78 kg</div>
+              <div class="pi-meta">Cafeteria · Service entrance</div>
+              <div class="pi-date">Oct 20, 2026 · 11:00 AM</div>
+            </div>
+            <span class="pill scheduled">Scheduled</span>
+          </div>
+
+          <a href="404.html" style="display:inline-block;margin-top:16px;background:#29B6F6;color:#fff;font-weight:700;font-size:0.78rem;padding:11px 22px;border-radius:10px;text-decoration:none;transition:0.25s;">
+            <i class="fa-solid fa-plus" style="margin-right:6px;"></i> Schedule New Bulk Pickup
+          </a>
+        </div>
+      </div>
+
+      <!-- ============ TEAM ============ -->
+      <div id="section-team" class="content-section">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-users"></i> Team Members</div>
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="avatar" style="background:#29B6F6;">RK</div>
+              <div class="t-info">
+                <div class="t-name">Rakesh Kumar</div>
+                <div class="t-role">Operations Manager</div>
+                <div class="t-status" style="background:#dcfce7;color:#16a34a;">Active</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="avatar" style="background:#0ea5e9;">NS</div>
+              <div class="t-info">
+                <div class="t-name">Neha Sharma</div>
+                <div class="t-role">Sustainability Officer</div>
+                <div class="t-status" style="background:#dcfce7;color:#16a34a;">Active</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="avatar" style="background:#0369a1;">AP</div>
+              <div class="t-info">
+                <div class="t-name">Arun Patel</div>
+                <div class="t-role">Facility Supervisor</div>
+                <div class="t-status" style="background:#fef3c7;color:#8a5a00;">On Leave</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="avatar" style="background:#003D7A;">MJ</div>
+              <div class="t-info">
+                <div class="t-name">Meera Joshi</div>
+                <div class="t-role">Logistics Coordinator</div>
+                <div class="t-status" style="background:#dcfce7;color:#16a34a;">Active</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="404.html" style="display:inline-block;margin-top:18px;background:#29B6F6;color:#fff;font-weight:700;font-size:0.78rem;padding:11px 22px;border-radius:10px;text-decoration:none;">
+            <i class="fa-solid fa-user-plus" style="margin-right:6px;"></i> Invite Team Member
+          </a>
+        </div>
+      </div>
+
+      <!-- ============ REPORTS ============ -->
+      <div id="section-reports" class="content-section">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-chart-line"></i> Reports & Analytics</div>
+          <div class="info-grid">
+            <div class="info-box">
+              <h4>📊 Business Summary</h4>
+              <div class="row"><span>Total Collected</span><strong>1,248 kg</strong></div>
+              <div class="row"><span>Recycling Rate</span><strong>87 %</strong></div>
+              <div class="row"><span>CO₂ Offset</span><strong>692 kg</strong></div>
+              <div class="row"><span>Active Pickups</span><strong>9</strong></div>
+            </div>
+            <div class="info-box">
+              <h4>📥 Download Reports</h4>
+              <a href="404.html" style="display:block;background:#fff;border:1px solid #e2eef8;border-radius:10px;padding:12px;font-size:0.74rem;font-weight:700;color:#003D7A;text-decoration:none;margin-bottom:10px;">
+                <i class="fa-solid fa-file-pdf" style="color:#29B6F6;margin-right:6px;"></i> Monthly Sustainability Report
+              </a>
+              <a href="404.html" style="display:block;background:#fff;border:1px solid #e2eef8;border-radius:10px;padding:12px;font-size:0.74rem;font-weight:700;color:#003D7A;text-decoration:none;margin-bottom:10px;">
+                <i class="fa-solid fa-file-alt" style="color:#29B6F6;margin-right:6px;"></i> Material Composition Report
+              </a>
+              <a href="404.html" style="display:block;background:#fff;border:1px solid #e2eef8;border-radius:10px;padding:12px;font-size:0.74rem;font-weight:700;color:#003D7A;text-decoration:none;">
+                <i class="fa-solid fa-file-csv" style="color:#29B6F6;margin-right:6px;"></i> Collection Log (CSV)
+              </a>
+            </div>
+          </div>
+
+          <div class="info-grid" style="margin-top:18px;">
+            <div class="info-box">
+              <h4>♻️ Material Breakdown</h4>
+              <div class="mat-bar-row">
+                <div class="mat-bar-head"><span>Plastics</span><span>480 kg</span></div>
+                <div class="prog-bg"><div class="prog-fill" style="width:38%;background:#29B6F6;"></div></div>
+              </div>
+              <div class="mat-bar-row">
+                <div class="mat-bar-head"><span>Paper / Cardboard</span><span>340 kg</span></div>
+                <div class="prog-bg"><div class="prog-fill" style="width:27%;background:#FFC107;"></div></div>
+              </div>
+              <div class="mat-bar-row">
+                <div class="mat-bar-head"><span>Metal</span><span>210 kg</span></div>
+                <div class="prog-bg"><div class="prog-fill" style="width:17%;background:#607D8B;"></div></div>
+              </div>
+              <div class="mat-bar-row">
+                <div class="mat-bar-head"><span>E-Waste</span><span>145 kg</span></div>
+                <div class="prog-bg"><div class="prog-fill" style="width:12%;background:#9C27B0;"></div></div>
+              </div>
+              <div class="mat-bar-row">
+                <div class="mat-bar-head"><span>Glass</span><span>73 kg</span></div>
+                <div class="prog-bg"><div class="prog-fill" style="width:6%;background:#4CAF50;"></div></div>
+              </div>
+            </div>
+            <div class="info-box">
+              <h4>🌍 Environmental Impact</h4>
+              <div class="row"><span>Trees Saved</span><strong>34 trees</strong></div>
+              <div class="row"><span>Water Saved</span><strong>9,600 L</strong></div>
+              <div class="row"><span>Energy Saved</span><strong>3,450 kWh</strong></div>
+              <div class="row"><span>Landfill Diverted</span><strong>1,248 kg</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ INVOICES ============ -->
+      <div id="section-invoices" class="content-section">
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-file-invoice"></i> Invoices & Payments</div>
+
+          <div class="invoice-item">
+            <div class="inv-body">
+              <div class="inv-id">#INV-2026-088</div>
+              <div class="inv-meta">Bulk Collection · 10 Oct 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="inv-amt">₹12,450</div>
+              <span class="pill scheduled" style="margin-top:6px;">Pending</span>
+            </div>
+          </div>
+          <div class="invoice-item">
+            <div class="inv-body">
+              <div class="inv-id">#INV-2026-087</div>
+              <div class="inv-meta">Bulk Collection · 05 Oct 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="inv-amt">₹8,200</div>
+              <span class="pill delivered" style="margin-top:6px;">Paid</span>
+            </div>
+          </div>
+          <div class="invoice-item">
+            <div class="inv-body">
+              <div class="inv-id">#INV-2026-086</div>
+              <div class="inv-meta">E-Waste Collection · 28 Sep 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="inv-amt">₹5,900</div>
+              <span class="pill delivered" style="margin-top:6px;">Paid</span>
+            </div>
+          </div>
+          <div class="invoice-item">
+            <div class="inv-body">
+              <div class="inv-id">#INV-2026-085</div>
+              <div class="inv-meta">Bulk Collection · 15 Sep 2026</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="inv-amt">₹14,750</div>
+              <span class="pill delivered" style="margin-top:6px;">Paid</span>
+            </div>
+          </div>
+
+          <a href="404.html" style="display:inline-block;margin-top:18px;background:#29B6F6;color:#fff;font-weight:700;font-size:0.78rem;padding:11px 22px;border-radius:10px;text-decoration:none;">
+            <i class="fa-solid fa-download" style="margin-right:6px;"></i> Download All Invoices
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  const session = window.__RECYCLING_USER__;
+  if (session && session.name) {
+    const name = session.name;
+    const initial = name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('headerUserName', name);
+    set('avatarInitials', initial);
+    set('sidebarUserName', name);
+    set('pageSubtitle', 'Welcome back, ' + name.split(' ')[0] + '. Ready to lead?');
+    set('pageSubtitleMobile', 'Welcome back, ' + name.split(' ')[0] + '. Ready to lead?');
+  }
+
+  const titles = {
+    dashboard:   ['Business Dashboard', 'Manage your commercial recycling.'],
+    collections: ['Bulk Collections', 'Schedule and track your bulk pickups.'],
+    team:        ['Team', 'Manage your sustainability team.'],
+    reports:     ['Reports', 'Analytics and sustainability metrics.'],
+    invoices:    ['Invoices', 'Billing and payment history.']
+  };
+
+  function navigateTo(page) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById('section-' + page);
+    if (target) target.classList.add('active');
+
+    if (titles[page]) {
+      document.getElementById('pageTitle').textContent = titles[page][0];
+      document.getElementById('pageSubtitle').textContent = titles[page][1];
+      document.getElementById('pageTitleMobile').textContent = titles[page][0];
+      document.getElementById('pageSubtitleMobile').textContent = titles[page][1];
+    }
+
+    document.querySelectorAll('.sidebar .nav-link[data-page]').forEach(l => {
+      l.classList.toggle('active', l.dataset.page === page);
+    });
+    document.querySelectorAll('.mobile-nav .nav-btn[data-page]').forEach(b => {
+      b.classList.toggle('active', b.dataset.page === page);
+    });
+
+    document.querySelector('.dash-body').scrollTop = 0;
+  }
+
+  document.querySelectorAll('.sidebar .nav-link[data-page]').forEach(l => {
+    l.addEventListener('click', e => { e.preventDefault(); navigateTo(l.dataset.page); });
+  });
+  document.querySelectorAll('.mobile-nav .nav-btn[data-page]').forEach(b => {
+    b.addEventListener('click', e => { e.preventDefault(); navigateTo(b.dataset.page); });
+  });
+
+  const datePill = document.getElementById('datePill');
+  if (datePill) {
+    datePill.addEventListener('click', () => {
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const t = new Date();
+      document.getElementById('dateText').textContent = 'Today, ' + t.getDate() + ' ' + months[t.getMonth()] + ' ' + t.getFullYear();
+    });
+  }
+
+  const bell = document.getElementById('bellBtn');
+  const notifDrop = document.getElementById('notifDropdown');
+  if (bell && notifDrop) {
+    bell.addEventListener('click', e => {
+      e.stopPropagation();
+      notifDrop.classList.toggle('show');
+      document.getElementById('profileMenu').classList.remove('show');
+    });
+    document.addEventListener('click', e => {
+      if (!notifDrop.contains(e.target) && !bell.contains(e.target)) notifDrop.classList.remove('show');
+    });
+  }
+
+  const profBtn = document.getElementById('profileBtn');
+  const profMenu = document.getElementById('profileMenu');
+  if (profBtn && profMenu) {
+    profBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      profMenu.classList.toggle('show');
+      notifDrop.classList.remove('show');
+    });
+    document.addEventListener('click', e => {
+      if (!profMenu.contains(e.target) && !profBtn.contains(e.target)) profMenu.classList.remove('show');
+    });
+  }
+})();
+
+function handleLogout(e) {
+  if (e) e.preventDefault();
+  try {
+    sessionStorage.removeItem('recycling_session');
+    localStorage.removeItem('recycling_session');
+  } catch (_) {}
+  window.location.replace('login.html');
+}
+
+window.addEventListener('load', function () {
+  const c = { primary: '#003D7A', accent: '#4FC3F7', accentD: '#29B6F6' };
+
+  const mEl = document.getElementById('monthlyChart');
+  if (mEl) new Chart(mEl, {
+    type: 'line',
+    data: {
+      labels: ['May','Jun','Jul','Aug','Sep','Oct'],
+      datasets: [{
+        data: [142, 168, 185, 210, 195, 208],
+        borderColor: c.accentD,
+        backgroundColor: 'rgba(41,182,246,0.15)',
+        tension: 0.4, borderWidth: 2.5, pointRadius: 4,
+        pointBackgroundColor: c.accentD,
+        pointBorderColor: '#fff', pointBorderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#eaf2fa' }, ticks: { font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+
+  const matEl = document.getElementById('materialChart');
+  if (matEl) new Chart(matEl, {
+    type: 'doughnut',
+    data: {
+      labels: ['Plastics','Paper','Metal','E-Waste','Glass'],
+      datasets: [{
+        data: [480, 340, 210, 145, 73],
+        backgroundColor: ['#29B6F6','#FFC107','#607D8B','#9C27B0','#4CAF50'],
+        borderWidth: 3, borderColor: '#fff', hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 10 } } } },
+      cutout: '65%'
+    }
+  });
+
+  const rEl = document.getElementById('rateChart');
+  if (rEl) new Chart(rEl, {
+    type: 'bar',
+    data: {
+      labels: ['W1','W2','W3','W4','W5','W6'],
+      datasets: [{
+        data: [78, 82, 85, 84, 87, 89],
+        backgroundColor: c.accentD,
+        borderRadius: 8,
+        barThickness: 20
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, max: 100, grid: { color: '#eaf2fa' }, ticks: { font: { size: 10 }, callback: v => v + '%' } },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+});
+
+window.addEventListener('pageshow', function (e) {
+  if (!e.persisted) return;
+  const raw = sessionStorage.getItem('recycling_session') || localStorage.getItem('recycling_session');
+  const s = raw ? JSON.parse(raw) : null;
+  const valid = s && s.authenticated === true && s.expiresAt > Date.now() && s.role === 'business';
+  if (!valid) window.location.replace('login.html');
+});
+</script>
+
+</body>
+</html>

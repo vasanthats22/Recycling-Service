@@ -1,0 +1,2739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Recycling Service — Index</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<style>
+  :root {
+    --rc-primary: #003D7A;
+    --rc-primary-d: #002B57;
+    --rc-accent: #4FC3F7;
+    --rc-accent-d: #29B6F6;
+    --rc-sky: #87CEEB;
+    --rc-light: #E8F4FD;
+    --rc-bg: #f0f8ff;
+    --rc-text: #003D7A;
+    --rc-text-soft: #4a6b7c;
+    --rc-border: rgba(0, 61, 122, 0.12);
+    --rc-shadow: rgba(0, 30, 60, 0.1);
+    --rc-green: #16a34a;
+    --rc-orange: #ea580c;
+    --rc-red: #dc2626;
+    --rc-purple: #7c3aed;
+    --rc-yellow: #FFC107;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body {
+    background: var(--rc-bg);
+    color: var(--rc-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a, button, [role="button"] { cursor: pointer; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #dbe9f6; }
+  ::-webkit-scrollbar-thumb { background: var(--rc-accent-d); border-radius: 6px; }
+  #header-placeholder, #footer-placeholder { width: 100%; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; }
+
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  .sec-head { text-align: center; max-width: 680px; margin: 0 auto 56px; }
+  .sec-eyebrow {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--rc-accent-d); margin-bottom: 14px;
+  }
+  .sec-head h2 {
+    font-size: 2.15rem; font-weight: 900;
+    letter-spacing: -0.8px; color: var(--rc-primary);
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .sec-head p { font-size: 0.95rem; color: var(--rc-text-soft); line-height: 1.75; }
+
+  .abtn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0.85rem 1.75rem; border-radius: 60px;
+    font-size: 0.9rem; font-weight: 700; text-decoration: none;
+    border: 1.5px solid transparent; transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  .abtn-primary {
+    background: var(--rc-accent-d); color: #fff;
+    box-shadow: 0 12px 28px rgba(41, 182, 246, 0.35);
+  }
+  .abtn-primary:hover { background: var(--rc-primary); transform: translateY(-3px); }
+  .abtn-outline {
+    background: transparent; border-color: rgba(0, 61, 122, 0.35);
+    color: var(--rc-primary);
+  }
+  .abtn-outline:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); transform: translateY(-3px); }
+
+  /* ==========================================================
+     SECTION 1 — HERO
+     ========================================================== */
+  .hero {
+    position: relative;
+    padding: 80px 0 90px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.08);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -160px; right: -140px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.35), transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -160px; left: -120px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.35), transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-content { max-width: 600px; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 1px solid rgba(41, 182, 246, 0.35);
+    color: var(--rc-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border-radius: 60px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 20px rgba(0, 61, 122, 0.06);
+  }
+  .hero-badge .pulse {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(22, 163, 74, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+  }
+  .hero h1 {
+    font-size: 3.6rem;
+    font-weight: 900;
+    letter-spacing: -1.8px;
+    line-height: 1.05;
+    color: var(--rc-primary);
+    margin-bottom: 22px;
+  }
+  .hero h1 span {
+    color: var(--rc-accent-d);
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(180deg, transparent 62%, rgba(79, 195, 247, 0.4) 62%);
+    padding: 0 4px;
+  }
+  .hero p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--rc-text-soft);
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 38px;
+  }
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(0, 61, 122, 0.12);
+    flex-wrap: wrap;
+  }
+  .trust-avatars { display: flex; }
+  .trust-avatars span {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    margin-left: -14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    box-shadow: 0 6px 14px rgba(0, 30, 60, 0.12);
+  }
+  .trust-avatars span:first-child { margin-left: 0; }
+  .trust-avatars span:nth-child(1) { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .trust-avatars span:nth-child(2) { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .trust-avatars span:nth-child(3) { background: linear-gradient(135deg, #FFC107, #ea580c); color: #003D7A; }
+  .trust-avatars span:nth-child(4) { background: linear-gradient(135deg, #9C27B0, #6a1b9a); }
+  .trust-meta { font-size: 0.85rem; color: var(--rc-text-soft); font-weight: 600; line-height: 1.4; }
+  .trust-meta strong { color: var(--rc-primary); font-weight: 900; }
+  .trust-meta .stars { color: #fbbf24; font-size: 0.85rem; }
+
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 460px;
+  }
+  .hero-photo-card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 4 / 5;
+    border-radius: 30px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #29B6F6, #003D7A);
+    box-shadow: 0 30px 70px rgba(0, 61, 122, 0.2);
+    border: 8px solid #fff;
+    transform: rotate(2deg);
+    transition: transform 0.5s ease;
+  }
+  .hero-photo-card:hover { transform: rotate(0deg) translateY(-8px); }
+  .hero-photo-card img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-float-1,
+  .hero-float-2 {
+    position: absolute;
+    background: #fff;
+    border-radius: 18px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 20px 44px rgba(0, 61, 122, 0.18);
+    border: 1px solid rgba(79, 195, 247, 0.25);
+    z-index: 5;
+    animation: floatY 4s ease-in-out infinite;
+  }
+  .hero-float-1 { top: 20px; left: -20px; }
+  .hero-float-2 { bottom: 40px; right: -20px; animation-delay: 1.5s; }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-float-1 i,
+  .hero-float-2 i {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .hero-float-1 i { background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .hero-float-2 i { background: linear-gradient(135deg, #16a34a, #15803d); }
+  .hero-float-1 .hf-num,
+  .hero-float-2 .hf-num {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    line-height: 1;
+  }
+  .hero-float-1 .hf-lbl,
+  .hero-float-2 .hf-lbl {
+    font-size: 0.62rem;
+    color: var(--rc-text-soft);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+  }
+
+  /* ==========================================================
+     SECTION 2 — TRUST RIBBON
+     ========================================================== */
+  .trust-ribbon {
+    background: #fff;
+    border-top: 1px solid var(--rc-border);
+    border-bottom: 1px solid var(--rc-border);
+    padding: 30px 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .trust-ribbon::before,
+  .trust-ribbon::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .trust-ribbon::before { left: 0; background: linear-gradient(90deg, #fff 0%, transparent 100%); }
+  .trust-ribbon::after { right: 0; background: linear-gradient(270deg, #fff 0%, transparent 100%); }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: scrollMarquee 40s linear infinite;
+    width: max-content;
+  }
+  @keyframes scrollMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    color: var(--rc-text-soft);
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+  .marquee-item i { font-size: 1.5rem; color: var(--rc-accent-d); }
+  .marquee-item:hover { color: var(--rc-primary); }
+
+  /* ==========================================================
+     SECTION 3 — IMPACT RINGS
+     ========================================================== */
+  .impact-rings {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+  }
+  .rings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 26px;
+  }
+  .ring-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 22px;
+    text-align: center;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 12px 34px rgba(0, 30, 60, 0.06);
+    transition: all 0.35s ease;
+  }
+  .ring-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 55px rgba(41, 182, 246, 0.2);
+    border-color: var(--rc-accent);
+  }
+  .ring-wrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+  }
+  .ring-wrap svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+  .ring-bg { fill: none; stroke: #E8F4FD; stroke-width: 10; }
+  .ring-fill {
+    fill: none;
+    stroke: var(--ring-color, var(--rc-accent-d));
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 408;
+    stroke-dashoffset: 408;
+    transition: stroke-dashoffset 1.6s ease;
+  }
+  .ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-center .rc-num {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .ring-center .rc-num span { color: var(--ring-color, var(--rc-accent-d)); font-size: 1.15rem; }
+  .ring-card h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    margin-bottom: 6px;
+  }
+  .ring-card p {
+    font-size: 0.78rem;
+    color: var(--rc-text-soft);
+    line-height: 1.55;
+  }
+  .ring-card:nth-child(1) .ring-wrap { --ring-color: #29B6F6; }
+  .ring-card:nth-child(2) .ring-wrap { --ring-color: #16a34a; }
+  .ring-card:nth-child(3) .ring-wrap { --ring-color: #ea580c; }
+  .ring-card:nth-child(4) .ring-wrap { --ring-color: #7c3aed; }
+
+  /* ==========================================================
+     SECTION 4 — SERVICES CAROUSEL
+     ========================================================== */
+  .services-carousel {
+    background: #fff;
+    padding: 100px 0 80px;
+    overflow: hidden;
+  }
+  .carousel-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 30px 32px 30px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rc-accent-d) transparent;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .carousel-scroll::-webkit-scrollbar { height: 8px; }
+  .carousel-scroll::-webkit-scrollbar-track { background: #E8F4FD; border-radius: 8px; }
+  .carousel-scroll::-webkit-scrollbar-thumb { background: var(--rc-accent-d); border-radius: 8px; }
+
+  .svc-slide {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 22px;
+    overflow: visible;
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 0;
+  }
+  .svc-slide:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 55px rgba(41, 182, 246, 0.22);
+    border-color: var(--svc-color, var(--rc-accent));
+  }
+  .svc-img {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: var(--svc-color, #29B6F6);
+    overflow: hidden;
+    border-radius: 22px 22px 0 0;
+  }
+  .svc-img img { width: 100%; height: 100%; object-fit: cover; }
+  .svc-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0, 15, 35, 0.5));
+  }
+  .svc-num {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    color: var(--rc-primary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+  .svc-icon {
+    position: absolute;
+    bottom: -26px; right: 22px;
+    width: 60px; height: 60px;
+    border-radius: 18px;
+    background: var(--svc-color, #29B6F6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    border: 4px solid #fff;
+    box-shadow: 0 12px 28px rgba(0, 30, 60, 0.18);
+    z-index: 5;
+    transition: transform 0.35s ease;
+  }
+  .svc-slide:hover .svc-icon { transform: scale(1.12) rotate(-6deg); }
+  .svc-slide:nth-child(1) { --svc-color: #29B6F6; }
+  .svc-slide:nth-child(2) { --svc-color: #16a34a; }
+  .svc-slide:nth-child(3) { --svc-color: #f59e0b; }
+  .svc-slide:nth-child(4) { --svc-color: #9C27B0; }
+  .svc-slide:nth-child(5) { --svc-color: #ea580c; }
+  .svc-slide:nth-child(6) { --svc-color: #0891b2; }
+  .svc-body {
+    padding: 42px 22px 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .svc-body h4 {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .svc-body p {
+    font-size: 0.82rem;
+    color: var(--rc-text-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .svc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--svc-color, #29B6F6);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    transition: color 0.25s ease;
+  }
+  .svc-link:hover { color: var(--rc-primary); }
+  .svc-link i { transition: transform 0.3s; }
+  .svc-link:hover i { transform: translateX(4px); }
+
+  .carousel-nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  .carousel-nav button {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--rc-border);
+    background: #fff;
+    color: var(--rc-primary);
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel-nav button:hover {
+    background: var(--rc-primary);
+    color: #fff;
+    border-color: var(--rc-primary);
+    transform: scale(1.08);
+  }
+
+  /* ==========================================================
+     SECTION 5 — RADIAL PROCESS (ROTATING ORBIT)
+     ========================================================== */
+  .radial-process {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 110px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .radial-wrap {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .radial-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #003D7A, #002B57);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 24px 60px rgba(0, 61, 122, 0.35);
+    border: 6px solid #fff;
+    z-index: 4;
+  }
+  .radial-center i {
+    font-size: 2rem;
+    color: var(--rc-accent);
+    margin-bottom: 8px;
+    animation: slowRotate 10s linear infinite;
+  }
+  @keyframes slowRotate { to { transform: rotate(360deg); } }
+  .radial-center h4 {
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+  }
+  .radial-center p {
+    font-size: 0.65rem;
+    color: rgba(232, 244, 253, 0.75);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .radial-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border: 2px dashed rgba(41, 182, 246, 0.4);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .radial-ring.inner {
+    width: 62%; height: 62%;
+    border-style: solid;
+    border-color: rgba(41, 182, 246, 0.15);
+  }
+
+  /* Rotating orbit container */
+  .radial-orbit {
+    position: absolute;
+    inset: 0;
+    animation: orbitSpin 40s linear infinite;
+    z-index: 2;
+  }
+  .radial-orbit:hover {
+    animation-play-state: paused;
+  }
+  @keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Individual step positioned by angle + counter-rotated */
+  .radial-step {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130px;
+    height: 130px;
+    margin: -65px 0 0 -65px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--step-color, var(--rc-accent-d));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+    box-shadow: 0 12px 30px rgba(0, 61, 122, 0.15);
+    transition: box-shadow 0.35s ease, border-width 0.35s ease;
+    --angle: 0deg;
+    --radius: 260px;
+    --spin: 40s;
+    animation: stepCounterSpin var(--spin) linear infinite;
+  }
+  @keyframes stepCounterSpin {
+    from {
+      transform:
+        rotate(var(--angle))
+        translateY(calc(-1 * var(--radius)))
+        rotate(calc(-1 * var(--angle)))
+        rotate(0deg);
+    }
+    to {
+      transform:
+        rotate(var(--angle))
+        translateY(calc(-1 * var(--radius)))
+        rotate(calc(-1 * var(--angle)))
+        rotate(-360deg);
+    }
+  }
+
+  .radial-orbit:hover .radial-step {
+    animation-play-state: paused;
+  }
+  .radial-step:hover {
+    transform:
+      rotate(var(--angle))
+      translateY(calc(-1 * var(--radius)))
+      rotate(calc(-1 * var(--angle)))
+      scale(1.14);
+    box-shadow: 0 20px 44px var(--step-shadow, rgba(41, 182, 246, 0.35));
+    border-width: 4px;
+    z-index: 10;
+  }
+
+  .radial-step i {
+    font-size: 1.35rem;
+    color: var(--step-color, var(--rc-accent-d));
+    margin-bottom: 6px;
+  }
+  .radial-step .rs-num {
+    font-size: 0.6rem;
+    font-weight: 900;
+    color: var(--step-color, var(--rc-accent-d));
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .radial-step h5 {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    line-height: 1.2;
+  }
+
+  /* Equal 60° spacing */
+  .radial-step.s1 { --angle: 0deg;   --step-color: #29B6F6; --step-shadow: rgba(41, 182, 246, 0.35); }
+  .radial-step.s2 { --angle: 60deg;  --step-color: #16a34a; --step-shadow: rgba(22, 163, 74, 0.35); }
+  .radial-step.s3 { --angle: 120deg; --step-color: #FFC107; --step-shadow: rgba(255, 193, 7, 0.35); }
+  .radial-step.s4 { --angle: 180deg; --step-color: #9C27B0; --step-shadow: rgba(156, 39, 176, 0.35); }
+  .radial-step.s5 { --angle: 240deg; --step-color: #ea580c; --step-shadow: rgba(234, 88, 12, 0.35); }
+  .radial-step.s6 { --angle: 300deg; --step-color: #607D8B; --step-shadow: rgba(96, 125, 139, 0.35); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .radial-orbit,
+    .radial-step,
+    .radial-center i {
+      animation: none !important;
+    }
+  }
+
+  /* ==========================================================
+     SECTION 6 — MATERIALS MASONRY
+     ========================================================== */
+  .materials-masonry { background: #fff; padding: 100px 0; }
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 110px;
+    gap: 16px;
+  }
+  .masonry-tile {
+    border-radius: 20px;
+    padding: 24px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 30, 60, 0.1);
+  }
+  .masonry-tile:hover {
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 0 24px 55px rgba(0, 30, 60, 0.22);
+  }
+  .masonry-tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.55;
+    transition: transform 0.6s ease;
+  }
+  .masonry-tile:hover img { transform: scale(1.08); }
+  .masonry-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 15, 35, 0.25) 30%, rgba(0, 15, 35, 0.85));
+    z-index: 2;
+  }
+  .masonry-tile .mt-content { position: relative; z-index: 3; }
+  .masonry-tile .mt-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 6px;
+  }
+  .masonry-tile h4 {
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .masonry-tile p { font-size: 0.72rem; line-height: 1.45; opacity: 0.85; }
+  .masonry-tile .mt-ico {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    z-index: 3;
+    transition: all 0.35s ease;
+  }
+  .masonry-tile:hover .mt-ico {
+    background: rgba(255, 255, 255, 0.4);
+    transform: rotate(-8deg) scale(1.08);
+  }
+  .mt-1 { grid-column: span 3; grid-row: span 3; background: linear-gradient(135deg, #29B6F6, #003D7A); }
+  .mt-2 { grid-column: span 3; grid-row: span 2; background: linear-gradient(135deg, #FFC107, #b07400); color: #1a1a1a; }
+  .mt-2::after { background: linear-gradient(180deg, rgba(255,255,255,0.1) 30%, rgba(60, 40, 0, 0.75)); }
+  .mt-2 .mt-ico { background: rgba(0, 0, 0, 0.15); }
+  .mt-3 { grid-column: span 3; grid-row: span 2; background: linear-gradient(135deg, #9C27B0, #4a148c); }
+  .mt-4 { grid-column: span 3; grid-row: span 3; background: linear-gradient(135deg, #16a34a, #15803d); }
+  .mt-5 { grid-column: span 3; grid-row: span 2; background: linear-gradient(135deg, #607D8B, #37474f); }
+  .mt-1 h4 { font-size: 1.7rem; }
+  .mt-4 h4 { font-size: 1.7rem; }
+
+  /* ==========================================================
+     SECTION 7 — COVERAGE MAP
+     ========================================================== */
+  .coverage-map {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+  }
+  .map-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .map-visual {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    border-radius: 24px;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 20px 60px rgba(0, 61, 122, 0.12);
+    padding: 30px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+  }
+  .map-visual:hover { box-shadow: 0 30px 70px rgba(41, 182, 246, 0.2); }
+  .map-visual svg { width: 100%; height: 100%; }
+  .india-outline {
+    fill: #E8F4FD;
+    stroke: var(--rc-accent-d);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  .city-pin {
+    fill: var(--pin-color, var(--rc-accent-d));
+    animation: pinPulse 2.4s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  @keyframes pinPulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+  .map-legend {
+    position: absolute;
+    bottom: 20px; left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--rc-border);
+    box-shadow: 0 6px 20px rgba(0, 30, 60, 0.08);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--rc-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .map-legend .lg-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--rc-accent-d);
+    box-shadow: 0 0 0 4px rgba(41, 182, 246, 0.25);
+  }
+  .map-cities { display: flex; flex-direction: column; gap: 12px; }
+  .map-cities h3 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+  .map-cities > p {
+    font-size: 0.9rem;
+    color: var(--rc-text-soft);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .city-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .city-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--rc-border);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rc-primary);
+    transition: all 0.3s;
+  }
+  .city-list-item:hover {
+    border-color: var(--rc-accent);
+    transform: translateX(4px);
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.12);
+  }
+  .city-list-item .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rc-green);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+  }
+  .city-list-item:nth-child(2n) .cl-dot { background: var(--rc-orange); box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); }
+
+  /* ==========================================================
+     SECTION 8 — QUOTE CAROUSEL
+     ========================================================== */
+  .quote-section {
+    background: linear-gradient(180deg, #f0f9ff 0%, #ecfdf5 100%);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    color: var(--rc-primary);
+    border-top: 1px solid rgba(0, 61, 122, 0.06);
+    border-bottom: 1px solid rgba(0, 61, 122, 0.06);
+  }
+  .quote-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79, 195, 247, 0.22), transparent 65%);
+  }
+  .quote-section::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(187, 247, 208, 0.5), transparent 65%);
+  }
+  .quote-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .quote-mark {
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--rc-accent-d);
+    opacity: 0.4;
+    font-family: Georgia, serif;
+    margin-bottom: -20px;
+  }
+  .quote-slides { position: relative; min-height: 240px; }
+  .quote-slide { display: none; animation: fadeQuote 0.6s ease; }
+  .quote-slide.active { display: block; }
+  @keyframes fadeQuote {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .quote-text {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    color: var(--rc-primary);
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+  .quote-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  .quote-avatar {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: #fff;
+    border: 3px solid #fff;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(0, 61, 122, 0.15);
+  }
+  .quote-author-info { text-align: left; }
+  .quote-author-info .qa-name { font-size: 0.95rem; font-weight: 800; color: var(--rc-primary); }
+  .quote-author-info .qa-role { font-size: 0.75rem; color: var(--rc-text-soft); margin-top: 2px; }
+  .quote-dots {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .quote-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(0, 61, 122, 0.2);
+    border: none;
+    transition: all 0.3s;
+    padding: 0;
+  }
+  .quote-dot.active {
+    background: var(--rc-accent-d);
+    width: 32px;
+    border-radius: 6px;
+  }
+
+  /* ==========================================================
+     SECTION 9 — PRICING STRIP
+     ========================================================== */
+  .pricing-strip { background: #fff; padding: 100px 0; }
+  .billing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 46px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--rc-text-soft);
+  }
+  .billing-toggle .bt-label.active { color: var(--rc-primary); }
+  .bt-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background: var(--rc-accent-d);
+    border-radius: 30px;
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .bt-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 22px; height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 6px rgba(0, 30, 60, 0.25);
+  }
+  .bt-switch.yearly::after { transform: translateX(24px); }
+  .bt-badge {
+    background: rgba(22, 163, 74, 0.15);
+    color: var(--rc-green);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+  }
+  .price-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .price-tile {
+    background: #fff;
+    border: 1.5px solid var(--rc-border);
+    border-radius: 22px;
+    padding: 30px 24px;
+    text-align: center;
+    transition: all 0.35s ease;
+    position: relative;
+  }
+  .price-tile:hover {
+    transform: translateY(-8px);
+    border-color: var(--rc-accent);
+    box-shadow: 0 20px 50px rgba(41, 182, 246, 0.18);
+  }
+  .price-tile.best {
+    background: linear-gradient(180deg, #E8F4FD 0%, #ffffff 100%);
+    border: 1.5px solid var(--rc-accent-d);
+    box-shadow: 0 16px 40px rgba(41, 182, 246, 0.15);
+  }
+  .price-tile.best:hover { box-shadow: 0 28px 60px rgba(41, 182, 246, 0.28); }
+  .pt-best-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 900;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.35);
+  }
+  .pt-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .pt-sub { font-size: 0.72rem; color: var(--rc-text-soft); margin-bottom: 22px; }
+  .pt-amount {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    line-height: 1;
+    letter-spacing: -1.5px;
+  }
+  .pt-amount small {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--rc-text-soft);
+    letter-spacing: 0;
+  }
+  .pt-period {
+    font-size: 0.72rem;
+    color: var(--rc-text-soft);
+    font-weight: 600;
+    margin-top: 4px;
+    margin-bottom: 24px;
+  }
+  .pt-btn {
+    display: block;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--rc-bg);
+    color: var(--rc-primary);
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: 1.5px solid var(--rc-border);
+    transition: all 0.3s;
+  }
+  .pt-btn:hover { background: var(--rc-primary); color: #fff; border-color: var(--rc-primary); transform: translateY(-2px); }
+  .price-tile.best .pt-btn {
+    background: var(--rc-accent); color: #fff;
+    border-color: var(--rc-accent);
+  }
+  .price-tile.best .pt-btn:hover { background: var(--rc-primary); border-color: var(--rc-primary); }
+
+  /* ==========================================================
+     SECTION 10 — BLOG MAGAZINE
+     ========================================================== */
+  .blog-magazine {
+    background: linear-gradient(180deg, #E8F4FD 0%, #f0f8ff 100%);
+    padding: 100px 0;
+  }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 22px;
+  }
+  .blog-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--rc-border);
+    transition: all 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+  .blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 55px rgba(41, 182, 246, 0.2);
+    border-color: var(--rc-accent);
+  }
+  .blog-card.featured { grid-row: span 2; }
+  .blog-img {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: linear-gradient(135deg, #29B6F6, #003D7A);
+  }
+  .blog-card.featured .blog-img { aspect-ratio: 16 / 12; }
+  .blog-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .blog-card:hover .blog-img img { transform: scale(1.08); }
+  .blog-tag {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    color: var(--rc-primary);
+    font-size: 0.6rem;
+    font-weight: 900;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .blog-body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .blog-body h4 {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    transition: color 0.3s;
+  }
+  .blog-card:hover .blog-body h4 { color: var(--rc-accent-d); }
+  .blog-card.featured .blog-body h4 { font-size: 1.4rem; }
+  .blog-body p {
+    font-size: 0.82rem;
+    color: var(--rc-text-soft);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rc-border);
+    font-size: 0.72rem;
+    color: var(--rc-text-soft);
+    font-weight: 600;
+  }
+  .blog-meta i { color: var(--rc-accent-d); margin-right: 4px; }
+
+  /* ==========================================================
+     SECTION 11 — APP SHOWCASE
+     ========================================================== */
+  .app-showcase { background: #fff; padding: 100px 0; }
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .app-content h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    letter-spacing: -0.7px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .app-content h3 span { color: var(--rc-accent-d); }
+  .app-content > p {
+    font-size: 0.95rem;
+    color: var(--rc-text-soft);
+    line-height: 1.8;
+    margin-bottom: 26px;
+  }
+  .app-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .app-feat {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--rc-bg);
+    border-radius: 14px;
+    border-left: 3px solid var(--rc-accent-d);
+    transition: all 0.3s;
+  }
+  .app-feat:hover {
+    background: #fff;
+    border-left-color: var(--rc-primary);
+    transform: translateX(6px);
+    box-shadow: 0 8px 20px rgba(41, 182, 246, 0.1);
+  }
+  .app-feat i {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--rc-accent-d), var(--rc-primary));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .app-feat .af-text h5 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--rc-primary);
+    margin-bottom: 3px;
+  }
+  .app-feat .af-text p {
+    font-size: 0.78rem;
+    color: var(--rc-text-soft);
+    line-height: 1.5;
+  }
+  .app-store-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .app-store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: #003D7A;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    transition: all 0.3s;
+    border: 1.5px solid #003D7A;
+  }
+  .app-store-btn:hover {
+    background: var(--rc-accent-d);
+    border-color: var(--rc-accent-d);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(41, 182, 246, 0.35);
+  }
+  .app-store-btn i { font-size: 1.3rem; }
+  .app-store-btn .asb-text { text-align: left; }
+  .app-store-btn .asb-text small {
+    display: block;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  .app-store-btn .asb-text strong { font-size: 0.85rem; font-weight: 800; }
+
+  .phone-mock {
+    position: relative;
+    max-width: 320px;
+    margin: 0 auto;
+    aspect-ratio: 9 / 19;
+    background: #001830;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 40px 80px rgba(0, 61, 122, 0.35);
+    transform: rotate(-4deg);
+    transition: transform 0.5s ease;
+  }
+  .phone-mock:hover { transform: rotate(0deg) scale(1.03); }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, #E8F4FD, #f0f8ff);
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px 16px;
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 20px;
+    background: #001830;
+    border-radius: 20px;
+    z-index: 3;
+  }
+  .ps-header { margin-top: 24px; margin-bottom: 18px; }
+  .ps-header .psh-greet {
+    font-size: 0.6rem;
+    color: var(--rc-text-soft);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .ps-header .psh-name {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--rc-primary);
+    margin-top: 3px;
+    letter-spacing: -0.3px;
+  }
+  .ps-card {
+    background: linear-gradient(135deg, #003D7A, #002B57);
+    border-radius: 16px;
+    padding: 14px;
+    color: #fff;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ps-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(79, 195, 247, 0.2);
+  }
+  .ps-card .psc-lbl {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.75;
+  }
+  .ps-card .psc-val {
+    font-size: 1.35rem;
+    font-weight: 900;
+    margin-top: 4px;
+    letter-spacing: -0.5px;
+  }
+  .ps-card .psc-val span { font-size: 0.7rem; opacity: 0.75; margin-left: 3px; }
+  .ps-mini-list { display: flex; flex-direction: column; gap: 8px; }
+  .ps-mini {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 30, 60, 0.05);
+  }
+  .ps-mini .psm-ico {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .ps-mini:nth-child(1) .psm-ico { background: #29B6F6; }
+  .ps-mini:nth-child(2) .psm-ico { background: #16a34a; }
+  .ps-mini:nth-child(3) .psm-ico { background: #FFC107; color: var(--rc-primary-d); }
+  .ps-mini .psm-text { flex: 1; }
+  .ps-mini .psm-title { font-size: 0.72rem; font-weight: 800; color: var(--rc-primary); }
+  .ps-mini .psm-sub { font-size: 0.6rem; color: var(--rc-text-soft); margin-top: 2px; }
+
+  /* ==========================================================
+     SECTION 12 — FINAL CTA
+     ========================================================== */
+  .final-cta {
+    background: linear-gradient(135deg, #e0f2fe 0%, #ecfdf5 55%, #fef3c7 100%);
+    padding: 110px 32px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: var(--rc-primary);
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(251, 207, 232, 0.65), transparent 65%);
+    pointer-events: none;
+  }
+  .final-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -140px; right: -100px;
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(187, 247, 208, 0.6), transparent 65%);
+    pointer-events: none;
+  }
+  .final-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .final-inner .fi-icon {
+    width: 80px; height: 80px;
+    border-radius: 26px;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: var(--rc-accent-d);
+    margin-bottom: 24px;
+    box-shadow: 0 20px 50px rgba(41, 182, 246, 0.25);
+    animation: rotateIcon 6s ease-in-out infinite;
+  }
+  @keyframes rotateIcon {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+  }
+  .final-inner h2 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    color: var(--rc-primary);
+  }
+  .final-inner h2 span { color: var(--rc-accent-d); }
+  .final-inner p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--rc-text-soft);
+    max-width: 560px;
+    margin: 0 auto 34px;
+  }
+  .final-btns {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .final-newsletter {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    background: #fff;
+    border-radius: 60px;
+    padding: 6px;
+    box-shadow: 0 20px 44px rgba(0, 61, 122, 0.1);
+    border: 1.5px solid var(--rc-border);
+    transition: all 0.3s;
+  }
+  .final-newsletter:focus-within {
+    border-color: var(--rc-accent-d);
+    box-shadow: 0 20px 44px rgba(41, 182, 246, 0.22), 0 0 0 4px rgba(41, 182, 246, 0.12);
+  }
+  .final-newsletter input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    color: var(--rc-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
+  }
+  .final-newsletter input::placeholder { color: #9aabba; }
+  .final-newsletter button {
+    background: var(--rc-accent-d);
+    color: #fff;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 60px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .final-newsletter button:hover { background: var(--rc-primary); }
+  .final-nl-alert {
+    min-height: 18px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding-top: 12px;
+    color: transparent;
+    transition: 0.25s;
+    text-align: center;
+  }
+  .final-nl-alert.show { color: #c0392b; }
+  .final-nl-alert.success { color: var(--rc-green); }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 1100px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 50px; }
+    .hero-content { max-width: 100%; text-align: center; margin: 0 auto; }
+    .hero h1 { font-size: 3rem; }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero-ctas { justify-content: center; }
+    .hero-trust { justify-content: center; }
+    .hero-visual { max-width: 460px; margin: 0 auto; }
+
+    .masonry-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 100px; }
+    .mt-1 { grid-column: span 4; grid-row: span 3; }
+    .mt-2 { grid-column: span 4; grid-row: span 2; }
+    .mt-3 { grid-column: span 4; grid-row: span 2; }
+    .mt-4 { grid-column: span 4; grid-row: span 3; }
+    .mt-5 { grid-column: span 4; grid-row: span 2; }
+    .mt-1 h4, .mt-4 h4 { font-size: 1.4rem; }
+
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+    .blog-card.featured { grid-row: span 1; grid-column: span 2; }
+    .blog-card.featured .blog-img { aspect-ratio: 16 / 8; }
+    .blog-card.featured .blog-body h4 { font-size: 1.15rem; }
+
+    .map-grid { grid-template-columns: 1fr; gap: 40px; }
+    .app-grid { grid-template-columns: 1fr; gap: 40px; }
+    .phone-mock { transform: rotate(0deg); }
+
+    .quote-text { font-size: 1.25rem; }
+    .final-inner h2 { font-size: 2.2rem; }
+  }
+
+  @media (max-width: 900px) {
+    .hero { padding: 60px 0 70px; }
+    .hero h1 { font-size: 2.5rem; }
+    .hero-visual { min-height: 380px; }
+    .hero-float-1 { left: -10px; top: 10px; }
+    .hero-float-2 { right: -10px; bottom: 20px; }
+
+    .radial-wrap { max-width: 560px; }
+    .radial-center { width: 160px; height: 160px; }
+    .radial-step {
+      width: 110px; height: 110px;
+      margin: -55px 0 0 -55px;
+      --radius: 200px;
+    }
+    .radial-step i { font-size: 1.1rem; }
+    .radial-step h5 { font-size: 0.7rem; }
+
+    .price-row { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  }
+
+  @media (max-width: 768px) {
+    .section-inner { padding: 0 20px; }
+    .sec-head { margin-bottom: 40px; }
+    .sec-head h2 { font-size: 1.6rem; }
+
+    .hero { padding: 50px 20px 60px; }
+    .hero h1 { font-size: 2.1rem; letter-spacing: -0.8px; }
+    .hero p { font-size: 0.95rem; }
+    .hero-ctas { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin: 0 auto 30px; }
+    .hero-ctas .abtn { width: 100%; justify-content: center; }
+    .hero-trust { flex-direction: column; align-items: center; }
+
+    .trust-ribbon { padding: 22px 0; }
+    .marquee-track { gap: 40px; animation-duration: 30s; }
+    .marquee-item { font-size: 0.85rem; }
+    .marquee-item i { font-size: 1.2rem; }
+
+    .impact-rings, .services-carousel, .radial-process,
+    .materials-masonry, .coverage-map, .quote-section,
+    .pricing-strip, .blog-magazine, .app-showcase { padding: 70px 0; }
+
+    .rings-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .ring-card { padding: 24px 16px; border-radius: 18px; }
+    .ring-wrap { width: 120px; height: 120px; }
+    .ring-center .rc-num { font-size: 1.5rem; }
+    .ring-center .rc-num span { font-size: 0.95rem; }
+    .ring-card h4 { font-size: 0.85rem; }
+    .ring-card p { font-size: 0.72rem; }
+
+    .carousel-scroll { padding: 30px 20px 24px; }
+    .svc-slide { flex: 0 0 270px; }
+    .svc-icon { width: 54px; height: 54px; font-size: 1.35rem; }
+
+    .radial-wrap { max-width: 460px; }
+    .radial-center { width: 130px; height: 130px; padding: 12px; }
+    .radial-center i { font-size: 1.5rem; }
+    .radial-center h4 { font-size: 0.78rem; }
+    .radial-center p { font-size: 0.58rem; }
+    .radial-step {
+      width: 88px; height: 88px;
+      margin: -44px 0 0 -44px;
+      padding: 8px;
+      border-width: 2px;
+      --radius: 165px;
+    }
+    .radial-step i { font-size: 0.95rem; margin-bottom: 3px; }
+    .radial-step .rs-num { font-size: 0.5rem; letter-spacing: 0.6px; }
+    .radial-step h5 { font-size: 0.6rem; }
+
+    .masonry-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 120px; }
+    .mt-1 { grid-column: span 2; grid-row: span 2; }
+    .mt-2 { grid-column: span 2; grid-row: span 2; }
+    .mt-3 { grid-column: span 2; grid-row: span 2; }
+    .mt-4 { grid-column: span 2; grid-row: span 2; }
+    .mt-5 { grid-column: span 2; grid-row: span 2; }
+    .mt-1 h4, .mt-4 h4 { font-size: 1.35rem; }
+    .masonry-tile { padding: 18px; border-radius: 16px; }
+
+    .map-visual { padding: 16px; border-radius: 18px; }
+    .city-list { grid-template-columns: 1fr; }
+
+    .quote-text { font-size: 1.05rem; line-height: 1.55; }
+    .quote-mark { font-size: 3.5rem; }
+
+    .price-tile { padding: 26px 20px; }
+    .pt-amount { font-size: 2.2rem; }
+
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-card.featured { grid-column: span 1; }
+    .blog-card.featured .blog-body h4 { font-size: 1.1rem; }
+
+    .app-content h3 { font-size: 1.6rem; }
+    .phone-mock { max-width: 280px; }
+
+    .final-cta { padding: 80px 20px; }
+    .final-inner h2 { font-size: 1.9rem; letter-spacing: -0.7px; }
+    .final-inner p { font-size: 0.92rem; }
+    .final-btns { flex-direction: column; align-items: stretch; }
+    .final-btns .abtn { width: 100%; justify-content: center; }
+    .final-newsletter { flex-direction: column; border-radius: 20px; padding: 12px; }
+    .final-newsletter input {
+      width: 100%;
+      padding: 14px 16px;
+      background: #f0f8ff;
+      border-radius: 12px;
+    }
+    .final-newsletter button { width: 100%; justify-content: center; padding: 14px; }
+  }
+
+  @media (max-width: 480px) {
+    .section-inner { padding: 0 16px; }
+    .hero { padding: 40px 16px 50px; }
+    .hero h1 { font-size: 1.75rem; }
+    .hero p { font-size: 0.88rem; }
+    .hero-badge { font-size: 0.62rem; padding: 7px 14px; }
+    .hero-visual { min-height: 320px; }
+    .hero-float-1,
+    .hero-float-2 { padding: 10px 14px; }
+    .hero-float-1 i,
+    .hero-float-2 i { width: 32px; height: 32px; font-size: 0.85rem; }
+    .hero-float-1 .hf-num,
+    .hero-float-2 .hf-num { font-size: 0.9rem; }
+
+    .sec-head h2 { font-size: 1.4rem; }
+    .sec-head p { font-size: 0.85rem; }
+
+    .rings-grid { grid-template-columns: 1fr; }
+
+    .carousel-scroll { padding: 30px 16px 20px; }
+    .svc-slide { flex: 0 0 250px; }
+    .svc-icon { width: 50px; height: 50px; font-size: 1.2rem; bottom: -22px; right: 18px; }
+
+    .radial-wrap { max-width: 340px; }
+    .radial-center { width: 105px; height: 105px; padding: 8px; }
+    .radial-center i { font-size: 1.1rem; margin-bottom: 3px; }
+    .radial-center h4 { font-size: 0.65rem; }
+    .radial-center p { display: none; }
+    .radial-step {
+      width: 68px; height: 68px;
+      margin: -34px 0 0 -34px;
+      padding: 4px;
+      --radius: 125px;
+    }
+    .radial-step i { font-size: 0.75rem; margin-bottom: 2px; }
+    .radial-step .rs-num { font-size: 0.42rem; }
+    .radial-step h5 { font-size: 0.5rem; }
+
+    .masonry-grid { grid-auto-rows: 110px; gap: 12px; }
+    .mt-1 h4, .mt-4 h4 { font-size: 1.15rem; }
+    .masonry-tile h4 { font-size: 0.95rem; }
+    .masonry-tile p { font-size: 0.68rem; }
+    .masonry-tile .mt-ico { width: 34px; height: 34px; font-size: 0.85rem; top: 14px; right: 14px; }
+
+    .map-cities h3 { font-size: 1.2rem; }
+
+    .quote-text { font-size: 0.95rem; }
+    .quote-avatar { width: 44px; height: 44px; font-size: 0.9rem; }
+    .quote-author-info .qa-name { font-size: 0.85rem; }
+
+    .pt-amount { font-size: 1.9rem; }
+
+    .app-content h3 { font-size: 1.35rem; }
+    .phone-mock { max-width: 240px; }
+
+    .final-inner h2 { font-size: 1.55rem; }
+    .final-inner p { font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<!-- SECTION 1 — HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content" data-aos="fade-right" data-aos-duration="800">
+      <span class="hero-badge">
+        <span class="pulse"></span> Live in 85+ cities · Same-day pickup
+      </span>
+
+      <h1>Recycle smarter.<br>Live <span>greener</span>.</h1>
+
+      <p>
+        Turn everyday waste into real, measurable impact. Schedule a free doorstep pickup,
+        earn Green Points, and watch your city get cleaner — one bin at a time.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-calendar-plus"></i> Schedule a Free Pickup</a>
+        <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-play-circle"></i> Explore Services</a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <span>A</span><span>R</span><span>N</span><span>+</span>
+        </div>
+        <div class="trust-meta">
+          <strong>12,000+ households</strong> already recycling<br>
+          <span class="stars">★★★★★</span> 4.9 average rating
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
+      <div class="hero-photo-card">
+        <img src="recycle1.webp" alt="Recycling in action"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/recycle-hero-main2/800/1000';">
+      </div>
+
+      <div class="hero-float-1">
+        <i class="fa-solid fa-weight-hanging"></i>
+        <div>
+          <div class="hf-num">1.2M kg</div>
+          <div class="hf-lbl">Recycled</div>
+        </div>
+      </div>
+      <div class="hero-float-2">
+        <i class="fa-solid fa-star"></i>
+        <div>
+          <div class="hf-num">4.9 / 5</div>
+          <div class="hf-lbl">User Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2 — TRUST RIBBON -->
+<section class="trust-ribbon">
+  <div class="marquee-track">
+    <div class="marquee-item"><i class="fa-solid fa-certificate"></i> ISO 14001 Certified</div>
+    <div class="marquee-item"><i class="fa-solid fa-leaf"></i> Zero Landfill</div>
+    <div class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Data-Safe E-Waste</div>
+    <div class="marquee-item"><i class="fa-solid fa-award"></i> Green Business Award 2025</div>
+    <div class="marquee-item"><i class="fa-solid fa-recycle"></i> 100% Traceable</div>
+    <div class="marquee-item"><i class="fa-solid fa-earth-asia"></i> Carbon Neutral Fleet</div>
+    <div class="marquee-item"><i class="fa-solid fa-check-double"></i> MSME Registered</div>
+    <div class="marquee-item"><i class="fa-solid fa-certificate"></i> ISO 14001 Certified</div>
+    <div class="marquee-item"><i class="fa-solid fa-leaf"></i> Zero Landfill</div>
+    <div class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Data-Safe E-Waste</div>
+    <div class="marquee-item"><i class="fa-solid fa-award"></i> Green Business Award 2025</div>
+    <div class="marquee-item"><i class="fa-solid fa-recycle"></i> 100% Traceable</div>
+    <div class="marquee-item"><i class="fa-solid fa-earth-asia"></i> Carbon Neutral Fleet</div>
+    <div class="marquee-item"><i class="fa-solid fa-check-double"></i> MSME Registered</div>
+  </div>
+</section>
+
+<!-- SECTION 3 — IMPACT RINGS -->
+<section class="impact-rings">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Our Impact</span>
+      <h2>Real numbers, real progress</h2>
+      <p>Every pickup adds up. Here's what our community has achieved together in 2026.</p>
+    </div>
+
+    <div class="rings-grid">
+      <div class="ring-card" data-aos="zoom-in" data-aos-delay="0">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="ring-bg" cx="75" cy="75" r="65"></circle>
+            <circle class="ring-fill" cx="75" cy="75" r="65" data-percent="85"></circle>
+          </svg>
+          <div class="ring-center"><div class="rc-num">85<span>%</span></div></div>
+        </div>
+        <h4>Waste Diverted</h4>
+        <p>Of all collected waste diverted from landfills</p>
+      </div>
+
+      <div class="ring-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="ring-bg" cx="75" cy="75" r="65"></circle>
+            <circle class="ring-fill" cx="75" cy="75" r="65" data-percent="92"></circle>
+          </svg>
+          <div class="ring-center"><div class="rc-num">92<span>%</span></div></div>
+        </div>
+        <h4>On-Time Pickups</h4>
+        <p>Pickups arriving within the scheduled window</p>
+      </div>
+
+      <div class="ring-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="ring-bg" cx="75" cy="75" r="65"></circle>
+            <circle class="ring-fill" cx="75" cy="75" r="65" data-percent="78"></circle>
+          </svg>
+          <div class="ring-center"><div class="rc-num">78<span>%</span></div></div>
+        </div>
+        <h4>Repeat Users</h4>
+        <p>Households that book a second pickup within 30 days</p>
+      </div>
+
+      <div class="ring-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 150 150">
+            <circle class="ring-bg" cx="75" cy="75" r="65"></circle>
+            <circle class="ring-fill" cx="75" cy="75" r="65" data-percent="65"></circle>
+          </svg>
+          <div class="ring-center"><div class="rc-num">65<span>%</span></div></div>
+        </div>
+        <h4>City Coverage</h4>
+        <p>Of target cities now within our service radius</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — SERVICES CAROUSEL -->
+<section class="services-carousel">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Services</span>
+      <h2>Six ways we help you recycle</h2>
+      <p>Scroll horizontally to explore every service. Click any card to learn more.</p>
+    </div>
+  </div>
+
+  <div class="carousel-scroll" id="svcScroll">
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="0">
+      <div class="svc-img">
+        <img src="recycle2.webp" alt="Household pickup"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-household/500/320';">
+        <span class="svc-num">01</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-house-chimney"></i></span>
+      <div class="svc-body">
+        <h4>Household Pickup</h4>
+        <p>Free daily or weekly door-to-door pickup for every registered home.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="80">
+      <div class="svc-img">
+        <img src="recycle3.webp" alt="E-waste disposal"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-ewaste/500/320';">
+        <span class="svc-num">02</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-plug"></i></span>
+      <div class="svc-body">
+        <h4>E-Waste Disposal</h4>
+        <p>Certified destruction of electronics with full documentation.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="160">
+      <div class="svc-img">
+        <img src="recycle4.webp" alt="Commercial recycling"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-commercial/500/320';">
+        <span class="svc-num">03</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-building"></i></span>
+      <div class="svc-body">
+        <h4>Commercial & Bulk</h4>
+        <p>Custom schedules for offices, cafés, and warehouses.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="240">
+      <div class="svc-img">
+        <img src="recycle5.webp" alt="Organic compost"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-organic/500/320';">
+        <span class="svc-num">04</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-seedling"></i></span>
+      <div class="svc-body">
+        <h4>Organic Compost</h4>
+        <p>Food scraps and garden waste sent to urban compost facilities.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="320">
+      <div class="svc-img">
+        <img src="recycle6.webp" alt="Special cleanouts"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-cleanout/500/320';">
+        <span class="svc-num">05</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-truck-ramp-box"></i></span>
+      <div class="svc-body">
+        <h4>Special Cleanouts</h4>
+        <p>One-time pickups for moving, renovation, or seasonal cleanouts.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-slide" data-aos="fade-up" data-aos-delay="400">
+      <div class="svc-img">
+        <img src="recycle7.webp" alt="Community drives"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/svc-community/500/320';">
+        <span class="svc-num">06</span>
+      </div>
+      <span class="svc-icon"><i class="fa-solid fa-users"></i></span>
+      <div class="svc-body">
+        <h4>Community Drives</h4>
+        <p>Recycling events for schools, RWAs, and apartment complexes.</p>
+        <a href="404.html" class="svc-link">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-nav">
+    <button id="svcPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+    <button id="svcNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+</section>
+
+<!-- SECTION 5 — RADIAL PROCESS (ROTATING) -->
+<section class="radial-process">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">How It Works</span>
+      <h2>Six steps. One full circle.</h2>
+      <p>From your doorstep to a cleaner city — here's the complete journey of your recyclables.</p>
+    </div>
+
+    <div class="radial-wrap" data-aos="zoom-in">
+      <div class="radial-ring"></div>
+      <div class="radial-ring inner"></div>
+
+      <div class="radial-center">
+        <i class="fa-solid fa-recycle"></i>
+        <h4>The Recycling Loop</h4>
+        <p>Every step feeds into the next</p>
+      </div>
+
+      <div class="radial-orbit">
+        <div class="radial-step s1">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="rs-num">Step 01</span>
+          <h5>Sign Up Free</h5>
+        </div>
+        <div class="radial-step s2">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span class="rs-num">Step 02</span>
+          <h5>Book Pickup</h5>
+        </div>
+        <div class="radial-step s3">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span class="rs-num">Step 03</span>
+          <h5>We Collect</h5>
+        </div>
+        <div class="radial-step s4">
+          <i class="fa-solid fa-filter"></i>
+          <span class="rs-num">Step 04</span>
+          <h5>Sort & Process</h5>
+        </div>
+        <div class="radial-step s5">
+          <i class="fa-solid fa-industry"></i>
+          <span class="rs-num">Step 05</span>
+          <h5>Transform</h5>
+        </div>
+        <div class="radial-step s6">
+          <i class="fa-solid fa-star"></i>
+          <span class="rs-num">Step 06</span>
+          <h5>Earn Rewards</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6 — MATERIALS MASONRY -->
+<section class="materials-masonry">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">What We Recycle</span>
+      <h2>If it can be recycled, we handle it</h2>
+      <p>Five material streams, each with its own certified processing partner.</p>
+    </div>
+
+    <div class="masonry-grid">
+      <div class="masonry-tile mt-1" data-aos="zoom-in">
+        <img src="recycle8.webp" alt="Plastics"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/mat-plastic/800/600';">
+        <div class="mt-ico"><i class="fa-solid fa-recycle"></i></div>
+        <div class="mt-content">
+          <div class="mt-tag">Most Common</div>
+          <h4>Plastics</h4>
+          <p>PET, HDPE, PP, LDPE — sorted into 7 streams</p>
+        </div>
+      </div>
+
+      <div class="masonry-tile mt-2" data-aos="zoom-in" data-aos-delay="80">
+        <img src="recycle9.webp" alt="Paper"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/mat-paper/600/400';">
+        <div class="mt-ico"><i class="fa-solid fa-copy"></i></div>
+        <div class="mt-content">
+          <div class="mt-tag">High Demand</div>
+          <h4>Paper & Cardboard</h4>
+        </div>
+      </div>
+
+      <div class="masonry-tile mt-3" data-aos="zoom-in" data-aos-delay="160">
+        <img src="recycle10.webp" alt="E-Waste"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/mat-ewaste/600/400';">
+        <div class="mt-ico"><i class="fa-solid fa-plug"></i></div>
+        <div class="mt-content">
+          <div class="mt-tag">Certified</div>
+          <h4>E-Waste</h4>
+        </div>
+      </div>
+
+      <div class="masonry-tile mt-4" data-aos="zoom-in" data-aos-delay="80">
+        <img src="recycle11.webp" alt="Organic"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/mat-organic/800/600';">
+        <div class="mt-ico"><i class="fa-solid fa-seedling"></i></div>
+        <div class="mt-content">
+          <div class="mt-tag">Composted</div>
+          <h4>Organic Waste</h4>
+          <p>Food scraps, garden trimmings, compostables</p>
+        </div>
+      </div>
+
+      <div class="masonry-tile mt-5" data-aos="zoom-in" data-aos-delay="160">
+        <img src="recycle1.webp" alt="Metal"
+             onerror="this.onerror=null; this.src='https://picsum.photos/seed/mat-metal/600/400';">
+        <div class="mt-ico"><i class="fa-solid fa-cube"></i></div>
+        <div class="mt-content">
+          <div class="mt-tag">Infinitely Recyclable</div>
+          <h4>Metals</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 — COVERAGE MAP -->
+<section class="coverage-map">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Coverage</span>
+      <h2>Live across India, growing every month</h2>
+      <p>From major metros to tier-2 cities — we're coming to a street near you.</p>
+    </div>
+
+    <div class="map-grid">
+      <div class="map-visual" data-aos="fade-right">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <path class="india-outline" d="M160,40 L185,30 L210,35 L225,50 L235,80 L230,110 L240,140 L260,160 L275,190 L285,225 L280,255 L270,285 L255,315 L230,340 L200,360 L170,370 L145,360 L120,340 L105,310 L95,275 L90,240 L95,205 L110,175 L120,145 L125,110 L135,80 L145,55 Z"/>
+          <circle class="city-pin" cx="160" cy="105" r="8" style="--pin-color:#29B6F6;"></circle>
+          <circle class="city-pin" cx="120" cy="200" r="8" style="--pin-color:#16a34a; animation-delay:0.3s;"></circle>
+          <circle class="city-pin" cx="140" cy="160" r="8" style="--pin-color:#FFC107; animation-delay:0.6s;"></circle>
+          <circle class="city-pin" cx="180" cy="230" r="8" style="--pin-color:#7c3aed; animation-delay:0.9s;"></circle>
+          <circle class="city-pin" cx="200" cy="290" r="8" style="--pin-color:#ea580c; animation-delay:1.2s;"></circle>
+          <circle class="city-pin" cx="150" cy="270" r="8" style="--pin-color:#607D8B; animation-delay:1.5s;"></circle>
+          <circle class="city-pin" cx="185" cy="70" r="8" style="--pin-color:#29B6F6; animation-delay:1.8s;"></circle>
+          <circle class="city-pin" cx="220" cy="200" r="8" style="--pin-color:#16a34a; animation-delay:2.1s;"></circle>
+        </svg>
+        <div class="map-legend">
+          <span class="lg-dot"></span> 85+ active cities
+        </div>
+      </div>
+
+      <div class="map-cities" data-aos="fade-left">
+        <h3>Cities we serve</h3>
+        <p>Our most active markets with same-day availability. Don't see yours? We're launching new cities every month.</p>
+
+        <div class="city-list">
+          <div class="city-list-item"><span class="cl-dot"></span> Bengaluru</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Mumbai</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Delhi NCR</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Hyderabad</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Chennai</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Pune</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Kolkata</div>
+          <div class="city-list-item"><span class="cl-dot"></span> Ahmedabad</div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-map-location-dot"></i> View Full Coverage</a>
+          <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-bell"></i> Request My City</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — QUOTE CAROUSEL -->
+<section class="quote-section">
+  <div class="section-inner quote-inner">
+    <div class="quote-mark" data-aos="zoom-in">"</div>
+
+    <div class="quote-slides" data-aos="fade-up">
+      <div class="quote-slide active">
+        <p class="quote-text">
+          "I never thought recycling could feel this effortless. Booking takes 30 seconds,
+          the truck arrives on time, and my kids are actually excited about garbage day."
+        </p>
+        <div class="quote-author">
+          <div class="quote-avatar" style="background:linear-gradient(135deg,#29B6F6,#003D7A);">PS</div>
+          <div class="quote-author-info">
+            <div class="qa-name">Priya Sharma</div>
+            <div class="qa-role">Household Member · Bengaluru</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <p class="quote-text">
+          "The ESG reports alone justified the switch. Our sustainability audit is now
+          10× easier, and our team loves the sorting system they set up for us."
+        </p>
+        <div class="quote-author">
+          <div class="quote-avatar" style="background:linear-gradient(135deg,#16a34a,#15803d);">RM</div>
+          <div class="quote-author-info">
+            <div class="qa-name">Rohan Mehta</div>
+            <div class="qa-role">Facilities Lead · Zenwork</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <p class="quote-text">
+          "They collected 300 kg of e-waste from our office move — with full destruction
+          certificates and photographic evidence. Absolutely professional."
+        </p>
+        <div class="quote-author">
+          <div class="quote-avatar" style="background:linear-gradient(135deg,#ea580c,#c2410c);">AK</div>
+          <div class="quote-author-info">
+            <div class="qa-name">Anita Krishnan</div>
+            <div class="qa-role">Operations Manager · Lattice Co.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <p class="quote-text">
+          "We run a community recycling drive every quarter with their team. They handle
+          logistics, education, and follow-up — we just show up with volunteers."
+        </p>
+        <div class="quote-author">
+          <div class="quote-avatar" style="background:linear-gradient(135deg,#7c3aed,#4c1d95);">SV</div>
+          <div class="quote-author-info">
+            <div class="qa-name">Suresh Verma</div>
+            <div class="qa-role">RWA President · Pune</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-dots">
+      <button class="quote-dot active" data-slide="0" aria-label="Quote 1"></button>
+      <button class="quote-dot" data-slide="1" aria-label="Quote 2"></button>
+      <button class="quote-dot" data-slide="2" aria-label="Quote 3"></button>
+      <button class="quote-dot" data-slide="3" aria-label="Quote 4"></button>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9 — PRICING STRIP -->
+<section class="pricing-strip">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">Pricing</span>
+      <h2>Simple, transparent plans</h2>
+      <p>Household pickup is free, forever. Pay only for extra services or business-scale recycling.</p>
+    </div>
+
+    <div class="billing-toggle" data-aos="fade-up">
+      <span class="bt-label active" id="labelMonthly">Monthly</span>
+      <button class="bt-switch" id="billingSwitch" aria-label="Toggle billing period"></button>
+      <span class="bt-label" id="labelYearly">Yearly</span>
+      <span class="bt-badge">Save 20%</span>
+    </div>
+
+    <div class="price-row">
+      <div class="price-tile" data-aos="fade-up" data-aos-delay="0">
+        <div class="pt-name">Household</div>
+        <div class="pt-sub">For individual homes</div>
+        <div class="pt-amount" data-monthly="₹0" data-yearly="₹0">₹0</div>
+        <div class="pt-period">forever free</div>
+        <a href="404.html" class="pt-btn">Get Started</a>
+      </div>
+
+      <div class="price-tile best" data-aos="fade-up" data-aos-delay="100">
+        <span class="pt-best-tag">★ Most Popular</span>
+        <div class="pt-name">Household Pro</div>
+        <div class="pt-sub">For power recyclers</div>
+        <div class="pt-amount" data-monthly="₹199" data-yearly="₹159">₹199<small>/mo</small></div>
+        <div class="pt-period">billed monthly</div>
+        <a href="404.html" class="pt-btn">Upgrade Now</a>
+      </div>
+
+      <div class="price-tile" data-aos="fade-up" data-aos-delay="200">
+        <div class="pt-name">Business</div>
+        <div class="pt-sub">For offices & warehouses</div>
+        <div class="pt-amount" data-monthly="Custom" data-yearly="Custom">Custom</div>
+        <div class="pt-period">quote based on volume</div>
+        <a href="404.html" class="pt-btn">Request Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 10 — BLOG MAGAZINE -->
+<section class="blog-magazine">
+  <div class="section-inner">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eyebrow">From the Blog</span>
+      <h2>Stories from the recycling world</h2>
+      <p>Practical guides, city spotlights, and behind-the-scenes looks at how recycling really works.</p>
+    </div>
+
+    <div class="blog-grid">
+      <a href="404.html" class="blog-card featured" data-aos="fade-up">
+        <div class="blog-img">
+          <img src="recycle2.webp" alt="Featured blog"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/blog-featured/900/500';">
+          <span class="blog-tag">Featured Story</span>
+        </div>
+        <div class="blog-body">
+          <h4>What actually happens to your plastic bottle after we pick it up?</h4>
+          <p>Follow a single PET bottle through our entire recycling pipeline — from your doorstep to a new life as a T-shirt, a park bench, or a new bottle. A behind-the-scenes look at the 12-stage journey most people never see.</p>
+          <div class="blog-meta">
+            <span><i class="fa-solid fa-clock"></i> 8 min read</span>
+            <span><i class="fa-solid fa-calendar"></i> 2 days ago</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="404.html" class="blog-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="blog-img">
+          <img src="recycle3.webp" alt="Blog"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/blog-1/500/320';">
+          <span class="blog-tag">Guide</span>
+        </div>
+        <div class="blog-body">
+          <h4>7 things you're probably recycling wrong</h4>
+          <p>Common mistakes and how to fix them.</p>
+          <div class="blog-meta"><span><i class="fa-solid fa-clock"></i> 5 min</span></div>
+        </div>
+      </a>
+
+      <a href="404.html" class="blog-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="blog-img">
+          <img src="recycle4.webp" alt="Blog"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/blog-2/500/320';">
+          <span class="blog-tag">City Spotlight</span>
+        </div>
+        <div class="blog-body">
+          <h4>How Bengaluru became India's recycling capital</h4>
+          <p>The policies, people, and drives behind it.</p>
+          <div class="blog-meta"><span><i class="fa-solid fa-clock"></i> 6 min</span></div>
+        </div>
+      </a>
+
+      <a href="404.html" class="blog-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="blog-img">
+          <img src="recycle5.webp" alt="Blog"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/blog-3/500/320';">
+          <span class="blog-tag">Business</span>
+        </div>
+        <div class="blog-body">
+          <h4>The real ROI of a corporate recycling program</h4>
+          <p>Numbers from 40 offices that switched.</p>
+          <div class="blog-meta"><span><i class="fa-solid fa-clock"></i> 4 min</span></div>
+        </div>
+      </a>
+
+      <a href="404.html" class="blog-card" data-aos="fade-up" data-aos-delay="320">
+        <div class="blog-img">
+          <img src="recycle6.webp" alt="Blog"
+               onerror="this.onerror=null; this.src='https://picsum.photos/seed/blog-4/500/320';">
+          <span class="blog-tag">DIY</span>
+        </div>
+        <div class="blog-body">
+          <h4>5 home composting hacks for small apartments</h4>
+          <p>No backyard? No problem.</p>
+          <div class="blog-meta"><span><i class="fa-solid fa-clock"></i> 5 min</span></div>
+        </div>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:44px;" data-aos="fade-up">
+      <a href="404.html" class="abtn abtn-outline">
+        <i class="fa-solid fa-book-open"></i> Read all articles
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11 — APP SHOWCASE -->
+<section class="app-showcase">
+  <div class="section-inner app-grid">
+    <div class="app-content" data-aos="fade-right">
+      <span class="sec-eyebrow">Mobile App</span>
+      <h3>Everything in your pocket. <span>Recycle on the go.</span></h3>
+      <p>
+        Track your truck in real time, book pickups in 3 taps, and watch your Green Points grow.
+        Available on iOS and Android — completely free.
+      </p>
+
+      <div class="app-features">
+        <div class="app-feat">
+          <i class="fa-solid fa-truck-fast"></i>
+          <div class="af-text">
+            <h5>Live truck tracking</h5>
+            <p>See exactly where your pickup is — down to the minute.</p>
+          </div>
+        </div>
+        <div class="app-feat">
+          <i class="fa-solid fa-star"></i>
+          <div class="af-text">
+            <h5>Green Points wallet</h5>
+            <p>Watch your rewards balance update after every pickup.</p>
+          </div>
+        </div>
+        <div class="app-feat">
+          <i class="fa-solid fa-chart-line"></i>
+          <div class="af-text">
+            <h5>Monthly impact reports</h5>
+            <p>See your CO₂ savings, trees saved, and water preserved.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-store-row">
+        <a href="404.html" class="app-store-btn">
+          <i class="fa-brands fa-apple"></i>
+          <div class="asb-text">
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </div>
+        </a>
+        <a href="404.html" class="app-store-btn">
+          <i class="fa-brands fa-google-play"></i>
+          <div class="asb-text">
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div data-aos="fade-left">
+      <div class="phone-mock">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="ps-header">
+            <div class="psh-greet">Welcome back</div>
+            <div class="psh-name">Hi, Priya 👋</div>
+          </div>
+
+          <div class="ps-card">
+            <div class="psc-lbl">Total recycled</div>
+            <div class="psc-val">48.2<span>kg</span></div>
+          </div>
+
+          <div class="ps-mini-list">
+            <div class="ps-mini">
+              <div class="psm-ico"><i class="fa-solid fa-truck-fast"></i></div>
+              <div class="psm-text">
+                <div class="psm-title">Next pickup</div>
+                <div class="psm-sub">Today · 9:00 AM</div>
+              </div>
+            </div>
+            <div class="ps-mini">
+              <div class="psm-ico"><i class="fa-solid fa-star"></i></div>
+              <div class="psm-text">
+                <div class="psm-title">Green Points</div>
+                <div class="psm-sub">1,240 available</div>
+              </div>
+            </div>
+            <div class="ps-mini">
+              <div class="psm-ico"><i class="fa-solid fa-seedling"></i></div>
+              <div class="psm-text">
+                <div class="psm-title">CO₂ saved</div>
+                <div class="psm-sub">26.7 kg this month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 12 — FINAL CTA -->
+<section class="final-cta">
+  <div class="final-inner">
+    <div class="fi-icon" data-aos="zoom-in">
+      <i class="fa-solid fa-recycle"></i>
+    </div>
+    <h2 data-aos="fade-up" data-aos-delay="100">
+      Ready to make recycling a <span>daily habit</span>?
+    </h2>
+    <p data-aos="fade-up" data-aos-delay="200">
+      Join 12,000+ households and businesses already recycling smarter. Sign up free,
+      book your first pickup in 60 seconds, and start earning Green Points today.
+    </p>
+
+    <div class="final-btns" data-aos="fade-up" data-aos-delay="300">
+      <a href="404.html" class="abtn abtn-primary"><i class="fa-solid fa-user-plus"></i> Create Free Account</a>
+      <a href="404.html" class="abtn abtn-outline"><i class="fa-solid fa-calendar-check"></i> Book a Demo</a>
+    </div>
+
+    <form class="final-newsletter" id="finalNewsletter" data-aos="fade-up" data-aos-delay="400" novalidate>
+      <input type="email" id="finalNewsletterEmail" placeholder="Enter your email for eco-updates" aria-label="Email address" />
+      <button type="submit"><i class="fa-solid fa-paper-plane"></i> Subscribe</button>
+    </form>
+    <p class="final-nl-alert" id="finalNlAlert" role="alert" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({ duration: 750, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch('header.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Header not found'))
+      .then(d => { document.getElementById('header-placeholder').innerHTML = d; initHeader(); })
+      .catch(err => console.warn('Header not loaded:', err));
+
+    fetch('footer.html')
+      .then(r => r.ok ? r.text() : Promise.reject('Footer not found'))
+      .then(d => { document.getElementById('footer-placeholder').innerHTML = d; initFooter(); })
+      .catch(err => console.warn('Footer not loaded:', err));
+
+    initRingCounters();
+    initServicesCarousel();
+    initQuoteCarousel();
+    initBillingToggle();
+    initFinalNewsletter();
+  });
+
+  function initHeader() {
+    const h = document.getElementById('hamburgerBtn');
+    const m = document.getElementById('mobileMenu');
+    if (h && m) {
+      const toggle = () => {
+        h.classList.toggle('active'); m.classList.toggle('active');
+        document.body.style.overflow = m.classList.contains('active') ? 'hidden' : '';
+      };
+      const close = () => {
+        h.classList.remove('active'); m.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      h.addEventListener('click', toggle);
+      document.addEventListener('click', e => {
+        if (m.classList.contains('active') && !h.contains(e.target) && !m.contains(e.target)) close();
+      });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 768) close(); });
+      document.querySelectorAll('.mobile-nav-link, .mobile-action-link').forEach(l => l.addEventListener('click', close));
+    }
+  }
+
+  function initFooter() {
+    const form = document.getElementById('newsletterForm');
+    if (!form) return;
+    const email = document.getElementById('newsletterEmail');
+    const alert = document.getElementById('newsletterAlert');
+    const rx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const show = (m, t) => { alert.textContent = m; alert.classList.remove('error','success'); alert.classList.add('show', t); };
+    const clr = () => { alert.textContent=''; alert.classList.remove('show','error','success'); };
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = email.value.trim();
+      if (!v) { show('Please enter your email address.', 'error'); email.focus(); return; }
+      if (!rx.test(v)) { show('Please enter a valid email address.', 'error'); email.focus(); return; }
+      show('Subscribed successfully! Redirecting…', 'success');
+      email.value = '';
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+    email.addEventListener('input', () => { if (alert.classList.contains('show')) clr(); });
+  }
+
+  function initRingCounters() {
+    const rings = document.querySelectorAll('.ring-fill');
+    if (!rings.length) return;
+    const CIRC = 2 * Math.PI * 65;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const pct = parseInt(el.dataset.percent, 10);
+          const offset = CIRC - (CIRC * pct / 100);
+          el.style.strokeDashoffset = offset;
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+    rings.forEach(r => {
+      r.style.strokeDasharray = CIRC;
+      r.style.strokeDashoffset = CIRC;
+      obs.observe(r);
+    });
+  }
+
+  function initServicesCarousel() {
+    const scroll = document.getElementById('svcScroll');
+    const prev = document.getElementById('svcPrev');
+    const next = document.getElementById('svcNext');
+    if (!scroll || !prev || !next) return;
+
+    const slideW = () => {
+      const first = scroll.querySelector('.svc-slide');
+      if (!first) return 300;
+      const style = window.getComputedStyle(first);
+      return first.offsetWidth + parseInt(style.marginRight || 20);
+    };
+
+    prev.addEventListener('click', () => scroll.scrollBy({ left: -slideW(), behavior: 'smooth' }));
+    next.addEventListener('click', () => scroll.scrollBy({ left: slideW(), behavior: 'smooth' }));
+  }
+
+  function initQuoteCarousel() {
+    const slides = document.querySelectorAll('.quote-slide');
+    const dots = document.querySelectorAll('.quote-dot');
+    if (!slides.length) return;
+
+    let idx = 0;
+    let timer;
+
+    function show(i) {
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      slides[i].classList.add('active');
+      dots[i].classList.add('active');
+      idx = i;
+    }
+
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => show((idx + 1) % slides.length), 5000);
+    }
+
+    dots.forEach((d, i) => {
+      d.addEventListener('click', () => { show(i); startAuto(); });
+    });
+
+    startAuto();
+  }
+
+  function initBillingToggle() {
+    const sw = document.getElementById('billingSwitch');
+    const lblM = document.getElementById('labelMonthly');
+    const lblY = document.getElementById('labelYearly');
+    if (!sw) return;
+
+    let yearly = false;
+
+    sw.addEventListener('click', () => {
+      yearly = !yearly;
+      sw.classList.toggle('yearly', yearly);
+      lblM.classList.toggle('active', !yearly);
+      lblY.classList.toggle('active', yearly);
+
+      document.querySelectorAll('.pt-amount').forEach(el => {
+        const v = yearly ? el.dataset.yearly : el.dataset.monthly;
+        if (v === 'Custom' || v === '₹0') {
+          el.textContent = v;
+        } else {
+          el.innerHTML = v + '<small>/mo</small>';
+        }
+      });
+
+      document.querySelectorAll('.pt-period').forEach(el => {
+        const name = el.closest('.price-tile').querySelector('.pt-name').textContent.trim();
+        if (name === 'Household') {
+          el.textContent = 'forever free';
+        } else if (name === 'Household Pro') {
+          el.textContent = yearly ? 'billed yearly · save 20%' : 'billed monthly';
+        } else {
+          el.textContent = 'quote based on volume';
+        }
+      });
+    });
+  }
+
+  function initFinalNewsletter() {
+    const form = document.getElementById('finalNewsletter');
+    if (!form) return;
+    const email = document.getElementById('finalNewsletterEmail');
+    const alert = document.getElementById('finalNlAlert');
+    const rx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = email.value.trim();
+      if (!v) { alert.textContent = 'Please enter your email address.'; alert.classList.add('show'); alert.classList.remove('success'); email.focus(); return; }
+      if (!rx.test(v)) { alert.textContent = 'Please enter a valid email address.'; alert.classList.add('show'); alert.classList.remove('success'); email.focus(); return; }
+      alert.textContent = '✓ Subscribed successfully! Redirecting…';
+      alert.classList.add('show', 'success');
+      email.value = '';
+      setTimeout(() => { window.location.href = '404.html'; }, 800);
+    });
+
+    email.addEventListener('input', () => {
+      if (alert.classList.contains('show')) {
+        alert.classList.remove('show', 'success');
+        alert.textContent = '';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

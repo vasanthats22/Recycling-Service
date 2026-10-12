@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>Recycling Service - Navbar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+    }
+
+    body {
+      padding-top: 110px;
+      background: #f0f8ff;
+    }
+
+    /* ===== NAVBAR — BBMP SKY BLUE THEME ===== */
+    .navbar {
+      background: #003D7A;                        /* BBMP deep blue */
+      box-shadow: 0 6px 28px rgba(0, 30, 60, 0.45);
+      border-bottom: 3px solid #4FC3F7;           /* sky blue accent */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 110px;
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* ===== LOGO ===== */
+    .logo-section {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .logo-section:hover {
+      opacity: 0.88;
+    }
+
+    .logo-img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ===== NAV LINKS ===== */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      flex: 1;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+
+    .nav-link {
+      background: none;
+      border: none;
+      padding: 0 0 4px 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #E8F4FD;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      white-space: nowrap;
+      letter-spacing: 0.4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+    }
+
+    .nav-link i {
+      color: #87CEEB;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+      border-bottom-color: #4FC3F7;
+      transform: translateY(-2px);
+    }
+
+    .nav-link:hover i {
+      color: #4FC3F7;
+    }
+
+    /* ===== RIGHT ACTIONS ===== */
+    .right-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .action-link {
+      background: transparent;
+      border: 1.5px solid #4FC3F7;
+      padding: 0.55rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #E8F4FD;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .action-link i {
+      color: #87CEEB;
+      font-size: 1rem;
+    }
+
+    .action-link.login-link {
+      background: #29B6F6;
+      border: 1.5px solid #29B6F6;
+      color: #003D7A;
+      font-weight: 700;
+    }
+
+    .action-link.login-link i {
+      color: #003D7A;
+    }
+
+    .action-link:hover {
+      background: #0D5BA6;
+      border-color: #4FC3F7;
+      color: #ffffff;
+      transform: scale(1.04);
+    }
+
+    .action-link:hover i {
+      color: #ffffff;
+    }
+
+    .action-link.login-link:hover {
+      background: #4FC3F7;
+      border-color: #4FC3F7;
+      color: #003D7A;
+    }
+
+    .action-link.login-link:hover i {
+      color: #003D7A;
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      padding: 8px;
+      background: transparent;
+      border: none;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 2.5px;
+      background: #E8F4FD;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger:hover span {
+      background: #4FC3F7;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+      background: #4FC3F7;
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+      background: #4FC3F7;
+    }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100vh;
+      background: #003D7A;
+      z-index: 999;
+      transition: left 0.4s ease-in-out;
+      overflow-y: auto;
+      padding-top: 130px;
+      border-right: 4px solid #4FC3F7;
+    }
+
+    .mobile-menu.active {
+      left: 0;
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 30px;
+      gap: 10px;
+    }
+
+    .mobile-nav-link {
+      background: none;
+      border: none;
+      padding: 14px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #E8F4FD;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(232, 244, 253, 0.08);
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .mobile-nav-link i {
+      width: 32px;
+      color: #87CEEB;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+
+    .mobile-nav-link:hover {
+      color: #ffffff;
+      transform: translateX(8px);
+    }
+
+    .mobile-nav-link:hover i {
+      color: #4FC3F7;
+    }
+
+    .mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px 30px;
+      margin-top: 20px;
+      border-top: 1px solid rgba(232, 244, 253, 0.08);
+    }
+
+    .mobile-action-link {
+      background: transparent;
+      border: 1.5px solid #4FC3F7;
+      padding: 14px 0;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #E8F4FD;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .mobile-action-link i {
+      color: #87CEEB;
+      font-size: 1.1rem;
+      transition: 0.2s;
+    }
+
+    .mobile-action-link.login-mobile {
+      background: #29B6F6;
+      border-color: #29B6F6;
+      color: #003D7A;
+      font-weight: 700;
+    }
+
+    .mobile-action-link.login-mobile i {
+      color: #003D7A;
+    }
+
+    .mobile-action-link:hover {
+      background: #0D5BA6;
+      border-color: #4FC3F7;
+      color: #ffffff;
+    }
+
+    .mobile-action-link:hover i {
+      color: #ffffff;
+    }
+
+    .mobile-action-link.login-mobile:hover {
+      background: #4FC3F7;
+      border-color: #4FC3F7;
+      color: #003D7A;
+    }
+
+    .mobile-action-link.login-mobile:hover i {
+      color: #003D7A;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .nav-links { gap: 16px; }
+      .nav-link { font-size: 0.85rem; }
+      .nav-link i { font-size: 0.85rem; }
+    }
+
+    @media (max-width: 900px) {
+      .nav-link span { display: none; }
+      .nav-link { font-size: 1.2rem; gap: 0; }
+      .nav-link i { font-size: 1.2rem; }
+    }
+
+    @media (max-width: 768px) {
+      body { padding-top: 95px; }
+      .nav-container { padding: 0 20px; height: 95px; }
+      .nav-links { display: none; }
+      .right-actions { display: none; }
+      .hamburger { display: flex; }
+      .logo-img { height: 75px; }
+      .mobile-menu { padding-top: 110px; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding-top: 85px; }
+      .nav-container { height: 85px; padding: 0 16px; }
+      .logo-img { height: 70px; }
+      .mobile-nav-link { font-size: 1rem; padding: 12px 0; }
+      .mobile-nav-link i { font-size: 1rem; width: 28px; }
+      .mobile-action-link { font-size: 1rem; padding: 12px 0; }
+      .mobile-menu { padding-top: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== NAVBAR ====== -->
+  <nav class="navbar">
+    <div class="nav-container">
+
+      <!-- LOGO → index.html -->
+      <a href="index.html" class="logo-section">
+        <img src="Stacklylogoo3.webp" alt="Recycling Service Logo" class="logo-img" />
+      </a>
+
+      <!-- 5 CENTER NAV LINKS -->
+      <div class="nav-links">
+        <a href="index.html" class="nav-link"><i class="fas fa-house"></i> <span>Home</span></a>
+        <a href="recycling-services.html" class="nav-link"><i class="fas fa-recycle"></i> <span>Recycling Services</span></a>
+        <a href="pickup-schedule.html" class="nav-link"><i class="fas fa-truck"></i> <span>Pickup Schedule</span></a>
+        <a href="about-recycling.html" class="nav-link"><i class="fas fa-leaf"></i> <span>About Recycling</span></a>
+        <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+      </div>
+
+      <!-- RIGHT: 2 buttons -->
+      <div class="right-actions">
+        <a href="signup.html" class="action-link"><i class="fas fa-user-plus"></i> Signup</a>
+        <a href="login.html" class="action-link login-link"><i class="fas fa-right-to-bracket"></i> Login</a>
+      </div>
+
+      <!-- HAMBURGER -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ====== MOBILE MENU ====== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link"><i class="fas fa-house"></i> Home</a>
+      <a href="recycling-services.html" class="mobile-nav-link"><i class="fas fa-recycle"></i> Recycling Services</a>
+      <a href="pickup-schedule.html" class="mobile-nav-link"><i class="fas fa-truck"></i> Pickup Schedule</a>
+      <a href="about-recycling.html" class="mobile-nav-link"><i class="fas fa-leaf"></i> About Recycling</a>
+      <a href="contact.html" class="mobile-nav-link"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+
+    <div class="mobile-actions">
+      <a href="signup.html" class="mobile-action-link"><i class="fas fa-user-plus"></i> Signup</a>
+      <a href="login.html" class="mobile-action-link login-mobile"><i class="fas fa-right-to-bracket"></i> Login</a>
+    </div>
+  </div>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script>
+    (function() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      function toggleMobileMenu() {
+        hamburgerBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      }
+
+      function closeMobileMenu() {
+        hamburgerBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      hamburgerBtn.addEventListener('click', toggleMobileMenu);
+
+      document.querySelectorAll('.mobile-nav-link, .mobile-action-link').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('active')) {
+          if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            closeMobileMenu();
+          }
+        }
+      });
+
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) closeMobileMenu();
+      });
+
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMobileMenu();
+      });
+    })();
+  </script>
+
+</body>
+</html>
